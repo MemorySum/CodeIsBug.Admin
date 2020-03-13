@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CodeIsBug.Admin 登录页</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/Global.css" rel="stylesheet" />
+    <style type="text/css">
+        html {
+            background: #f3f3f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login_page">
+        <h1>欢迎登录 CodeIsBug.Admin 管理系统</h1>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-input-inline input-custom-width">
+                    <input type="text" name="username" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline input-custom-width">
+                    <input type="password" name="password" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline input-custom-width">
+                    <input type="text" name="captcha" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+                    <div class="captcha">
+                        <img id="nubImg" title="数字字母混合验证码" src="@Url.Action("NumberVerifyCode","VerifyCode")" alt="点击切换" onclick="refresh()" style="cursor:pointer;" />
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline input-custom-width">
+                    <button type="button" class="layui-btn input-custom-width" lay-submit="" lay-filter="login">立即登陆</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.use('form', function () {
+            var form = layui.form
+                , jq = layui.jquery;
+            //监听提交
+            form.on('submit(login)', function (data) {
+                loading = layer.load(2, {
+                    shade: [0.2, '#000'] //0.2透明度的白色背景
+                });
+                var param = data.field;
+                jq.post('@Url.Action("Login","Account")', param, function (res) {
+                    if (res.Code == 1) {
+                        layer.close(loading);
+                        layer.msg(res.Message, { icon: 1, time: 1000 }, function () {
+                            location.href = '@Url.Action("Index","Home")';
+                        });
+                    } else {
+                        layer.close(loading);
+                        layer.msg(res.Message, { icon: 2, anim: 6, time: 1000 });
+                        jq('.captcha img').attr('src', "@Url.Action("NumberVerifyCode","VerifyCode")?random=" + Math.random());
+                    }
+                });
+                return false;
+            });
+        });
+        function refresh() {
+            var id = document.getElementById("nubImg");
+            var str = "@Url.Action("NumberVerifyCode","VerifyCode")?random=" + Math.random();
+            id.setAttribute("src", str);
+        }
+    </script>
+</body>
+</html>

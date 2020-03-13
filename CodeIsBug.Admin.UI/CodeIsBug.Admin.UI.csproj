@@ -7,8 +7,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CodeIsBug_Admin.db" />
+    <None Remove="CodeIsBug_Admin.db-shm" />
+    <None Remove="CodeIsBug_Admin.db-wal" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\新文件夹\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeIsBug.Admin.Common\CodeIsBug.Admin.Common.csproj" />
+    <ProjectReference Include="..\CodeIsBug.Admin.Models\CodeIsBug.Admin.Models.csproj" />
   </ItemGroup>
 
 
