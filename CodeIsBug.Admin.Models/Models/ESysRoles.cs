@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CodeIsBug.Admin.Models
 {
-    public partial class ESysRoles
+    public partial class ESysRoles: BaseModel
     {
         [Key]
         [Display(Name ="角色主键")]

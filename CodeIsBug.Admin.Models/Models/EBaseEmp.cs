@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CodeIsBug.Admin.Models
 {
     [Table("e_Base_Emp")]
-    public partial class EBaseEmp
+    public partial class EBaseEmp: BaseModel
     {
         [Key]
         public Guid Id { get; set; }

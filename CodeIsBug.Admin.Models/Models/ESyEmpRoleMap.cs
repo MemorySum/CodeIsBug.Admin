@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CodeIsBug.Admin.Models
 {
-    public partial class ESyEmpRoleMap
+    public partial class ESyEmpRoleMap: BaseModel
     {
         [Key]
         public Guid Id { get; set; }

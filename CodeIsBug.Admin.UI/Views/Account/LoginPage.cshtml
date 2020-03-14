@@ -36,7 +36,7 @@
                 <div class="layui-input-inline input-custom-width">
                     <input type="text" name="captcha" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
                     <div class="captcha">
-                        <img id="nubImg" title="数字字母混合验证码" src="@Url.Action("NumberVerifyCode","VerifyCode")" alt="点击切换" onclick="refresh()" style="cursor:pointer;" />
+                        <img id="codeImg" title="数字字母混合验证码" alt="点击切换" asp-append-version="true" style="cursor:pointer;" />
                     </div>
                 </div>
             </div>
@@ -49,35 +49,62 @@
     </div>
     <script src="~/layui/layui.js"></script>
     <script type="text/javascript">
-        layui.use('form', function () {
-            var form = layui.form
-                , jq = layui.jquery;
+        layui.use(['form','layer','jquery'], function () {
+            var form = layui.form;
+            var layer = layui.layer;
+            var $ = layui.jquery;
+            var _guid;
+            $(function () {
+                _guid = guid();
+                var codeUrl = "@Url.Action("GetCode","VerifyCode")?guid="+_guid;
+                $("#codeImg").attr("src", codeUrl + "&v=" + (new Date().getTime()));
+
+                $("#codeImg").click(function () {
+                    $("#codeImg").attr("src", codeUrl + "&v=" + (new Date().getTime()));
+                });
+            });
+            function guid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            };
             //监听提交
             form.on('submit(login)', function (data) {
                 loading = layer.load(2, {
-                    shade: [0.2, '#000'] //0.2透明度的白色背景
+                    shade: [0.5, '#000'] //0.2透明度的白色背景
                 });
-                var param = data.field;
-                jq.post('@Url.Action("Login","Account")', param, function (res) {
-                    if (res.Code == 1) {
-                        layer.close(loading);
-                        layer.msg(res.Message, { icon: 1, time: 1000 }, function () {
-                            location.href = '@Url.Action("Index","Home")';
-                        });
-                    } else {
+                var obj = {
+                    guid: _guid,
+                    code: data.field.captcha
+                };
+                //校验验证码
+                $.getJSON('@Url.Action("CheckCode","VerifyCode")', obj, function (res) {
+                    if (res.Code != 1) {
                         layer.close(loading);
                         layer.msg(res.Message, { icon: 2, anim: 6, time: 1000 });
-                        jq('.captcha img').attr('src', "@Url.Action("NumberVerifyCode","VerifyCode")?random=" + Math.random());
+                        var codeUrl = "@Url.Action("GetCode","VerifyCode")?guid="+_guid;
+                        $('.captcha img').attr('src', codeUrl);
+                    } else {
+                        var param = data.field;
+                        $.post('@Url.Action("Login","Account")', param, function (res) {
+                        if (res.Code == 1) {
+                            layer.close(loading);
+                            layer.msg(res.Message, { icon: 1, time: 1000 }, function () {
+                                location.href = '@Url.Action("Index","Home")';
+                            });
+                        } else {
+                            layer.close(loading);
+                            layer.msg(res.Message, { icon: 2, anim: 6, time: 1000 });
+                            $('.captcha img').attr('src', "@Url.Action("GetCode ","VerifyCode")?random=" + Math.random());
+                           }
+                        });
                     }
                 });
                 return false;
             });
         });
-        function refresh() {
-            var id = document.getElementById("nubImg");
-            var str = "@Url.Action("NumberVerifyCode","VerifyCode")?random=" + Math.random();
-            id.setAttribute("src", str);
-        }
+
     </script>
 </body>
 </html>

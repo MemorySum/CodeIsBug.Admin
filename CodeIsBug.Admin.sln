@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeIsBug.Admin.UI", "CodeI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeIsBug.Admin.Common", "CodeIsBug.Admin.Common\CodeIsBug.Admin.Common.csproj", "{8C176C42-D27E-4CC5-BF7F-A1263A761CC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeIsBug.Admin.Models", "CodeIsBug.Admin.Models\CodeIsBug.Admin.Models.csproj", "{58138E9B-2CC7-4D90-966B-E84495D6E2B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeIsBug.Admin.Models", "CodeIsBug.Admin.Models\CodeIsBug.Admin.Models.csproj", "{58138E9B-2CC7-4D90-966B-E84495D6E2B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

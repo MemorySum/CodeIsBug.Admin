@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CodeIsBug.Admin.Models
 {
-    public partial class ESysMenu
+    public partial class ESysMenu: BaseModel
     {
         [Key]
         public Guid MenuId { get; set; }
