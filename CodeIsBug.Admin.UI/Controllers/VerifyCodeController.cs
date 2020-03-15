@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CodeIsBug.Admin.Common.Helper;
 using Microsoft.Extensions.Configuration;
@@ -10,29 +7,29 @@ namespace CodeIsBug.Admin.UI.Controllers
 {
     public class VerifyCodeController : Controller
     {
-        private IConfiguration _configuration { get; }
-        private RedisHelper redisHelper;
+        private IConfiguration Configuration { get; }
+        private readonly RedisHelper _redisHelper;
         public VerifyCodeController(IConfiguration configuration)
         {
-            this._configuration = configuration;
-            string redisConnectionString = _configuration.GetValue<string>("RedisConn");
-            redisHelper = new RedisHelper(redisConnectionString);
+            this.Configuration = configuration;
+            string redisConnectionString = Configuration.GetValue<string>("RedisConn");
+            _redisHelper = new RedisHelper(redisConnectionString);
         }
         public FileContentResult GetCode(string guid)
         {
             string code = VerifyCodeHelper.GetSingleObj().CreateVerifyCode(VerifyCodeHelper.VerifyCodeType.NumberVerifyCode);
             TimeSpan ts1 = new TimeSpan(0, 0, 1, 0);
-            redisHelper.SetValue(guid, code,ts1);
+            _redisHelper.SetValue(guid, code,ts1);
             byte[] codeImage = VerifyCodeHelper.GetSingleObj().CreateByteByImgVerifyCode(code, 100, 40);
             return File(codeImage, @"image/jpeg");
         }
         [HttpGet]
         public Result CheckCode(string guid, string code)
         {
-            string redisCode = string.Empty;
+            string redisCode;
             try
             {
-                 redisCode = redisHelper.GetValue(guid).ToLower();
+                 redisCode = _redisHelper.GetValue(guid).ToLower();
             }
             catch (Exception)
             {

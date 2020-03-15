@@ -64,14 +64,14 @@
                 });
             });
             function guid() {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
                     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                     return v.toString(16);
                 });
             };
             //监听提交
             form.on('submit(login)', function (data) {
-                loading = layer.load(2, {
+              var  loading = layer.load(2, {
                     shade: [0.5, '#000'] //0.2透明度的白色背景
                 });
                 var obj = {
@@ -80,7 +80,7 @@
                 };
                 //校验验证码
                 $.getJSON('@Url.Action("CheckCode","VerifyCode")', obj, function (res) {
-                    if (res.Code != 1) {
+                    if (res.Code !== 1) {
                         layer.close(loading);
                         layer.msg(res.Message, { icon: 2, anim: 6, time: 1000 });
                         var codeUrl = "@Url.Action("GetCode","VerifyCode")?guid="+_guid;
@@ -88,7 +88,7 @@
                     } else {
                         var param = data.field;
                         $.post('@Url.Action("Login","Account")', param, function (res) {
-                        if (res.Code == 1) {
+                        if (res.Code === 1) {
                             layer.close(loading);
                             layer.msg(res.Message, { icon: 1, time: 1000 }, function () {
                                 location.href = '@Url.Action("Index","Home")';

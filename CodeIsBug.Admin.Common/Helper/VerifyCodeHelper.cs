@@ -9,23 +9,23 @@ namespace CodeIsBug.Admin.Common.Helper
     {
         #region 单例模式
         //创建私有化静态obj锁 
-        private static readonly object _ObjLock = new object();
+        private static readonly object ObjLock = new object();
         //创建私有静态字段，接收类的实例化对象 
-        private static VerifyCodeHelper _VerifyCodeHelper = null;
+        private static VerifyCodeHelper _verifyCodeHelper;
         //构造函数私有化 
         private VerifyCodeHelper() { }
         //创建单利对象资源并返回 
         public static VerifyCodeHelper GetSingleObj()
         {
-            if (_VerifyCodeHelper == null)
+            if (_verifyCodeHelper == null)
             {
-                lock (_ObjLock)
+                lock (ObjLock)
                 {
-                    if (_VerifyCodeHelper == null)
-                        _VerifyCodeHelper = new VerifyCodeHelper();
+                    if (_verifyCodeHelper == null)
+                        _verifyCodeHelper = new VerifyCodeHelper();
                 }
             }
-            return _VerifyCodeHelper;
+            return _verifyCodeHelper;
         }
         #endregion
 
@@ -160,16 +160,16 @@ namespace CodeIsBug.Admin.Common.Helper
             PointF startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
             Random random = new Random(); //随机数产生器
             g.Clear(Color.White); //清空图片背景色 
-            for (int i = 0; i < verifyCode.Length; i++)
+            foreach (var t in verifyCode)
             {
                 brush = new LinearGradientBrush(new Point(0, 0), new Point(1, 1), Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)), Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-                g.DrawString(verifyCode[i].ToString(), font, brush, startPointF);
-                curCharSizeF = g.MeasureString(verifyCode[i].ToString(), font);
+                g.DrawString(t.ToString(), font, brush, startPointF);
+                curCharSizeF = g.MeasureString(t.ToString(), font);
                 startPointF.X += curCharSizeF.Width;
             }
 
             //画图片的干扰线 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 int x1 = random.Next(bitmap.Width);
                 int x2 = random.Next(bitmap.Width);
