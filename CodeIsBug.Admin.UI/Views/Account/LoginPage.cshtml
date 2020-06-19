@@ -24,17 +24,17 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <div class="layui-input-inline input-custom-width">
-                    <input type="text" name="username" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+                    <input type="text" name="UserName" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-inline input-custom-width">
-                    <input type="password" name="password" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                    <input type="password" name="UserPwd" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-inline input-custom-width">
-                    <input type="text" name="captcha" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+                    <input type="text" name="Captcha" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
                     <div class="captcha">
                         <img id="codeImg" title="数字字母混合验证码" alt="点击切换" asp-append-version="true" style="cursor:pointer;" />
                     </div>
@@ -76,7 +76,7 @@
                 });
                 var obj = {
                     guid: _guid,
-                    code: data.field.captcha
+                    code: data.field.Captcha
                 };
                 //校验验证码
                 $.getJSON('@Url.Action("CheckCode","VerifyCode")', obj, function (res) {
@@ -84,9 +84,10 @@
                         layer.close(loading);
                         layer.msg(res.Message, { icon: 2, anim: 6, time: 1000 });
                         var codeUrl = "@Url.Action("GetCode","VerifyCode")?guid="+_guid;
-                        $('.captcha img').attr('src', codeUrl);
+                        $("#codeImg").attr('src', codeUrl);
                     } else {
                         var param = data.field;
+                        console.log(param);
                         $.post('@Url.Action("Login","Account")', param, function (res) {
                         if (res.Code === 1) {
                             layer.close(loading);
@@ -96,7 +97,7 @@
                         } else {
                             layer.close(loading);
                             layer.msg(res.Message, { icon: 2, anim: 6, time: 1000 });
-                            $('.captcha img').attr('src', "@Url.Action("GetCode ","VerifyCode")?random=" + Math.random());
+                            $("#codeImg").attr('src', "@Url.Action("GetCode ","VerifyCode")?random=" + Math.random());
                            }
                         });
                     }

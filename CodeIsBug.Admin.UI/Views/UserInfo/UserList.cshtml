@@ -3,24 +3,104 @@
     ViewData["Title"] = "UserList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<table class="layui-table" lay-data="{height: 'full-130', cellMinWidth: 80, page: true, limit:50}">
-    <thead>
-        <tr>
-            <th lay-data="{type:'checkbox'}">ID</th>
-            <th lay-data="{field:'id', width:100, sort: true}">ID</th>
-            <th lay-data="{field:'username', width:100}">用户名</th>
-            <th lay-data="{field:'sex', width:100, sort: true}">性别</th>
-            <th lay-data="{field:'sign', minWidth: 150}">签名</th>
-            <th lay-data="{field:'experience', sort: true, align: 'right'}">积分</th>
-            <th lay-data="{field:'score', sort: true, minWidth: 100, align: 'right'}">评分</th>
-        </tr>
-    </thead>
-</table>
+<div class="layui-card">
+    <div class="layui-card-header">
+        <span class="layui-breadcrumb">
+            <a href="@Url.Action("Index","Home")">首页</a>
+            <a href="#">用户管理</a>
+            <a href="@Url.Action("UserList","UserInfo")">用户列表</a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-row">
+            <form class="layui-form ">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input" placeholder="请输入姓名">
+                        </div>
+                    </div>
+                    <div class=" layui-inline">
+                        <label class="layui-form-label">账号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input" placeholder="请输入账号">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">是否禁用</label>
+                        <div class="layui-input-inline">
+                            <select name="interest">
+                                <option value=""></option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn" id="btnSearch" data-type="reload">查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-row">
+            <table id="tb_userlist" lay-filter="userlist"></table>
+        </div>
+    </div>
+</div>
+<script src="~/layui/layui.js"></script>
 <script>
-    layui.use('table', function () {
+    layui.use(['form', 'layer', 'table', 'jquery'], function () {
+
+        var form = layui.form;
+        var layer = layui.layer;
+        var $ = layui.jquery;
         var table = layui.table;
 
+        table.render({
+            elem: '#tb_userlist',
+            height: 'full-200',
+            url: '@Url.Action("GetUserList","UserInfo")',
+            page: true,
+            cols: [[//标题栏
+                { type: 'numbers' },
+                { checkbox: true },
+                { field: 'UserGuid', title: 'UserGuid', width: 80, hide:true },
+                { field: 'UserName', title: '用户名', width: 120 },
+                { field: 'Name', title: '姓名', width: 120 },
+                { field: 'Phone', title: '手机号', width: 120 },
+                { field: 'Email', title: '邮箱', width: 120 },
+                { field: 'IsDelete', title: '是否禁用', width: 120 },//格式化显示
+                { field: 'AddTime', title: '注册时间', width: 120 },
+                { field: 'ModifyTime', title: '最后修改时间', width: 120 }
+            ]],
+            skin: 'line' //行边框风格
+           
+        });
+
+
+        //var active = {
+        //    reload: function(){
+        //        var demoReload = $('#demoReload');
+      
+        //        //执行重载
+        //        table.reload('testReload', {
+        //            page: {
+        //                curr: 1 //重新从第 1 页开始
+        //            }
+        //            ,where: {
+        //                key: {
+        //                    id: demoReload.val()
+        //                }
+        //            }
+        //        }, 'data');
+        //    }
+        //};
+
+        //$('#btnSearch').on('click', function(){
+        //    var type = $(this).data('type');
+        //    active[type] ? active[type].call(this) : '';
+        //});
+       
     });
 </script>
-

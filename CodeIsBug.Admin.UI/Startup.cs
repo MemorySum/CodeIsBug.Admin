@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CodeIsBug.Admin.Models;
+using CodeIsBug.Admin.Models.DbContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using NLog.Extensions.Logging;
 
 namespace CodeIsBug.Admin.UI
 {
@@ -26,10 +23,12 @@ namespace CodeIsBug.Admin.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //配置json序列化格式问题
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            //配置数据库上下文
             services.AddDbContext<CodeIsBugContext>(option=> {
-                option.UseSqlite("Data Source=CodeIsBug_Admin.db");
+                option.UseSqlServer(Configuration.GetConnectionString("codeIsBug.Admin"));
             });
 
         }
@@ -44,12 +43,12 @@ namespace CodeIsBug.Admin.UI
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
-
+            
             app.UseRouting();
             
             app.UseAuthorization();

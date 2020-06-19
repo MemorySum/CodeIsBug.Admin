@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace CodeIsBug.Admin.UI
 {
@@ -13,6 +9,7 @@ namespace CodeIsBug.Admin.UI
     {
         public static void Main(string[] args)
         {
+            NLog.Web.NLogBuilder.ConfigureNLog("nlog.config");
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -20,7 +17,13 @@ namespace CodeIsBug.Admin.UI
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                              .ConfigureLogging(logging =>
+                                    {
+                                        logging.ClearProviders(); //移除已经注册的其他日志处理程序
+                                        logging.SetMinimumLevel(LogLevel.Trace); //设置最小的日志级别
+                                    })
+                                .UseNLog(); 
                 });
     }
 }

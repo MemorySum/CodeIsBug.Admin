@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CodeIsBug.Admin.Models.Models;
 using Microsoft.EntityFrameworkCore;
-namespace CodeIsBug.Admin.Models
+
+namespace CodeIsBug.Admin.Models.DbContext
 {
-    public class CodeIsBugContext : DbContext
+    public class CodeIsBugContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public CodeIsBugContext(DbContextOptions<CodeIsBugContext> options) : base(options)
         {
 
         }
-        public DbSet<ESysMenu> eSysMenus { get; set; }
-        public DbSet<EBaseEmp> eBaseEmps { get; set; }
-        public DbSet<ESyEmpRoleMap> eSyEmpRoleMaps { get; set; }
+        public DbSet<ESysMenu> ESysMenus { get; set; }
+        public DbSet<EBaseEmp> EBaseEmps { get; set; }
+        public DbSet<ESyEmpRoleMap> ESyEmpRoleMaps { get; set; }
         public DbSet<ESysRoles> ESysRoles { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }
