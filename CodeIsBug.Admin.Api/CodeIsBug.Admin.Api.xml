@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeIsBug.Admin.Api</name>
+    </assembly>
+    <members>
+        <member name="M:CodeIsBug.Admin.UI.Controllers.AccountController.Login(CodeIsBug.Admin.Api.DTO.LoginInputDto)">
+            <summary>
+            登录接口
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.EBaseEmpsController.#ctor(CodeIsBug.Admin.Models.DbContext.CodeIsBugContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.EBaseEmpsController.GetEBaseEmps">
+            <summary>
+            GetEBaseEmps
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.VerifyCodeController.GetCode(System.String)">
+            <summary>
+            生成登录验证码
+            </summary>
+            <param name="guid">页面生成的GUID</param>
+            <returns>返回验证码图片</returns>
+        </member>
+    </members>
+</doc>

@@ -8,6 +8,7 @@ namespace CodeIsBug.Admin.Models.Models
     public partial class EBaseEmp: BaseModel
     {
         [Key]
+        
         public Guid UserGuid { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }

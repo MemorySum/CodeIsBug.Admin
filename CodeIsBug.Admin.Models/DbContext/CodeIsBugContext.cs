@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CodeIsBug.Admin.Models.DbContext
 {
-    public class CodeIsBugContext : Microsoft.EntityFrameworkCore.DbContext
+	public class CodeIsBugContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public CodeIsBugContext(DbContextOptions<CodeIsBugContext> options) : base(options)
         {
