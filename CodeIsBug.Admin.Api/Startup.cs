@@ -13,6 +13,7 @@ namespace CodeIsBug.Admin.Api
 {
 	public class Startup
 	{
+		readonly string CodeIsBugAdminPolicy = "CodeIsBug.Admin.Policy";
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -23,6 +24,16 @@ namespace CodeIsBug.Admin.Api
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddCors(options =>
+			{
+				options.AddPolicy(name: CodeIsBugAdminPolicy,
+					builder =>
+					{
+						builder.AllowAnyOrigin().WithMethods("GET", "POST", "HEAD", "PUT", "DELETE", "OPTIONS");
+
+					});
+			});
+
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
@@ -46,12 +57,10 @@ namespace CodeIsBug.Admin.Api
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseHttpsRedirection();
-
+			
 			app.UseRouting();
-
+			app.UseCors(CodeIsBugAdminPolicy);
 			app.UseAuthorization();
-
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();

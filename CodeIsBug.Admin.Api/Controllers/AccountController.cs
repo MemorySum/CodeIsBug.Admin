@@ -1,12 +1,14 @@
 ﻿using CodeIsBug.Admin.Api.DTO;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.DbContext;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace CodeIsBug.Admin.UI.Controllers
 {
 	[Route("api/[controller]/[action]")]
+	[EnableCors("CodeIsBug.Admin.Policy")]
 	[ApiController]
 	public class AccountController : ControllerBase
 	{
@@ -22,7 +24,7 @@ namespace CodeIsBug.Admin.UI.Controllers
 		/// <param name="dto"></param>
 		/// <returns></returns>
 		[HttpPost]
-		public Result Login([FromForm] LoginInputDto dto)
+		public Result Login([FromBody] LoginInputDto dto)
 		{
 			var empInfo = _codeIsBugContext.EBaseEmps.FirstOrDefault(a => a.UserName.Equals(dto.username) && a.Pwd.ToLower().Equals(StringHelper.Md5Hash(dto.password)));
 			return empInfo != null ? new Result { Code = 1, Message = "登陆成功" } : new Result { Code = 0, Message = "账号或密码错误" };
