@@ -4,7 +4,7 @@
         <name>CodeIsBug.Admin.Api</name>
     </assembly>
     <members>
-        <member name="M:CodeIsBug.Admin.UI.Controllers.AccountController.Login(CodeIsBug.Admin.Api.DTO.LoginInputDto)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.AccountController.Login(CodeIsBug.Admin.Api.DTO.LoginInputDto)">
             <summary>
             登录接口
             </summary>
@@ -17,9 +17,45 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.EBaseEmpsController.GetEBaseEmps">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetMenus(System.String,System.Int32,System.Int32)">
             <summary>
-            GetEBaseEmps
+            菜单列表
+            </summary>
+            <param name="query">查询字符串</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">页面大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.AddMenu(CodeIsBug.Admin.Api.DTO.MenuInputInfo)">
+            <summary>
+            添加菜单
+            </summary>
+            <param name="inputInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.UpdateMenu(CodeIsBug.Admin.Api.DTO.MenuInputInfo)">
+            <summary>
+            修改菜单信息
+            </summary>
+            <param name="inputInfo">修改参数信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.DelMenu(System.Guid)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="menuGuid">菜单Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetAllFirstLevelMenu">
+            <summary>
+            获取所有一级菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetAllMenuForIndex">
+            <summary>
+            左侧菜单列表返回
             </summary>
             <returns></returns>
         </member>

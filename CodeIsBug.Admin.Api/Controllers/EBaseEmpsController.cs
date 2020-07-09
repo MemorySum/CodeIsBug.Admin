@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CodeIsBug.Admin.Models.DbContext;
 using CodeIsBug.Admin.Models.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
+    
     public class EBaseEmpsController : ControllerBase
     {
         private readonly CodeIsBugContext _context;
@@ -23,17 +26,10 @@ namespace CodeIsBug.Admin.Api.Controllers
         {
             _context = context;
         }
-        /// <summary>
-        /// GetEBaseEmps
-        /// </summary>
-        /// <returns></returns>
-        // GET: api/EBaseEmps
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EBaseEmp>>> GetEBaseEmps()
-        {
-            return await _context.EBaseEmps.ToListAsync();
-        }
+       
 
        
     }
+
+
 }

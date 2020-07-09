@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CodeIsBug.Admin.Models
+namespace CodeIsBug.Admin.Models.Models
 {
-    public partial class ESysMenu: BaseModel
+    public  class ESysMenu: BaseModel
     {
         [Key]
         public Guid MenuId { get; set; }
