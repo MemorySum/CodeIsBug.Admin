@@ -4,18 +4,22 @@
         <name>CodeIsBug.Admin.Api</name>
     </assembly>
     <members>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.AccountController.Login(CodeIsBug.Admin.Api.DTO.LoginInputDto)">
+        <member name="T:CodeIsBug.Admin.Api.Controllers.AccountController">
+            <summary>
+            登录授权
+            </summary>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.AccountController.Login(CodeIsBug.Admin.Models.DTO.LoginInputDto)">
             <summary>
             登录接口
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.EBaseEmpsController.#ctor(CodeIsBug.Admin.Models.DbContext.CodeIsBugContext)">
+        <member name="T:CodeIsBug.Admin.Api.Controllers.MenuController">
             <summary>
-            
+            菜单管理
             </summary>
-            <param name="context"></param>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetMenus(System.String,System.Int32,System.Int32)">
             <summary>
@@ -26,25 +30,25 @@
             <param name="pageSize">页面大小</param>
             <returns></returns>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.AddMenu(CodeIsBug.Admin.Api.DTO.MenuInputInfo)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.AddMenu(CodeIsBug.Admin.Models.DTO.MenuInputInfo)">
             <summary>
             添加菜单
             </summary>
             <param name="inputInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.UpdateMenu(CodeIsBug.Admin.Api.DTO.MenuInputInfo)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.UpdateMenu(CodeIsBug.Admin.Models.DTO.MenuInputInfo)">
             <summary>
             修改菜单信息
             </summary>
             <param name="inputInfo">修改参数信息</param>
             <returns></returns>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.DelMenu(System.Guid)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.DelMenu(System.Int32)">
             <summary>
             删除菜单
             </summary>
-            <param name="menuGuid">菜单Id</param>
+            <param name="menuId">菜单Id</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetAllFirstLevelMenu">
@@ -53,10 +57,59 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetMenuInfo(System.Int32)">
+            <summary>
+            获取单个菜单信息
+            </summary>
+            <param name="menuId">菜单Id</param>
+            <returns></returns>
+        </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetAllMenuForIndex">
             <summary>
             左侧菜单列表返回
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Api.Controllers.SysUserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.GetUserList(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取用户列表
+            </summary>
+            <param name="query"></param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.AddUser(CodeIsBug.Admin.Models.Dto.UserAddInfo)">
+            <summary>
+            添加用户
+            </summary>
+            <param name="inputInfo">用户实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.DelUser(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="UserId">用户Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.GetUserInfo(System.Int32)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="UserId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.UpdateUserInfo(CodeIsBug.Admin.Models.Dto.UserEditInfo)">
+            <summary>
+            修改用户信息
+            </summary>
+            <param name="info"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.VerifyCodeController.GetCode(System.String)">

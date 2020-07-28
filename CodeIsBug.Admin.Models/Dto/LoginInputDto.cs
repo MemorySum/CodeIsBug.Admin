@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeIsBug.Admin.Api.DTO
+namespace CodeIsBug.Admin.Models.DTO
 {
     public class LoginInputDto
     {

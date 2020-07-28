@@ -1,4 +1,4 @@
-﻿namespace CodeIsBug.Admin.UI.DTO
+﻿namespace CodeIsBug.Admin.Models.DTO
 {
     public class SearchDto
     {

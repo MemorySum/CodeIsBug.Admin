@@ -1,19 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using SqlSugar;
 
-namespace CodeIsBug.Admin.Models
+namespace CodeIsBug.Admin.Models.Models
 {
-    public partial class ESysRoles: BaseModel
+    [SugarTable("e_Sys_Role")]
+    public  class ESysRoles
     {
-        [Key]
-        [Display(Name ="角色主键")]
-        public Guid Id { get; set; }
-        public Guid? ParentId { get; set; }
+        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true,ColumnDescription = "角色Id")]
+        public int Id { get; set; }
+
+        [SugarColumn(IsNullable = false,ColumnDescription = "父级Id")]
+        public int ParentId { get; set; }
+
+        [SugarColumn(IsNullable = false,ColumnDescription = "角色名称")]
         public string Name { get; set; }
+
+        [SugarColumn(IsNullable = false,ColumnDescription = "角色排序")]
         public int Sort { get; set; }
+        
+        [SugarColumn(IsNullable = true,ColumnDescription = "备注")]
         public string Remark { get; set; }
+
+        [SugarColumn(IsNullable = false,ColumnDescription = "添加时间")]
         public DateTime AddTime { get; set; }
+
+        [SugarColumn(IsNullable = true,ColumnDescription = "修改时间")]
         public DateTime? ModifyTime { get; set; }
     }
 }
