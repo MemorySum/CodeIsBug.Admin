@@ -26,7 +26,7 @@ namespace CodeIsBug.Admin.Services.Service
                     menuName = item.Name,
                     path = item.Url,
                     icon = item.Icon,
-                    children = GetChildrenMenu(menuInfo, item.MenuId)
+                    Children = GetChildrenMenu(menuInfo, item.MenuId)
                 };
                 menuDots.Add(dto);
             }
@@ -47,7 +47,7 @@ namespace CodeIsBug.Admin.Services.Service
                     menuName = item.Name,
                     path = item.Url,
                     icon = item.Icon,
-                    children = GetChildrenMenu(menuInfo, item.MenuId)
+                    Children = GetChildrenMenu(menuInfo, item.MenuId)
                 };
 
                 menuDtos.Add(dto);
@@ -83,7 +83,7 @@ namespace CodeIsBug.Admin.Services.Service
         {
             ESysMenu menu = new ESysMenu()
             {
-                MenuId = 1,
+                
                 ParentId = inputInfo.ParentId,
                 Name = inputInfo.Name,
                 Icon = inputInfo.Icon,

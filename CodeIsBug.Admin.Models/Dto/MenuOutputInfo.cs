@@ -15,6 +15,6 @@ namespace CodeIsBug.Admin.Models.DTO
 		public int? ParentId { get; set; }
 		public DateTime? ModifyTime { get;  set; }
 		public DateTime AddTime { get;  set; }
-		public List<MenuOutputInfo>? children { get; set; }
+		public List<MenuOutputInfo>? Children { get; set; }
 	}
 }
