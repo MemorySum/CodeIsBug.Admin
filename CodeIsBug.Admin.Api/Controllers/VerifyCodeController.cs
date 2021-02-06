@@ -1,13 +1,16 @@
-﻿using CodeIsBug.Admin.Common.Helper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CodeIsBug.Admin.Common.Helper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	
 	public class VerifyCodeController : ControllerBase
 	{
         private IConfiguration Configuration { get; }

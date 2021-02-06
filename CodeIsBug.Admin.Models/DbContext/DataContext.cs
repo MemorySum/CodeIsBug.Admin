@@ -13,8 +13,8 @@ namespace CodeIsBug.Admin.Models.DbContext
         {
             Db = new SqlSugarClient(new ConnectionConfig()
             {
-                ConnectionString = "server=.;uid=sa;pwd=123456;database = CodeIsbug.Admin; ",
-                DbType = DbType.SqlServer,
+                ConnectionString = "server=localhost;uid=root;pwd=123456; port = 3306; database = codeisbug.admin; sslmode = Preferred; ",
+                DbType = DbType.MySql,
                 InitKeyType = InitKeyType.Attribute,//从特性读取主键和自增列信息
                 IsAutoCloseConnection = true//开启自动释放模式和EF原理一样我就不多解释了
             });

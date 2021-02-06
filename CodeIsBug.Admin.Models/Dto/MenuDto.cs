@@ -14,6 +14,6 @@ namespace CodeIsBug.Admin.Models.Dto
 
 		public string icon { get; set; }
 
-		public List<MenuDto> Children { get; set; }
+		public List<MenuDto> children { get; set; }
 	}
 }
