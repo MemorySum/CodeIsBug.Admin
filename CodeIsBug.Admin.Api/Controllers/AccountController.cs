@@ -22,10 +22,12 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly JwtSettings _jwtSettings;
-
-        public AccountController(IOptions<JwtSettings> jwtSettings)
+        private readonly AccountService accountService;
+        public AccountController(IOptions<JwtSettings> jwtSettings, AccountService accountService)
         {
             _jwtSettings = jwtSettings.Value;
+            
+            this.accountService = accountService;
         }
 
         /// <summary>
@@ -49,17 +51,20 @@ namespace CodeIsBug.Admin.Api.Controllers
             {
                 return new Result { Code = 0, Message = "密码必填" };
             }
-            AccountService  accountService =   new AccountService();
-            var empInfo = accountService.Login(dto);
-            if (ReferenceEquals(empInfo, null))
+            var loginresult = accountService.Login(dto);
+            if (!loginresult.IsCompletedSuccessfully)
+            {
+                return new Result { Code = 0, Message = "登录操作出现异常，请稍后重试！" };
+            }
+            if (ReferenceEquals(loginresult.Result, null))
             {
                 return new Result { Code = 0, Message = "账号或密码错误" };
             }
 
             UserDataDto userInfo = new UserDataDto
             {
-                UserId = empInfo.UserId,
-                UserName = empInfo.UserName,
+                UserId = loginresult.Result.UserId,
+                UserName = loginresult.Result.UserName,
                 UserRoleIds = string.Empty,
                 UserRoleName = string.Empty
             };

@@ -1,3 +1,9 @@
+using System;
+using System.IO;
+using System.Text;
+using Autofac;
+using CodeIsBug.Admin.Api.Extensions;
+using CodeIsBug.Admin.Common.Config;
 using CodeIsBug.Admin.Common.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,9 +16,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.IO;
-using System.Text;
 
 namespace CodeIsBug.Admin.Api
 {
@@ -36,10 +39,11 @@ namespace CodeIsBug.Admin.Api
 
                 // Configure a custom converter
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            });
+            }).AddControllersAsServices();
             //≈‰÷√jwt–≈œ¢ ”≥…‰µΩƒ⁄¥Ê÷–
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
             //≈‰÷√øÁ”Ú«Î«Û
             services.AddCors(options =>
             {
@@ -130,7 +134,10 @@ namespace CodeIsBug.Admin.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CodeIsBug.Admin.API V1");
             });
         }
-
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new AutofacModuleRegister());
+        }
 
     }
 }
