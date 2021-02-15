@@ -19,24 +19,25 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class MenuController : ControllerBase
     {
+        private  MenuService menuService { get; set; }
 
+        public MenuController(MenuService menuService)
+        {
+            this.menuService = menuService;
+        }
         #region 菜单列表
         /// <summary>
         /// 菜单列表
         /// </summary>
-        /// <param name="query">查询字符串</param>
-        /// <param name="pageIndex">当前页码</param>
-        /// <param name="pageSize">页面大小</param>
         /// <returns></returns>
         [HttpGet]
-        public Result GetMenus(string query, int pageIndex, int pageSize)
+        public Result GetMenus()
         {
             Result res = new Result();
-            MenuService menuService = new MenuService();
             int totalCount = 0;
             try
             {
-                var result = menuService.GetMenus(query, pageIndex, pageSize, ref totalCount);
+                var result = menuService.GetMenus();
 
                 res.Object = new
                 {
@@ -75,7 +76,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    bool isSuccess = await new MenuService().AddMenu(inputInfo);
+                    bool isSuccess = await  menuService.AddMenu(inputInfo);
                     if (isSuccess)
                     {
                         result.Code = 1;
@@ -109,7 +110,6 @@ namespace CodeIsBug.Admin.Api.Controllers
         public async Task<Result> UpdateMenu([FromBody] MenuInputInfo inputInfo)
         {
             Result result = new Result();
-            MenuService menuService = new MenuService();
             try
             {
                 if (inputInfo == null)
@@ -160,11 +160,11 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> DelMenu([FromQuery] int menuId)
+        public async Task<Result> DelMenu([FromQuery] Guid menuId)
         {
             try
             {
-                bool flag = await new MenuService().DelMenu(menuId);
+                bool flag = await menuService.DelMenu(menuId);
                 if (flag)
                 {
                     return new Result { Code = 1, Message = "菜单删除成功" };
@@ -189,7 +189,6 @@ namespace CodeIsBug.Admin.Api.Controllers
         public async Task<Result> GetAllFirstLevelMenu()
         {
             Result r = new Result();
-            MenuService menuService = new MenuService();
             try
             {
                 var menuList = await menuService.GetAllFirstLevelMenu();
@@ -214,16 +213,16 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetMenuInfo([FromQuery] int menuId)
+        public async Task<Result> GetMenuInfo([FromQuery] Guid menuId)
         {
             Result r = new Result();
             try
             {
-                var menuInfo = await new MenuService().GetMenuInfo(menuId);
+                var menuInfo = await menuService.GetMenuInfo(menuId);
                 MenuInputInfo menu = new MenuInputInfo()
                 {
                     MenuId = menuInfo.MenuId,
-                    ParentId = menuInfo.ParentId ?? 0,
+                    ParentId = menuInfo.ParentId,
                     Name = menuInfo.Name,
                     Icon = menuInfo.Icon,
                     Sort = menuInfo.Sort,
@@ -250,13 +249,12 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public Result GetAllMenuForIndex()
+        public async Task<Result> GetAllMenuForIndex()
         {
             Result res = new Result();
-            MenuService menuService = new MenuService();
             try
             {
-                List<MenuDto> menus = menuService.BuildMenu();
+                List<MenuDto> menus =await menuService.BuildMenuForIndex();
                 res.Code = 1;
                 res.Message = "菜单获取成功";
                 res.Object = JsonConvert.SerializeObject(menus);

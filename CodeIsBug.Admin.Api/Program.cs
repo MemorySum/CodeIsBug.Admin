@@ -20,7 +20,7 @@ namespace CodeIsBug.Admin.Api
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 			.UseServiceProviderFactory(new AutofacServiceProviderFactory())//使用AutoFac做IOC和AOP
-				.ConfigureWebHostDefaults(webBuilder =>
+			.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
 				});

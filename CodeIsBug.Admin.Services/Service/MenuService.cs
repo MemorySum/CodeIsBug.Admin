@@ -6,18 +6,20 @@ using CodeIsBug.Admin.Models.DbContext;
 using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.DTO;
 using CodeIsBug.Admin.Models.Models;
+using CodeIsBug.Admin.Services.Base;
+using SqlSugar;
 
 namespace CodeIsBug.Admin.Services.Service
 {
-    public class MenuService : DataContext<ESysMenu>
+    public class MenuService : BaseService<ESysMenu>
     {
 
-        public List<MenuDto> BuildMenu()
+        public async Task<List<MenuDto>> BuildMenuForIndex()
         {
-            var menuInfo = Db.Queryable<ESysMenu>().ToList();
+            var menuInfo = await Db.Queryable<ESysMenu>().ToListAsync();
             if (!menuInfo.Any() && menuInfo.Count <= 0) { return null; }
             List<MenuDto> menuDots = new List<MenuDto>();
-            List<ESysMenu> firstIndexMenuList = menuInfo.Where(x => x.Level == 0 ).OrderBy(x => x.Sort).ToList();
+            List<ESysMenu> firstIndexMenuList = menuInfo.Where(x => x.Level == 0).OrderBy(x => x.Sort).ToList();
             foreach (var item in firstIndexMenuList)
             {
                 MenuDto dto = new MenuDto
@@ -26,14 +28,14 @@ namespace CodeIsBug.Admin.Services.Service
                     menuName = item.Name,
                     path = item.Url,
                     icon = item.Icon,
-                    children = GetChildrenMenu(menuInfo, item.MenuId)
+                    Children = GetChildrenMenuForIndex(menuInfo, item.MenuId)
                 };
                 menuDots.Add(dto);
             }
             return menuDots;
         }
 
-        private List<MenuDto> GetChildrenMenu(List<ESysMenu> menuInfo, int parentGuid)
+        private List<MenuDto> GetChildrenMenuForIndex(List<ESysMenu> menuInfo, Guid parentGuid)
         {
 
             List<ESysMenu> childrenMenuList = menuInfo.Where(x => x.ParentId == parentGuid).OrderBy(x => x.Sort).ToList();
@@ -47,7 +49,7 @@ namespace CodeIsBug.Admin.Services.Service
                     menuName = item.Name,
                     path = item.Url,
                     icon = item.Icon,
-                    children = GetChildrenMenu(menuInfo, item.MenuId)
+                    Children = GetChildrenMenuForIndex(menuInfo, item.MenuId)
                 };
 
                 menuDtos.Add(dto);
@@ -55,23 +57,15 @@ namespace CodeIsBug.Admin.Services.Service
             return menuDtos;
         }
 
-        public  List<MenuOutputInfo> GetMenus(string query, int pageIndex, int pageSize, ref int totalCount)
+        public List<ESysMenu> GetMenus()
         {
-
-            var list = Db.Queryable<ESysMenu>()
-                .Select(pm => new MenuOutputInfo
-                {
-                    MenuId = pm.MenuId,
-                    Name = pm.Name,
-                    Icon = pm.Icon,
-                    Level = pm.Level,
-                    ModifyTime = pm.ModifyTime,
-                    Sort = pm.Sort,
-                    Url = pm.Url,
-                    AddTime = pm.AddTime
-                }).WhereIF(!string.IsNullOrEmpty(query), pm => pm.Name.Contains(query)).ToPageList(pageIndex, pageSize, ref totalCount);
-            return list;
+            return Db.Queryable<ESysMenu>().OrderBy(sys=>sys.Sort,OrderByType.Asc)
+                .ToTree(sys => sys.Children, sys => sys.ParentId, Guid.Empty);
         }
+
+
+
+
 
         public async Task<List<MenuFirstLevelInfo>> GetAllFirstLevelMenu()
         {
@@ -83,8 +77,7 @@ namespace CodeIsBug.Admin.Services.Service
         {
             ESysMenu menu = new ESysMenu()
             {
-                MenuId = 1,
-                ParentId = inputInfo.ParentId,
+                ParentId = inputInfo.ParentId.Value,
                 Name = inputInfo.Name,
                 Icon = inputInfo.Icon,
                 Sort = inputInfo.Sort,
@@ -92,20 +85,20 @@ namespace CodeIsBug.Admin.Services.Service
                 Url = inputInfo.Url,
                 AddTime = DateTime.Now
             };
-            bool b = await Db.Insertable(menu).ExecuteCommandAsync() > 0;
+            bool b = await Db.Insertable(menu).ExecuteCommandIdentityIntoEntityAsync() ;
             return b;
         }
 
-        public async Task<ESysMenu> GetMenuInfo(int inputInfoMenuId)
+        public async Task<ESysMenu> GetMenuInfo(Guid inputInfoMenuId)
         {
             return await Db.Queryable<ESysMenu>().FirstAsync(a => a.MenuId.Equals(inputInfoMenuId));
-        } 
+        }
 
         public async Task<bool> UpdateMenu(MenuInputInfo inputInfo)
         {
             ESysMenu menuinfo = new ESysMenu();
             menuinfo.Level = inputInfo.Level;
-            menuinfo.ParentId = inputInfo.ParentId;
+            menuinfo.ParentId = inputInfo.ParentId.Value;
             menuinfo.Name = inputInfo.Name;
             menuinfo.Icon = inputInfo.Icon;
             menuinfo.Sort = inputInfo.Sort;
@@ -117,7 +110,7 @@ namespace CodeIsBug.Admin.Services.Service
 
         }
 
-        public async Task<bool> DelMenu(int menuId)
+        public async Task<bool> DelMenu(Guid menuId)
         {
             return await Db.Deleteable<ESysMenu>().Where(a => a.MenuId.Equals(menuId)).ExecuteCommandHasChangeAsync();
         }

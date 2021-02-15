@@ -19,7 +19,6 @@
     },
     "CodeIsBug.Admin.Api": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "swagger/index.html",
       "applicationUrl": "http://localhost:8099;",
       "environmentVariables": {

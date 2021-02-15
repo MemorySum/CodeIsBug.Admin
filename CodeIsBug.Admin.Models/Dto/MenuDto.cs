@@ -6,7 +6,7 @@ namespace CodeIsBug.Admin.Models.Dto
 {
 	public class MenuDto
 	{
-		public int id { get; set; }
+		public Guid id { get; set; }
 
 		public string menuName { get; set; }
 
@@ -14,6 +14,6 @@ namespace CodeIsBug.Admin.Models.Dto
 
 		public string icon { get; set; }
 
-		public List<MenuDto> children { get; set; }
+		public List<MenuDto> Children { get; set; }
 	}
 }

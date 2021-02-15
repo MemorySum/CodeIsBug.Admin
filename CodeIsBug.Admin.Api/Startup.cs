@@ -21,13 +21,12 @@ namespace CodeIsBug.Admin.Api
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
         readonly string codeIsBugAdminPolicy = "CodeIsBug.Admin.Policy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -43,7 +42,7 @@ namespace CodeIsBug.Admin.Api
             //配置jwt信息 映射到内存中
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
-            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
+            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
             //配置跨域请求
             services.AddCors(options =>
             {
@@ -111,7 +110,8 @@ namespace CodeIsBug.Admin.Api
                     ClockSkew = TimeSpan.Zero
                 };
             });
-            
+           
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -119,7 +119,10 @@ namespace CodeIsBug.Admin.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(codeIsBugAdminPolicy);
             app.UseAuthentication();
@@ -127,7 +130,10 @@ namespace CodeIsBug.Admin.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                
             });
+            
+          
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

@@ -45,12 +45,12 @@ namespace CodeIsBug.Admin.Services.Service
             return await Db.Insertable<EBaseEmp>(emp).ExecuteCommandIdentityIntoEntityAsync();
         }
 
-        public async Task<bool> DelUser(int userId)
+        public async Task<bool> DelUser(Guid userId)
         {
             return await Db.Deleteable<EBaseEmp>().Where(a => a.UserId.Equals(userId)).ExecuteCommandHasChangeAsync();
         }
 
-        public async Task<UserEditInfo> GetUserInfo(int userId)
+        public async Task<UserEditInfo> GetUserInfo(Guid userId)
         {
             var list = await Db.Queryable<EBaseEmp>().Where(a => a.UserId.Equals(userId))
                  .Select<UserEditInfo>(a => new UserEditInfo()

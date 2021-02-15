@@ -16,6 +16,13 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class SysUserController : ControllerBase
     {
+        private readonly SysUsersService sysUsersService;
+
+        public SysUserController(SysUsersService sysUsersService)
+        {
+            this.sysUsersService = sysUsersService;
+        }
+
         #region 获取用户列表
         /// <summary>
         /// 获取用户列表
@@ -28,11 +35,11 @@ namespace CodeIsBug.Admin.Api.Controllers
         public Result GetUserList(string query, int pageIndex, int pageSize)
         {
             Result res = new Result();
-            SysUsersService menuService = new SysUsersService();
+   
             int totalCount = 0;
             try
             {
-                var result = menuService.GetUserList(query, pageIndex, pageSize, ref totalCount);
+                var result = sysUsersService.GetUserList(query, pageIndex, pageSize, ref totalCount);
 
                 res.Object = new
                 {
@@ -71,8 +78,8 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    SysUsersService usersService = new SysUsersService();
-                    bool flag = await usersService.AddUser(inputInfo);
+                    
+                    bool flag = await sysUsersService.AddUser(inputInfo);
                     if (flag)
                     {
                         result.Code = 1;
@@ -102,13 +109,13 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// <param name="UserId">用户Id</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> DelUser([FromQuery] int UserId)
+        public async Task<Result> DelUser([FromQuery] Guid UserId)
         {
             Result result = new Result();
             try
             {
-                SysUsersService usersService = new SysUsersService();
-                bool flag = await usersService.DelUser(UserId);
+                
+                bool flag = await sysUsersService.DelUser(UserId);
                 if (flag)
                 {
                     result.Code = 1;
@@ -138,13 +145,13 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// <param name="UserId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetUserInfo([FromQuery] int UserId)
+        public async Task<Result> GetUserInfo([FromQuery] Guid UserId)
         {
             Result result = new Result();
             try
             {
-                SysUsersService usersService = new SysUsersService();
-                UserEditInfo info = await usersService.GetUserInfo(UserId);
+               
+                UserEditInfo info = await sysUsersService.GetUserInfo(UserId);
                 if (ReferenceEquals(null, info))
                 {
                     result.Code = 0;
@@ -185,8 +192,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    SysUsersService usersService = new SysUsersService();
-                    bool isSuccess = await usersService.UpdateUserInfo(info);
+                    bool isSuccess = await sysUsersService.UpdateUserInfo(info);
                     result.Code = isSuccess ? 1 : 0;
                     result.Message = isSuccess ? "用户更新成功" : "用户更新失败";
                 }

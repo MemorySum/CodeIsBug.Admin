@@ -6,7 +6,7 @@ namespace CodeIsBug.Admin.Models.Dto
 {
    public class MenuFirstLevelInfo
     {
-        public int MenuId { get; set; }
+        public Guid MenuId { get; set; }
         public string Name { get; set; }
     }
 }

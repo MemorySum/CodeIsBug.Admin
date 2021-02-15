@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
@@ -37,7 +38,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public Result Login([FromBody] LoginInputDto dto)
+        public async Task<Result> Login([FromBody] LoginInputDto dto)
         {
             if (dto == null)
             {
@@ -51,20 +52,17 @@ namespace CodeIsBug.Admin.Api.Controllers
             {
                 return new Result { Code = 0, Message = "密码必填" };
             }
-            var loginresult = accountService.Login(dto);
-            if (!loginresult.IsCompletedSuccessfully)
-            {
-                return new Result { Code = 0, Message = "登录操作出现异常，请稍后重试！" };
-            }
-            if (ReferenceEquals(loginresult.Result, null))
+            var loginresult = await accountService.Login(dto);
+            
+            if (ReferenceEquals(loginresult, null))
             {
                 return new Result { Code = 0, Message = "账号或密码错误" };
             }
 
             UserDataDto userInfo = new UserDataDto
             {
-                UserId = loginresult.Result.UserId,
-                UserName = loginresult.Result.UserName,
+                UserId = loginresult.UserId,
+                UserName = loginresult.UserName,
                 UserRoleIds = string.Empty,
                 UserRoleName = string.Empty
             };

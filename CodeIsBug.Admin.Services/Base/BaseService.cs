@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using CodeIsBug.Admin.Common.Config;
-using CodeIsBug.Admin.Models.Models;
 using SqlSugar;
 
 namespace CodeIsBug.Admin.Services.Base
@@ -15,16 +13,20 @@ namespace CodeIsBug.Admin.Services.Base
             {
                 Db = new SqlSugarClient(new ConnectionConfig()
                 {
-                    DbType = SqlSugar.DbType.SqlServer,
+                    DbType = DbType.MySql,
                     InitKeyType = InitKeyType.Attribute,
                     IsAutoCloseConnection = true,
                     ConnectionString = DBConfig.ConnectionString
                 });
-                Db.DbMaintenance.CreateDatabase("CodeIsBug.Admin");
-                Db.CodeFirst.SetStringDefaultLength(100).InitTables(typeof(EBaseEmp), typeof(ESysEmpRoleMap), typeof(ESysMenu), typeof(ESysRoles));
+               
             }
+            //调式代码 用来打印SQL 
+            Db.Aop.OnLogExecuting = (sql, pars) =>
+            {
+                Console.WriteLine(sql + "\r\n" + Db.Utilities.SerializeObject(pars.ToDictionary(it => it.ParameterName, it => it.Value)));
+                // LogHelper.LogWrite(sql + "\r\n" +Db.Utilities.SerializeObject(pars.ToDictionary(it => it.ParameterName, it => it.Value)));
+            };
 
-            
         }
         public SqlSugarClient Db;
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SqlSugar;
 
 namespace CodeIsBug.Admin.Models.Models
@@ -6,8 +7,8 @@ namespace CodeIsBug.Admin.Models.Models
     [SugarTable("e_Base_Emp")]
     public class EBaseEmp 
     {
-        [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = true,ColumnDescription = "用户Id")]
-        public int UserId { get; set; }
+        [SugarColumn(IsNullable=false, IsPrimaryKey = true, ColumnDescription = "用户Id")]
+        public Guid UserId { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "用户姓名")]
         public string Name { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "账号")]

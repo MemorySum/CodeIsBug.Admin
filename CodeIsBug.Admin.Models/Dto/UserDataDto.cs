@@ -6,7 +6,7 @@ namespace CodeIsBug.Admin.Models.Dto
 {
 	public class UserDataDto
 	{
-		public int UserId { get; set; }
+		public Guid UserId { get; set; }
 
 		public string UserName { get; set; }
 
