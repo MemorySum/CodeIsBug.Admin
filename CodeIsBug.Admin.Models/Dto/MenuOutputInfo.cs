@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodeIsBug.Admin.Models.DTO
+namespace CodeIsBug.Admin.Models.Dto
 {
 	public class MenuOutputInfo
 	{

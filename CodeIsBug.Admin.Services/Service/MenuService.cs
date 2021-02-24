@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CodeIsBug.Admin.Models.DbContext;
 using CodeIsBug.Admin.Models.Dto;
-using CodeIsBug.Admin.Models.DTO;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
@@ -59,13 +57,9 @@ namespace CodeIsBug.Admin.Services.Service
 
         public List<ESysMenu> GetMenus()
         {
-            return Db.Queryable<ESysMenu>().OrderBy(sys=>sys.Sort,OrderByType.Asc)
+            return Db.Queryable<ESysMenu>().OrderBy(sys => sys.Sort, OrderByType.Asc)
                 .ToTree(sys => sys.Children, sys => sys.ParentId, Guid.Empty);
         }
-
-
-
-
 
         public async Task<List<MenuFirstLevelInfo>> GetAllFirstLevelMenu()
         {
@@ -75,18 +69,20 @@ namespace CodeIsBug.Admin.Services.Service
 
         public async Task<bool> AddMenu(MenuInputInfo inputInfo)
         {
+
             ESysMenu menu = new ESysMenu()
             {
-                ParentId = inputInfo.ParentId.Value,
+                ParentId = inputInfo.ParentId ?? Guid.Empty,
                 Name = inputInfo.Name,
                 Icon = inputInfo.Icon,
                 Sort = inputInfo.Sort,
                 Level = inputInfo.Level,
                 Url = inputInfo.Url,
-                AddTime = DateTime.Now
+                AddTime = Db.GetDate()
             };
-            bool b = await Db.Insertable(menu).ExecuteCommandIdentityIntoEntityAsync() ;
+            bool b = await Db.Insertable(menu).ExecuteCommandIdentityIntoEntityAsync();
             return b;
+
         }
 
         public async Task<ESysMenu> GetMenuInfo(Guid inputInfoMenuId)
@@ -96,17 +92,19 @@ namespace CodeIsBug.Admin.Services.Service
 
         public async Task<bool> UpdateMenu(MenuInputInfo inputInfo)
         {
-            ESysMenu menuinfo = new ESysMenu();
-            menuinfo.Level = inputInfo.Level;
-            menuinfo.ParentId = inputInfo.ParentId.Value;
-            menuinfo.Name = inputInfo.Name;
-            menuinfo.Icon = inputInfo.Icon;
-            menuinfo.Sort = inputInfo.Sort;
-            menuinfo.Level = inputInfo.Level;
-            menuinfo.Url = inputInfo.Url;
-            menuinfo.ModifyTime = DateTime.Now;
-            menuinfo.MenuId = inputInfo.MenuId;
-            return await Db.Updateable<ESysMenu>(menuinfo).ExecuteCommandHasChangeAsync();
+            return await Db.Updateable<ESysMenu>()
+                .SetColumns(it => new ESysMenu
+                {
+                    Name = inputInfo.Name,
+                    Icon = inputInfo.Icon,
+                    Sort = inputInfo.Sort,
+                    Level = inputInfo.Level,
+                    Url = inputInfo.Url,
+                    ModifyTime = DateTime.Now,
+                    ParentId = inputInfo.ParentId.Value
+                }).IgnoreColumns(x => x.AddTime)
+                .Where(x => x.MenuId.Equals(inputInfo.MenuId))
+                .ExecuteCommandHasChangeAsync();
 
         }
 

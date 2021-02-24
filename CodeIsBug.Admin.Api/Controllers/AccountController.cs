@@ -1,16 +1,11 @@
-﻿using CodeIsBug.Admin.Common.Helper;
-using CodeIsBug.Admin.Models;
-using CodeIsBug.Admin.Models.DbContext;
+﻿using System;
+using System.Threading.Tasks;
+using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
-using CodeIsBug.Admin.Models.DTO;
-using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Service;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
-using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
@@ -23,12 +18,12 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly JwtSettings _jwtSettings;
-        private readonly AccountService accountService;
+        private readonly AccountService _accountService;
         public AccountController(IOptions<JwtSettings> jwtSettings, AccountService accountService)
         {
             _jwtSettings = jwtSettings.Value;
             
-            this.accountService = accountService;
+            this._accountService = accountService;
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             {
                 return new Result { Code = 0, Message = "密码必填" };
             }
-            var loginresult = await accountService.Login(dto);
+            var loginresult = await _accountService.Login(dto);
             
             if (ReferenceEquals(loginresult, null))
             {

@@ -13,4 +13,8 @@
     <PackageReference Include="sqlSugarCore" Version="5.0.2.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enum\" />
+  </ItemGroup>
+
 </Project>

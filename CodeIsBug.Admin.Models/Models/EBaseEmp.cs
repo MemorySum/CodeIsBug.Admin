@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MySql.Data.MySqlClient;
 using SqlSugar;
 
 namespace CodeIsBug.Admin.Models.Models

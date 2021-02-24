@@ -9,7 +9,7 @@
             登录授权
             </summary>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.AccountController.Login(CodeIsBug.Admin.Models.DTO.LoginInputDto)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.AccountController.Login(CodeIsBug.Admin.Models.Dto.LoginInputDto)">
             <summary>
             登录接口
             </summary>
@@ -27,14 +27,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.AddMenu(CodeIsBug.Admin.Models.DTO.MenuInputInfo)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.AddMenu(CodeIsBug.Admin.Models.Dto.MenuInputInfo)">
             <summary>
             添加菜单
             </summary>
             <param name="inputInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.UpdateMenu(CodeIsBug.Admin.Models.DTO.MenuInputInfo)">
+        <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.UpdateMenu(CodeIsBug.Admin.Models.Dto.MenuInputInfo)">
             <summary>
             修改菜单信息
             </summary>
@@ -71,6 +71,40 @@
             <summary>
             角色管理
             </summary>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.GetRoles">
+            <summary>
+            加载角色树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.AddRole(CodeIsBug.Admin.Models.Dto.RoleAddDto)">
+            <summary>
+            添加角色
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.DelRole(System.Guid)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="roleGuid">角色guid</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.GetRoleInfo(System.Guid)">
+            <summary>
+            获取单个角色信息
+            </summary>
+            <param name="roleGuid">角色guid</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.EditRoleInfo(CodeIsBug.Admin.Models.Dto.RoleEditInfo)">
+            <summary>
+            更新角色信息
+            </summary>
+            <param name="info">角色信息dto</param>
+            <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.SysUserController">
             <summary>

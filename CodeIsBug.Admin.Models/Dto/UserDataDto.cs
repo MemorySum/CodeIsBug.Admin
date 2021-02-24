@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CodeIsBug.Admin.Models.Dto
 {
-	public class UserDataDto
+    public class UserDataDto
 	{
 		public Guid UserId { get; set; }
 

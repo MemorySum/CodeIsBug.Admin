@@ -54,7 +54,7 @@ namespace CodeIsBug.Admin.Api
                     });
             });
 
-            //ÅäÖÃswaggerDocment
+            //ÅäÖÃswaggerDocument
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeIsBug.Admin.API", Version = "v1" });
@@ -132,8 +132,6 @@ namespace CodeIsBug.Admin.Api
                 endpoints.MapControllers();
                 
             });
-            
-          
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

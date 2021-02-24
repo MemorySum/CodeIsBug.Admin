@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
-using CodeIsBug.Admin.Models.DbContext;
-using CodeIsBug.Admin.Models.DTO;
+using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 
