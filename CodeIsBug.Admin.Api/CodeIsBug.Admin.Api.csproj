@@ -8,6 +8,12 @@
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="MysqlScript\**" />
+	  <Content Remove="MysqlScript\**" />
+	  <EmbeddedResource Remove="MysqlScript\**" />
+	  <None Remove="MysqlScript\**" />
+	</ItemGroup>
+	<ItemGroup>
 	  <None Remove="CodeIsBug.Admin.Api.xml" />
 	</ItemGroup>
 	<ItemGroup>

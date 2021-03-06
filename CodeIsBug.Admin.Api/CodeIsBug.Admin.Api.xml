@@ -16,6 +16,31 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.CityInfoController.GetCityInfo">
+            <summary>
+            获取全国省市信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController">
+            <summary>
+            用户角色对照
+            </summary>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController.GetUserRolesByUserId(System.Guid)">
+            <summary>
+            根据列表选择的用户guid加载对应的角色guid
+            </summary>
+            <param name="userGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController.SaveRoleId(CodeIsBug.Admin.Models.Dto.EmpRoleMapSaveDto)">
+            <summary>
+            保存用户角色
+            </summary>
+            <param name="saveDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.MenuController">
             <summary>
             菜单管理
@@ -65,6 +90,20 @@
             <summary>
             左侧菜单列表返回
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController.GetMenuListByRoleId(System.Guid)">
+            <summary>
+            根据选择的角色id加载选中菜单树
+            </summary>
+            <param name="roleGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController.SaveRoleMenuInfo(CodeIsBug.Admin.Models.Dto.RoleMenuMapSaveDto)">
+            <summary>
+            保存角色菜单权限
+            </summary>
+            <param name="saveDto"></param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.RolesController">

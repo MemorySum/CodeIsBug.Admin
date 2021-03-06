@@ -19,11 +19,12 @@ namespace CodeIsBug.Admin.Api.Controllers
     {
         private readonly JwtSettings _jwtSettings;
         private readonly AccountService _accountService;
-        public AccountController(IOptions<JwtSettings> jwtSettings, AccountService accountService)
+        private readonly EmpRoleMapService _empRoleMapService;
+        public AccountController(IOptions<JwtSettings> jwtSettings, AccountService accountService, EmpRoleMapService empRoleMapService)
         {
             _jwtSettings = jwtSettings.Value;
-            
-            this._accountService = accountService;
+            _accountService = accountService;
+            _empRoleMapService = empRoleMapService;
         }
 
         /// <summary>
@@ -47,19 +48,21 @@ namespace CodeIsBug.Admin.Api.Controllers
             {
                 return new Result { Code = 0, Message = "密码必填" };
             }
-            var loginresult = await _accountService.Login(dto);
-            
-            if (ReferenceEquals(loginresult, null))
+            var loginResult = await _accountService.Login(dto);
+
+            if (ReferenceEquals(loginResult, null))
             {
                 return new Result { Code = 0, Message = "账号或密码错误" };
             }
 
+            var userRoleMenu = await _empRoleMapService.GetUserRoleMenu(loginResult.UserId);
+            var userRoleNameStr = await _empRoleMapService.GetUserRoleName(loginResult.UserId);
             UserDataDto userInfo = new UserDataDto
             {
-                UserId = loginresult.UserId,
-                UserName = loginresult.UserName,
-                UserRoleIds = string.Empty,
-                UserRoleName = string.Empty
+                UserId = loginResult.UserId,
+                UserName = loginResult.Name,
+                UserMenus = userRoleMenu,
+                UserRoleName = userRoleNameStr
             };
             var token = JwtHelper.CreatToken(_jwtSettings, userInfo);
             return new Result

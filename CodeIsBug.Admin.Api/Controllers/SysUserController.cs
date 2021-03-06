@@ -16,11 +16,11 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class SysUserController : ControllerBase
     {
-        private readonly SysUsersService sysUsersService;
+        private readonly SysUsersService _sysUsersService;
 
         public SysUserController(SysUsersService sysUsersService)
         {
-            this.sysUsersService = sysUsersService;
+            this._sysUsersService = sysUsersService;
         }
 
         #region 获取用户列表
@@ -39,7 +39,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             int totalCount = 0;
             try
             {
-                var result = sysUsersService.GetUserList(query, pageIndex, pageSize, ref totalCount);
+                var result = _sysUsersService.GetUserList(query, pageIndex, pageSize, ref totalCount);
 
                 res.Object = new
                 {
@@ -79,7 +79,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 else
                 {
                     
-                    bool flag = await sysUsersService.AddUser(inputInfo);
+                    bool flag = await _sysUsersService.AddUser(inputInfo);
                     if (flag)
                     {
                         result.Code = 1;
@@ -115,7 +115,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             try
             {
                 
-                bool flag = await sysUsersService.DelUser(UserId);
+                bool flag = await _sysUsersService.DelUser(UserId);
                 if (flag)
                 {
                     result.Code = 1;
@@ -151,7 +151,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             try
             {
                
-                UserEditInfo info = await sysUsersService.GetUserInfo(UserId);
+                UserEditInfo info = await _sysUsersService.GetUserInfo(UserId);
                 if (ReferenceEquals(null, info))
                 {
                     result.Code = 0;
@@ -192,7 +192,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    bool isSuccess = await sysUsersService.UpdateUserInfo(info);
+                    bool isSuccess = await _sysUsersService.UpdateUserInfo(info);
                     result.Code = isSuccess ? 1 : 0;
                     result.Message = isSuccess ? "用户更新成功" : "用户更新失败";
                 }

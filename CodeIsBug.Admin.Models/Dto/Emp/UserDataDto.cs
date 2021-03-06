@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using CodeIsBug.Admin.Models.Models;
 
 namespace CodeIsBug.Admin.Models.Dto
 {
@@ -8,7 +10,7 @@ namespace CodeIsBug.Admin.Models.Dto
 
 		public string UserName { get; set; }
 
-		public string UserRoleIds { get; set; }
+        public List<ESysMenu> UserMenus { get; set; }
 
 		public string UserRoleName { get; set; }
 	}
