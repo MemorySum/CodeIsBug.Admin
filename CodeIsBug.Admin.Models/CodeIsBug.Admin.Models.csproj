@@ -5,16 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enum\**" />
+    <EmbeddedResource Remove="Enum\**" />
+    <None Remove="Enum\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <PackageReference Include="sqlSugarCore" Version="5.0.2.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Enum\" />
   </ItemGroup>
 
 </Project>

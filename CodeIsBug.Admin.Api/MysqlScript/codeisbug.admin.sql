@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 01/03/2021 08:48:26
+ Date: 07/03/2021 14:20:20
 */
 
 SET NAMES utf8mb4;
@@ -61,7 +61,7 @@ INSERT INTO `e_base_cityinfo` VALUES (61, 0, '陕西');
 INSERT INTO `e_base_cityinfo` VALUES (62, 0, '甘肃');
 INSERT INTO `e_base_cityinfo` VALUES (63, 0, '青海');
 INSERT INTO `e_base_cityinfo` VALUES (64, 0, '宁夏');
-INSERT INTO `e_base_cityinfo` VALUES (65, 0, '***');
+INSERT INTO `e_base_cityinfo` VALUES (65, 0, '新疆维吾尔自治区');
 INSERT INTO `e_base_cityinfo` VALUES (71, 0, '台湾');
 INSERT INTO `e_base_cityinfo` VALUES (81, 0, '香港');
 INSERT INTO `e_base_cityinfo` VALUES (91, 0, '澳门');
@@ -3574,6 +3574,7 @@ CREATE TABLE `e_base_emp`  (
 -- Records of e_base_emp
 -- ----------------------------
 INSERT INTO `e_base_emp` VALUES ('4795b862-bbb6-0383-b1b0-5bc3ae196651', '系统管理员', 'admin', NULL, NULL, 'c4ca4238a0b923820dcc509a6f75849b', '2021-02-09 10:18:07', NULL);
+INSERT INTO `e_base_emp` VALUES ('8d491aac-e689-4a09-bf87-a3874820108d', '测得的', 'test', '', '', 'c4ca4238a0b923820dcc509a6f75849b', '2021-03-01 15:11:45', '2021-03-01 15:25:58');
 
 -- ----------------------------
 -- Table structure for e_sys_emprolemap
@@ -3589,6 +3590,8 @@ CREATE TABLE `e_sys_emprolemap`  (
 -- ----------------------------
 -- Records of e_sys_emprolemap
 -- ----------------------------
+INSERT INTO `e_sys_emprolemap` VALUES ('7fc9557c-e56c-46e9-a6de-5b13eb7b983d', '4795b862-bbb6-0383-b1b0-5bc3ae196651', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa');
+INSERT INTO `e_sys_emprolemap` VALUES ('f5b4c46d-7db5-11eb-875c-00155dff1730', '8d491aac-e689-4a09-bf87-a3874820108d', '1a1ffe65-93bc-ddc9-905e-453160e75d00');
 
 -- ----------------------------
 -- Table structure for e_sys_menu
@@ -3612,11 +3615,15 @@ CREATE TABLE `e_sys_menu`  (
 -- ----------------------------
 INSERT INTO `e_sys_menu` VALUES ('164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '00000000-0000-0000-0000-000000000000', '系统设置', '', 'el-icon-setting', 1, 0, '2021-02-14 16:01:34', '2021-02-14 16:01:34');
 INSERT INTO `e_sys_menu` VALUES ('29338631-932f-48c3-ac2b-da0d9bd1b86f', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '用户角色对照', '/sysUserRoleComparison', '', 4, 1, '0001-01-01 00:00:00', '2021-02-20 17:04:03');
+INSERT INTO `e_sys_menu` VALUES ('5b7f15ca-89e2-4f57-a6bd-37b7a7e78cb5', '00000000-0000-0000-0000-000000000000', '基础数据管理', '', 'fa fa-database', 3, 0, '2021-03-01 14:56:09', '2021-03-06 15:17:06');
+INSERT INTO `e_sys_menu` VALUES ('69c7a96b-11dc-4e67-9cfc-7957453d0a85', '5b7f15ca-89e2-4f57-a6bd-37b7a7e78cb5', '全国省市信息管理', '/cityInfo', '', 0, 1, '2021-03-01 14:56:40', '2021-03-01 15:19:18');
 INSERT INTO `e_sys_menu` VALUES ('70c22d8b-3c3f-48d7-814d-c8d51cf5cdb9', 'c39fe000-eec6-489a-bf3c-26b26afba2c6', '分类管理', '', '', 1, 1, '0001-01-01 00:00:00', '2021-02-15 20:08:38');
-INSERT INTO `e_sys_menu` VALUES ('918d97d7-13a8-4bca-c9bf-50e28890ea96', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '菜单管理', '/sysmenu', '', 1, 1, '0001-01-01 00:00:00', '2021-02-15 09:28:37');
-INSERT INTO `e_sys_menu` VALUES ('b599a77e-5d51-c3ca-400f-945cbbd186ea', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '用户管理', '/sysUsers', '', 2, 1, '0001-01-01 00:00:00', '2021-02-15 09:28:41');
+INSERT INTO `e_sys_menu` VALUES ('72179aa1-3946-44fb-bee2-2fc17c6c1a3c', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '角色授权', '/SysRoleMenuComparison', '#e-icon-xianxingrenwutubiao', 5, 1, '2021-03-06 14:59:44', NULL);
+INSERT INTO `e_sys_menu` VALUES ('918d97d7-13a8-4bca-c9bf-50e28890ea96', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '菜单管理', '/sysmenu', '', 2, 1, '0001-01-01 00:00:00', '2021-03-06 21:31:07');
+INSERT INTO `e_sys_menu` VALUES ('b599a77e-5d51-c3ca-400f-945cbbd186ea', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '用户管理', '/sysUsers', '', 1, 1, '0001-01-01 00:00:00', '2021-03-06 21:31:13');
 INSERT INTO `e_sys_menu` VALUES ('c39fe000-eec6-489a-bf3c-26b26afba2c6', '00000000-0000-0000-0000-000000000000', '博客管理', '', 'fa fa-github-square', 2, 0, '2021-02-18 22:24:34', NULL);
 INSERT INTO `e_sys_menu` VALUES ('e8efa176-2619-ec0a-e65b-64e541f1a2f0', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '角色管理', '/sysRoles', '', 3, 1, '0001-01-01 00:00:00', '2021-02-20 17:09:53');
+INSERT INTO `e_sys_menu` VALUES ('f1f2873a-f2ae-431c-a882-6d91d61b5f84', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '邮件服务管理', '/EmailSmtpSetting', '', 6, 1, '2021-03-06 21:29:35', '2021-03-06 21:30:20');
 
 -- ----------------------------
 -- Table structure for e_sys_role
@@ -3638,5 +3645,33 @@ CREATE TABLE `e_sys_role`  (
 -- ----------------------------
 INSERT INTO `e_sys_role` VALUES ('164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '00000000-0000-0000-0000-000000000000', '管理员', 1, '3333', '0001-01-01 00:00:00', '2021-02-20 16:56:46');
 INSERT INTO `e_sys_role` VALUES ('1a1ffe65-93bc-ddc9-905e-453160e75d00', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '测试员', 2, '滴滴滴', '0001-01-01 00:00:00', '2021-02-20 16:53:01');
+
+-- ----------------------------
+-- Table structure for e_sys_rolemenumap
+-- ----------------------------
+DROP TABLE IF EXISTS `e_sys_rolemenumap`;
+CREATE TABLE `e_sys_rolemenumap`  (
+  `MapId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主键Id',
+  `RoleId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色id',
+  `MenuId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单id',
+  PRIMARY KEY (`MapId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of e_sys_rolemenumap
+-- ----------------------------
+INSERT INTO `e_sys_rolemenumap` VALUES ('01707793-0d36-48e4-8e7d-9b4ce3f92ba8', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', 'b599a77e-5d51-c3ca-400f-945cbbd186ea');
+INSERT INTO `e_sys_rolemenumap` VALUES ('1b017e45-46ee-4627-96cf-8527daebdd46', '1a1ffe65-93bc-ddc9-905e-453160e75d00', '69c7a96b-11dc-4e67-9cfc-7957453d0a85');
+INSERT INTO `e_sys_rolemenumap` VALUES ('3c521082-68b1-4c5e-a143-b573e391a27c', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', 'e8efa176-2619-ec0a-e65b-64e541f1a2f0');
+INSERT INTO `e_sys_rolemenumap` VALUES ('4fabeb5b-7fbd-4ee1-b601-5800454e554b', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '918d97d7-13a8-4bca-c9bf-50e28890ea96');
+INSERT INTO `e_sys_rolemenumap` VALUES ('567155a6-a649-4641-a58e-9645311dd3a0', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '29338631-932f-48c3-ac2b-da0d9bd1b86f');
+INSERT INTO `e_sys_rolemenumap` VALUES ('7e31b319-65f0-4273-ae5a-db7c6bcdb25a', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '72179aa1-3946-44fb-bee2-2fc17c6c1a3c');
+INSERT INTO `e_sys_rolemenumap` VALUES ('8d47ede8-5db0-4398-8b2c-d725231b0273', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '70c22d8b-3c3f-48d7-814d-c8d51cf5cdb9');
+INSERT INTO `e_sys_rolemenumap` VALUES ('963247f9-cbcf-4869-af80-a8f628bd7503', '1a1ffe65-93bc-ddc9-905e-453160e75d00', '70c22d8b-3c3f-48d7-814d-c8d51cf5cdb9');
+INSERT INTO `e_sys_rolemenumap` VALUES ('b18c8990-521d-48c4-8688-84509911ce53', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa');
+INSERT INTO `e_sys_rolemenumap` VALUES ('d6c0671b-9501-4059-9d60-457d2eac0098', '1a1ffe65-93bc-ddc9-905e-453160e75d00', 'c39fe000-eec6-489a-bf3c-26b26afba2c6');
+INSERT INTO `e_sys_rolemenumap` VALUES ('f0541c86-45e9-437e-88c9-47f8237ea5fd', '1a1ffe65-93bc-ddc9-905e-453160e75d00', '5b7f15ca-89e2-4f57-a6bd-37b7a7e78cb5');
+INSERT INTO `e_sys_rolemenumap` VALUES ('f6d2d9b8-8731-4837-84ab-71ec7467a560', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', 'f1f2873a-f2ae-431c-a882-6d91d61b5f84');
+INSERT INTO `e_sys_rolemenumap` VALUES ('f814d48b-c00c-4f69-84e5-e8d5330a0da6', '164de0f4-b5d9-81eb-3988-0b8e41a8e5aa', 'c39fe000-eec6-489a-bf3c-26b26afba2c6');
 
 SET FOREIGN_KEY_CHECKS = 1;
