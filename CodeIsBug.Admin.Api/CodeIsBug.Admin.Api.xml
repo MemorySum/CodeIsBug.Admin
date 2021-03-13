@@ -194,5 +194,12 @@
             <param name="guid">页面生成的GUID</param>
             <returns>返回验证码图片</returns>
         </member>
+        <member name="M:CodeIsBug.Admin.Api.Controllers.VerifyCodeController.VerifyCode(CodeIsBug.Admin.Models.Dto.CkeckCodeDto)">
+            <summary>
+            验证验证码
+            </summary>
+            <param name="checkCodeDto"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

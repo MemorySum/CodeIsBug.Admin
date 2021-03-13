@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CodeIsBug.Admin.Common.Helper
 {
@@ -9,23 +10,14 @@ namespace CodeIsBug.Admin.Common.Helper
     {
 
         private ConnectionMultiplexer Redis { get; set; }
-        private IDatabase DB { get; set; }
+        private IDatabase Db { get; set; }
         public RedisHelper(string connection)
         {
             Redis = ConnectionMultiplexer.Connect(connection);
-            DB = Redis.GetDatabase();
+            Db = Redis.GetDatabase();
         }
 
-        /// <summary>
-        /// 增加/修改
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public  bool SetValue(string key, string value)
-        {
-            return DB.StringSet(key, value);
-        }
+       
         /// <summary>
         /// 增加/修改
         /// </summary>
@@ -33,22 +25,35 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <param name="value"></param>
         /// <param name="expiry"></param>
         /// <returns></returns>
-        public bool SetValue(string key, string value,TimeSpan? expiry=null)
+        public bool SetValue(string key, string value, TimeSpan? expiry = null)
         {
-            return DB.StringSet(key, value, expiry);
+            return Db.StringSet(key, value, expiry);
         }
-
+        public async Task<bool> SetValueAsync(string key, string value, TimeSpan? expiry = null)
+        {
+            return await Db.StringSetAsync(key, value, expiry);
+        }
 
         /// <summary>
         /// 查询
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string GetValue(string key)
+        public RedisValue GetValue(string key)
         {
-            return DB.StringGet(key);
+            return Db.StringGet(key);
         }
-
+        public async Task<RedisValue> GetValueAsync(string key)
+        {
+            try
+            {
+                return await Db.StringGetAsync(key);
+            }
+            catch (Exception)
+            {
+                return RedisValue.EmptyString;
+            }
+        }
         /// <summary>
         /// 删除
         /// </summary>
@@ -56,7 +61,12 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <returns></returns>
         public bool DeleteKey(string key)
         {
-            return DB.KeyDelete(key);
+            return Db.KeyDelete(key);
+        }
+
+        public async Task<bool> DeleteKeyAsync(string key)
+        {
+            return await Db.KeyDeleteAsync(key);
         }
     }
 }
