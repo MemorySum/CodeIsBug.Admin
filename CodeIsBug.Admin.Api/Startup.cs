@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -110,17 +111,20 @@ namespace CodeIsBug.Admin.Api
                     ClockSkew = TimeSpan.Zero
                 };
             });
-           
+
 
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
             }
+
+            loggerFactory.AddLog4Net("Config/log4net.config");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
@@ -130,7 +134,7 @@ namespace CodeIsBug.Admin.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                
+
             });
             app.UseSwagger();
             app.UseSwaggerUI(c =>
