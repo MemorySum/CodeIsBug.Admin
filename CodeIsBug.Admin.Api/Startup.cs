@@ -41,8 +41,10 @@ namespace CodeIsBug.Admin.Api
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
             }).AddControllersAsServices();
             //配置jwt信息 映射到内存中
-            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+            
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+            services.Configure<EmailSmtpConfig>(Configuration.GetSection("EmailSmtpConfig"));
             DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
             //配置跨域请求
             services.AddCors(options =>
