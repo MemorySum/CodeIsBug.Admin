@@ -78,7 +78,7 @@ namespace CodeIsBug.Admin.Api
                                 Reference = new OpenApiReference {
                                             Type = ReferenceType.SecurityScheme,
                                             Id = "Bearer"}
-                           },new string[] { }
+                           },Array.Empty<string>()
                         }
                     });
 

@@ -13,7 +13,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class CityInfoController : ControllerBase
     {
         #region 构造函数注入
-        private CityInfoService _cityInfoService;
+        private readonly CityInfoService _cityInfoService;
 
         public CityInfoController(CityInfoService cityInfoService)
         {
@@ -27,7 +27,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         [HttpGet]
         public async Task<Result> GetCityInfo()
         {
-            Result res = new Result();
+            Result res = new();
             try
             {
                 var result = await _cityInfoService.GetCityInfoTree();
