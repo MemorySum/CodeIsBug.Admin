@@ -50,14 +50,14 @@ namespace CodeIsBug.Admin.Api.Controllers
             }
             var loginResult = await _accountService.Login(dto);
 
-            if (ReferenceEquals(loginResult, null))
+            if (loginResult is null)
             {
                 return new Result { Code = 0, Message = "账号或密码错误" };
             }
 
             var userRoleMenu = await _empRoleMapService.GetUserRoleMenu(loginResult.UserId);
             var userRoleNameStr = await _empRoleMapService.GetUserRoleName(loginResult.UserId);
-            UserDataDto userInfo = new UserDataDto
+            UserDataDto userInfo = new()
             {
                 UserId = loginResult.UserId,
                 UserName = loginResult.Name,

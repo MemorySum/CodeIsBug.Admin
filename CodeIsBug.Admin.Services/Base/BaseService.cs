@@ -13,7 +13,7 @@ namespace CodeIsBug.Admin.Services.Base
             {
                 Db = new SqlSugarClient(new ConnectionConfig()
                 {
-                    DbType = DbType.MySql,
+                    DbType = DbType.SqlServer,
                     InitKeyType = InitKeyType.Attribute,
                     IsAutoCloseConnection = true,
                     ConnectionString = DBConfig.ConnectionString

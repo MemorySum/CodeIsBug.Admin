@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CodeIsBug.Admin.Models.DbContext;
 using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
+using CodeIsBug.Admin.Services.Base;
 
 namespace CodeIsBug.Admin.Services.Service
 {
     /// <summary>
     /// 角色Service
     /// </summary>
-    public class RolesService : DataContext<ESysRoles>
+    public class RolesService : BaseService<ESysRoles>
     {
         public List<ESysRoles> GetRoles()
         {

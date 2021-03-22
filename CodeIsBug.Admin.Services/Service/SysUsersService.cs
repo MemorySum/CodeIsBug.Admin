@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
-using CodeIsBug.Admin.Models.DbContext;
 using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
+using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
 
 namespace CodeIsBug.Admin.Services.Service
@@ -13,7 +13,7 @@ namespace CodeIsBug.Admin.Services.Service
     /// <summary>
     /// 用户管理Service
     /// </summary>
-    public class SysUsersService : DataContext<EBaseEmp>
+    public class SysUsersService : BaseService<EBaseEmp>
     {
         public List<EmpOutputInfo> GetUserList(string query, int pageIndex, int pageSize, ref int totalCount)
         {

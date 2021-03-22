@@ -45,7 +45,8 @@ namespace CodeIsBug.Admin.Api
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             services.Configure<EmailSmtpConfig>(Configuration.GetSection("EmailSmtpConfig"));
-            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
+            //DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
+            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
             //配置跨域请求
             services.AddCors(options =>
             {
@@ -78,14 +79,14 @@ namespace CodeIsBug.Admin.Api
                                 Reference = new OpenApiReference {
                                             Type = ReferenceType.SecurityScheme,
                                             Id = "Bearer"}
-                           },new string[] { }
+                           },Array.Empty<string>()
                         }
                     });
 
 
-                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                
                 //var basePath = AppDomain.CurrentDomain.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "CodeIsBug.Admin.Api.xml");
+                var xmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Api.xml");
                 c.IncludeXmlComments(xmlPath);
             });
             //配置JWT验证规则

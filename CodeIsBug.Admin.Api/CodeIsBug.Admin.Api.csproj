@@ -4,7 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>E:\GitRepository\CodeIsBug.Admin\CodeIsBug.Admin.Api\CodeIsBug.Admin.Api.xml</DocumentationFile>
+		<DocumentationFile>D:\GitRepository\CodeIsBug.Admin\CodeIsBug.Admin.Api\CodeIsBug.Admin.Api.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>

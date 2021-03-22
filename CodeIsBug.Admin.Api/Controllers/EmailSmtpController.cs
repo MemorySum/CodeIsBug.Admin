@@ -14,12 +14,12 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class EmailSmtpController : ControllerBase
     {
         private readonly EmailSmtpConfig _emailSmtpConfig;
-        private readonly IConfiguration _configuration;
+        
 
-        public EmailSmtpController(IOptions<EmailSmtpConfig> emailSmtpConfig, IConfiguration configuration)
+        public EmailSmtpController(IOptions<EmailSmtpConfig> emailSmtpConfig)
         {
             _emailSmtpConfig = emailSmtpConfig.Value;
-            _configuration = configuration;
+            
             
         }
 
