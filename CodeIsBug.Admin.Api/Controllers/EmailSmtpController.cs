@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
+    /// <summary>
+    /// emailSMTP配置
+    /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]

@@ -16,11 +16,21 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="T:CodeIsBug.Admin.Api.Controllers.CityInfoController">
+            <summary>
+            省市县信息
+            </summary>
+        </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.CityInfoController.GetCityInfo">
             <summary>
             获取全国省市信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Api.Controllers.EmailSmtpController">
+            <summary>
+            emailSMTP配置
+            </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.EmailSmtpController.GetConfig">
             <summary>
@@ -97,6 +107,11 @@
             左侧菜单列表返回
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController">
+            <summary>
+            角色菜单对照
+            </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController.GetMenuListByRoleId(System.Guid)">
             <summary>
@@ -192,6 +207,11 @@
             </summary>
             <param name="info"></param>
             <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Api.Controllers.VerifyCodeController">
+            <summary>
+            验证码
+            </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.VerifyCodeController.GetCode(System.String)">
             <summary>

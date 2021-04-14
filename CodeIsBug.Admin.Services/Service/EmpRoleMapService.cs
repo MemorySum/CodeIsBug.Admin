@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
 
 using CodeIsBug.Admin.Models.Models;
@@ -42,19 +43,26 @@ namespace CodeIsBug.Admin.Services.Service
                 {
                     ESysEmpRoleMap map = new ESysEmpRoleMap()
                     {
+                        Id = GuidHelper.GenerateGuid(),
                         EmpId = saveDto.UserId,
                         RoleId = item
                     };
                     mapList.Add(map);
                 }
             }
-            var result = await Db.Ado.UseTranAsync(() =>
+            try
             {
-                Db.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId))
-                   .ExecuteCommandHasChangeAsync();
-                Db.Insertable<ESysEmpRoleMap>(mapList).ExecuteCommandIdentityIntoEntityAsync();
-            });
-            return result.IsSuccess;
+                Db.Ado.BeginTran();
+                await Db.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId)).ExecuteCommandAsync();
+                await Db.Insertable<ESysEmpRoleMap>(mapList).UseSqlServer().ExecuteBlueCopyAsync();
+                Db.Ado.CommitTran();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Db.Ado.RollbackTran();
+                return false;
+            }
         }
         /// <summary>
         /// 获取用户对应角色的菜单权限

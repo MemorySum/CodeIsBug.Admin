@@ -1,12 +1,17 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.CommandLine;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
+    /// <summary>
+    /// 省市县信息
+    /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]

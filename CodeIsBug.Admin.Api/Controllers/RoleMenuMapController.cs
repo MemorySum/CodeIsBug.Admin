@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
+    /// <summary>
+    /// 角色菜单对照
+    /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]

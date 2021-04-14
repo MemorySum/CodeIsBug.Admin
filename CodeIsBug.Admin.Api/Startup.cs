@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using IGeekFan.AspNetCore.Knife4jUI;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace CodeIsBug.Admin.Api
 {
@@ -41,7 +43,7 @@ namespace CodeIsBug.Admin.Api
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
             }).AddControllersAsServices();
             //配置jwt信息 映射到内存中
-            
+
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             services.Configure<EmailSmtpConfig>(Configuration.GetSection("EmailSmtpConfig"));
@@ -62,6 +64,16 @@ namespace CodeIsBug.Admin.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeIsBug.Admin.API", Version = "v1" });
+                c.AddServer(new OpenApiServer()
+                {
+                    Url = "",
+                    Description = ""
+                });
+                c.CustomOperationIds(apiDesc =>
+                {
+                    var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
+                    return controllerAction.ControllerName + "-" + controllerAction.ActionName;
+                });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Description = "在下框中输入请求头中需要添加Jwt授权Token：Bearer Token",
@@ -84,10 +96,15 @@ namespace CodeIsBug.Admin.Api
                     });
 
 
-                
+
                 //var basePath = AppDomain.CurrentDomain.BaseDirectory;
-                var xmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Api.xml");
-                c.IncludeXmlComments(xmlPath);
+                var apiXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Api.xml");
+                var commonXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Common.xml");
+                var modelXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Models.xml");
+
+                c.IncludeXmlComments(apiXmlPath, true);
+                c.IncludeXmlComments(commonXmlPath, true);
+                c.IncludeXmlComments(modelXmlPath, true);
             });
             //配置JWT验证规则
             services.AddAuthentication(x =>
@@ -115,7 +132,6 @@ namespace CodeIsBug.Admin.Api
                 };
             });
 
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -134,16 +150,20 @@ namespace CodeIsBug.Admin.Api
             app.UseCors(codeIsBugAdminPolicy);
             app.UseAuthentication();
             app.UseAuthorization();
+         
+            app.UseKnife4UI(c =>
+            {
+                c.RoutePrefix = ""; // serve the UI at root
+                c.SwaggerEndpoint("/v1/api-docs", "V1-Docs");
+            });
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
+                       {
+                           endpoints.MapControllers();
+                           endpoints.MapSwagger("{documentName}/api-docs");
 
-            });
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CodeIsBug.Admin.API V1");
-            });
+                       });
+
+          
         }
         public void ConfigureContainer(ContainerBuilder builder)
         {

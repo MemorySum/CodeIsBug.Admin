@@ -11,6 +11,9 @@ using SqlSugar.Extensions;
 
 namespace CodeIsBug.Admin.Api.Controllers
 {
+    /// <summary>
+    /// 验证码
+    /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class VerifyCodeController : ControllerBase

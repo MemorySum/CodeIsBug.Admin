@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeIsBug.Admin.Common</name>
+    </assembly>
+    <members>
+        <member name="T:CodeIsBug.Admin.Common.Helper.GuidHelper">
+            <summary>
+            GuidHelper
+            </summary>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.GuidHelper.GenerateGuid">
+            <summary>
+            GenerateGuid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.SetValue(System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            增加/修改
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expiry"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.GetValue(System.String)">
+            <summary>
+            查询
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.DeleteKey(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Common.Helper.Result">
+            <summary>
+            统一返回结果
+            </summary>
+        </member>
+        <member name="P:CodeIsBug.Admin.Common.Helper.Result.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:CodeIsBug.Admin.Common.Helper.Result.Message">
+            <summary>
+            返回消息 
+            </summary>
+        </member>
+        <member name="P:CodeIsBug.Admin.Common.Helper.Result.Object">
+            <summary>
+            对象
+            </summary>
+        </member>
+        <member name="P:CodeIsBug.Admin.Common.Helper.Result.ExtendObject">
+            <summary>
+            扩展对象
+            </summary>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.StringHelper.Md5Hash(System.String)">
+            <summary>
+            生成MD5加密字符串
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateNumberVerifyCode(System.Int32)">
+            <summary>
+            1.数字验证码
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateAbcVerifyCode(System.Int32)">
+            <summary>
+            2.字母验证码
+            </summary>
+            <param name="length">字符长度</param>
+            <returns>验证码字符</returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateMixVerifyCode(System.Int32)">
+            <summary>
+            3.混合验证码
+            </summary>
+            <param name="length">字符长度</param>
+            <returns>验证码字符</returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateVerifyCode(CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.VerifyCodeType)">
+            <summary>
+            产生验证码（随机产生4-6位）
+            </summary>
+            <param name="type">验证码类型：数字，字符，符合</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateBitmapByImgVerifyCode(System.String,System.Int32,System.Int32)">
+            <summary>
+            验证码图片 => Bitmap
+            </summary>
+            <param name="verifyCode">验证码</param>
+            <param name="width">宽</param>
+            <param name="height">高</param>
+            <returns>Bitmap</returns>
+        </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateByteByImgVerifyCode(System.String,System.Int32,System.Int32)">
+            <summary>
+            验证码图片 => byte[]
+            </summary>
+            <param name="verifyCode">验证码</param>
+            <param name="width">宽</param>
+            <param name="height">高</param>
+            <returns>byte[]</returns>
+        </member>
+    </members>
+</doc>
