@@ -1,10 +1,9 @@
-﻿using SqlSugar;
-using System;
-
+﻿using System;
+using SqlSugar;
 namespace CodeIsBug.Admin.Models.Models
 {
     [SugarTable("e_Sys_EmpRoleMap")]
-    public partial class ESysEmpRoleMap
+    public class ESysEmpRoleMap
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, ColumnDescription = "主键Id")]
         public Guid Id { get; set; }

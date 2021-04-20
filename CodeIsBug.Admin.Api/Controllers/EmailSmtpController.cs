@@ -3,13 +3,11 @@ using CodeIsBug.Admin.Common.Config;
 using CodeIsBug.Admin.Common.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// emailSMTP配置
+    ///     emailSMTP配置
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
@@ -17,17 +15,17 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class EmailSmtpController : ControllerBase
     {
         private readonly EmailSmtpConfig _emailSmtpConfig;
-        
+
 
         public EmailSmtpController(IOptions<EmailSmtpConfig> emailSmtpConfig)
         {
             _emailSmtpConfig = emailSmtpConfig.Value;
-            
-            
+
+
         }
 
         /// <summary>
-        /// 获取emailSMTP配置
+        ///     获取emailSMTP配置
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -45,7 +43,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                         _emailSmtpConfig.SendNickname,
                         _emailSmtpConfig.SendPassword,
                         _emailSmtpConfig.SendPort,
-                        _emailSmtpConfig.SendServer,
+                        _emailSmtpConfig.SendServer
                     }
                 };
             }

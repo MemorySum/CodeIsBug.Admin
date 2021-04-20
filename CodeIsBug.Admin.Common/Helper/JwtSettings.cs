@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-
 namespace CodeIsBug.Admin.Common.Helper
 {
-	public class JwtSettings
-	{
+    public class JwtSettings
+    {
         [JsonProperty("secret")]
         public string Secret { get; set; }
 
@@ -20,5 +19,5 @@ namespace CodeIsBug.Admin.Common.Helper
         public int RefreshExpiration { get; set; }
         [JsonProperty("SecretKey")]
         public string SecretKey { get; set; }
-	}
+    }
 }

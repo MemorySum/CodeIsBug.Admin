@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace CodeIsBug.Admin.Models.Dto
+﻿namespace CodeIsBug.Admin.Models.Dto
 {
     public class LoginInputDto
     {
-		public string username { get; set; }
-		public string password { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }

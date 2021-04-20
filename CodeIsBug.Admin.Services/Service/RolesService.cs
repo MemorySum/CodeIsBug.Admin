@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
-
 namespace CodeIsBug.Admin.Services.Service
 {
     /// <summary>
-    /// 角色Service
+    ///     角色Service
     /// </summary>
     public class RolesService : BaseService<ESysRoles>
     {
@@ -32,7 +31,7 @@ namespace CodeIsBug.Admin.Services.Service
                 Remark = dto.Remark,
                 AddTime = Db.GetDate()
             };
-            return await Db.Insertable<ESysRoles>(roles).ExecuteCommandIdentityIntoEntityAsync();
+            return await Db.Insertable(roles).ExecuteCommandIdentityIntoEntityAsync();
         }
 
         public async Task<bool> IsHasChildren(Guid roleGuid)
@@ -60,7 +59,7 @@ namespace CodeIsBug.Admin.Services.Service
 
         public async Task<bool> EditRoleInfo(RoleEditInfo info)
         {
-            ESysRoles role = new ESysRoles
+            var role = new ESysRoles
             {
                 RoleId = info.RoleId,
                 ParentId = info.ParentId,
@@ -71,6 +70,5 @@ namespace CodeIsBug.Admin.Services.Service
             };
             return await Db.Updateable(role).IgnoreColumns(x => x.AddTime).ExecuteCommandHasChangeAsync();
         }
-
     }
 }

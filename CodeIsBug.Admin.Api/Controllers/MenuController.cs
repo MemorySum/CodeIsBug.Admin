@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
@@ -7,33 +6,32 @@ using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 菜单管理
+    ///     菜单管理
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class MenuController : ControllerBase
     {
-        private  MenuService menuService { get; set; }
 
         public MenuController(MenuService menuService)
         {
             this.menuService = menuService;
         }
+        private MenuService menuService { get; }
         #region 菜单列表
         /// <summary>
-        /// 菜单列表
+        ///     菜单列表
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public Result GetMenus()
         {
-            Result res = new Result();
-            int totalCount = 0;
+            var res = new Result();
+            var totalCount = 0;
             try
             {
                 var result = menuService.GetMenus();
@@ -58,14 +56,14 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 添加菜单
         /// <summary>
-        /// 添加菜单
+        ///     添加菜单
         /// </summary>
         /// <param name="inputInfo"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> AddMenu([FromBody] MenuInputInfo inputInfo)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
                 if (inputInfo == null)
@@ -75,7 +73,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    bool isSuccess = await  menuService.AddMenu(inputInfo);
+                    var isSuccess = await menuService.AddMenu(inputInfo);
                     if (isSuccess)
                     {
                         result.Code = 1;
@@ -99,16 +97,15 @@ namespace CodeIsBug.Admin.Api.Controllers
         #endregion
 
         #region 修改菜单信息
-
         /// <summary>
-        /// 修改菜单信息
+        ///     修改菜单信息
         /// </summary>
         /// <param name="inputInfo">修改参数信息</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> UpdateMenu([FromBody] MenuInputInfo inputInfo)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
                 if (inputInfo == null)
@@ -127,7 +124,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                     }
                     else
                     {
-                        bool isSuccess = await menuService.UpdateMenu(inputInfo);
+                        var isSuccess = await menuService.UpdateMenu(inputInfo);
                         if (isSuccess)
                         {
                             result.Code = 1;
@@ -149,12 +146,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
-
         #endregion
 
         #region 删除菜单
         /// <summary>
-        /// 删除菜单
+        ///     删除菜单
         /// </summary>
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
@@ -163,11 +159,8 @@ namespace CodeIsBug.Admin.Api.Controllers
         {
             try
             {
-                bool flag = await menuService.DelMenu(menuId);
-                if (flag)
-                {
-                    return new Result { Code = 1, Message = "菜单删除成功" };
-                }
+                var flag = await menuService.DelMenu(menuId);
+                if (flag) return new Result { Code = 1, Message = "菜单删除成功" };
 
                 return new Result { Code = 0, Message = "菜单删除失败" };
             }
@@ -181,13 +174,13 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 获取所有一级菜单
         /// <summary>
-        /// 获取所有一级菜单
+        ///     获取所有一级菜单
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetAllFirstLevelMenu()
         {
-            Result r = new Result();
+            var r = new Result();
             try
             {
                 var menuList = await menuService.GetAllFirstLevelMenu();
@@ -207,18 +200,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 获取单个菜单信息
         /// <summary>
-        /// 获取单个菜单信息
+        ///     获取单个菜单信息
         /// </summary>
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetMenuInfo([FromQuery] Guid menuId)
         {
-            Result r = new Result();
+            var r = new Result();
             try
             {
                 var menuInfo = await menuService.GetMenuInfo(menuId);
-                MenuInputInfo menu = new MenuInputInfo()
+                var menu = new MenuInputInfo
                 {
                     MenuId = menuInfo.MenuId,
                     ParentId = menuInfo.ParentId,
@@ -244,16 +237,16 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 左侧菜单列表返回
         /// <summary>
-        /// 左侧菜单列表返回
+        ///     左侧菜单列表返回
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetAllMenuForIndex()
         {
-            Result res = new Result();
+            var res = new Result();
             try
             {
-                List<MenuDto> menus =await menuService.BuildMenuForIndex();
+                var menus = await menuService.BuildMenuForIndex();
                 res.Code = 1;
                 res.Message = "菜单获取成功";
                 res.Object = JsonConvert.SerializeObject(menus);

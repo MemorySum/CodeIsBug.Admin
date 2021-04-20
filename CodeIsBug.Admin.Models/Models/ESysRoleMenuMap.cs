@@ -1,8 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Security.AccessControl;
 using SqlSugar;
-
 namespace CodeIsBug.Admin.Models.Models
 {
     [SugarTable("E_Sys_RoleMenuMap")]

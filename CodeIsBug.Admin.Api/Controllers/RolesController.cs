@@ -5,29 +5,20 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 角色管理
+    ///     角色管理
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RolesController : ControllerBase
     {
-        #region 构造函数注入
-        private RolesService RolesService { get; }
-
-        public RolesController(RolesService rolesService)
-        {
-            RolesService = rolesService;
-        }
-        #endregion
 
         #region 加载角色树
         /// <summary>
-        /// 加载角色树
+        ///     加载角色树
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -52,7 +43,7 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 添加角色
         /// <summary>
-        /// 添加角色
+        ///     添加角色
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
@@ -63,7 +54,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-                bool isSuccess = await RolesService.AddRole(dto);
+                var isSuccess = await RolesService.AddRole(dto);
                 result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "角色添加成功" : "角色添加失败";
             }
@@ -79,18 +70,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 删除角色
         /// <summary>
-        /// 删除角色
+        ///     删除角色
         /// </summary>
         /// <param name="roleGuid">角色guid</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> DelRole([FromQuery] Guid roleGuid)
         {
-            if (roleGuid.Equals(g: Guid.Empty)) { throw new ArgumentNullException(nameof(roleGuid)); }
-            Result result = new Result();
+            if (roleGuid.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(roleGuid));
+            var result = new Result();
             try
             {
-                bool isHasChildren = await RolesService.IsHasChildren(roleGuid);
+                var isHasChildren = await RolesService.IsHasChildren(roleGuid);
                 if (isHasChildren)
                 {
                     result.Code = 0;
@@ -98,7 +89,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    bool isSuccess = await RolesService.DelRole(roleGuid);
+                    var isSuccess = await RolesService.DelRole(roleGuid);
                     result.Code = isSuccess ? 1 : 0;
                     result.Message = isSuccess ? "角色删除成功" : "角色删除失败";
                 }
@@ -111,20 +102,19 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
-
         #endregion
 
         #region 获取单个角色信息
         /// <summary>
-        /// 获取单个角色信息
+        ///     获取单个角色信息
         /// </summary>
         /// <param name="roleGuid">角色guid</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetRoleInfo([FromQuery] Guid roleGuid)
         {
-            if (roleGuid.Equals(g: Guid.Empty)) { throw new ArgumentNullException(nameof(roleGuid)); }
-            Result r = new Result();
+            if (roleGuid.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(roleGuid));
+            var r = new Result();
             try
             {
                 var info = await RolesService.GetRoleInfo(roleGuid);
@@ -152,18 +142,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 更新角色信息
         /// <summary>
-        /// 更新角色信息
+        ///     更新角色信息
         /// </summary>
         /// <param name="info">角色信息dto</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> EditRoleInfo([FromBody] RoleEditInfo info)
         {
-            if (ReferenceEquals(info, null)) { throw new ArgumentNullException(nameof(info)); }
-            Result result = new Result();
+            if (ReferenceEquals(info, null)) throw new ArgumentNullException(nameof(info));
+            var result = new Result();
             try
             {
-                bool isSuccess = await RolesService.EditRoleInfo(info);
+                var isSuccess = await RolesService.EditRoleInfo(info);
                 result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "角色修改成功" : "角色修改失败";
             }
@@ -174,6 +164,14 @@ namespace CodeIsBug.Admin.Api.Controllers
             }
 
             return result;
+        }
+        #endregion
+        #region 构造函数注入
+        private RolesService RolesService { get; }
+
+        public RolesController(RolesService rolesService)
+        {
+            RolesService = rolesService;
         }
         #endregion
     }

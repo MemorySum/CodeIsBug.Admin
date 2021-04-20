@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
-
 namespace CodeIsBug.Admin.Services.Service
 {
     public class CityInfoService : BaseService<EBaseCityInfo>
@@ -14,6 +13,5 @@ namespace CodeIsBug.Admin.Services.Service
                 .ToTreeAsync(sys => sys.Children,
                     sys => sys.ParentId, 0);
         }
-
     }
 }

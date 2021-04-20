@@ -1,31 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CodeIsBug.Admin.Common.Helper
 {
     /// <summary>
-    /// GuidHelper
+    ///     GuidHelper
     /// </summary>
     public class GuidHelper
     {
         /// <summary>
-        /// GenerateGuid
+        ///     GenerateGuid
         /// </summary>
         /// <returns></returns>
         public static Guid GenerateGuid()
         {
-            byte[] guidArray = Guid.NewGuid().ToByteArray();
+            var guidArray = Guid.NewGuid().ToByteArray();
 
             var baseDate = new DateTime(1900, 1, 1);
-            DateTime now = DateTime.Now;
+            var now = DateTime.Now;
             var days = new TimeSpan(now.Ticks - baseDate.Ticks);
-            TimeSpan msecs = now.TimeOfDay;
+            var msecs = now.TimeOfDay;
 
-            byte[] daysArray = BitConverter.GetBytes(days.Days);
-            byte[] msecsArray = BitConverter.GetBytes((long)(msecs.TotalMilliseconds / 3.333333));
+            var daysArray = BitConverter.GetBytes(days.Days);
+            var msecsArray = BitConverter.GetBytes((long)(msecs.TotalMilliseconds / 3.333333));
 
             Array.Reverse(daysArray);
             Array.Reverse(msecsArray);

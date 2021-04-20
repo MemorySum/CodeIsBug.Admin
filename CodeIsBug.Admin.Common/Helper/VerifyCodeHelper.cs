@@ -9,122 +9,136 @@ namespace CodeIsBug.Admin.Common.Helper
     {
         #region 单例模式
         //创建私有化静态obj锁 
-        private static readonly object ObjLock = new object();
+        private static readonly object ObjLock = new();
         //创建私有静态字段，接收类的实例化对象 
         private static VerifyCodeHelper _verifyCodeHelper;
         //构造函数私有化 
         private VerifyCodeHelper() { }
         //创建单利对象资源并返回 
+        /// <summary>
+        ///     创建单利对象资源并返回
+        /// </summary>
+        /// <returns></returns>
         public static VerifyCodeHelper GetSingleObj()
         {
             if (_verifyCodeHelper == null)
-            {
                 lock (ObjLock)
                 {
                     if (_verifyCodeHelper == null)
                         _verifyCodeHelper = new VerifyCodeHelper();
                 }
-            }
             return _verifyCodeHelper;
         }
         #endregion
 
         #region 生产验证码
-        public enum VerifyCodeType { NumberVerifyCode, AbcVerifyCode, MixVerifyCode };
+        /// <summary>
+        ///     验证码类型
+        /// </summary>
+        public enum VerifyCodeType
+        {
+            /// <summary>
+            ///     数字验证码
+            /// </summary>
+            NumberVerifyCode,
+            /// <summary>
+            ///     字母验证码
+            /// </summary>
+            AbcVerifyCode,
+            /// <summary>
+            ///     混合验证码
+            /// </summary>
+            MixVerifyCode
+        }
 
         /// <summary>
-        /// 1.数字验证码
+        ///     1.数字验证码
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
         private string CreateNumberVerifyCode(int length)
         {
-            int[] randMembers = new int[length];
-            int[] validateNums = new int[length];
-            string validateNumberStr = "";
+            var randMembers = new int[length];
+            var validateNums = new int[length];
+            var validateNumberStr = "";
             //生成起始序列值 
-            int seekSeek = unchecked((int)DateTime.Now.Ticks);
-            Random seekRand = new Random(seekSeek);
-            int beginSeek = seekRand.Next(0, Int32.MaxValue - length * 10000);
-            int[] seeks = new int[length];
-            for (int i = 0; i < length; i++)
+            var seekSeek = unchecked((int)DateTime.Now.Ticks);
+            var seekRand = new Random(seekSeek);
+            var beginSeek = seekRand.Next(0, int.MaxValue - length * 10000);
+            var seeks = new int[length];
+            for (var i = 0; i < length; i++)
             {
                 beginSeek += 10000;
                 seeks[i] = beginSeek;
             }
             //生成随机数字 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
-                Random rand = new Random(seeks[i]);
-                int pownum = 1 * (int)Math.Pow(10, length);
-                randMembers[i] = rand.Next(pownum, Int32.MaxValue);
+                var rand = new Random(seeks[i]);
+                var pownum = 1 * (int)Math.Pow(10, length);
+                randMembers[i] = rand.Next(pownum, int.MaxValue);
             }
             //抽取随机数字 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
-                string numStr = randMembers[i].ToString();
-                int numLength = numStr.Length;
-                Random rand = new Random();
-                int numPosition = rand.Next(0, numLength - 1);
-                validateNums[i] = Int32.Parse(numStr.Substring(numPosition, 1));
+                var numStr = randMembers[i].ToString();
+                var numLength = numStr.Length;
+                var rand = new Random();
+                var numPosition = rand.Next(0, numLength - 1);
+                validateNums[i] = int.Parse(numStr.Substring(numPosition, 1));
             }
             //生成验证码 
-            for (int i = 0; i < length; i++)
-            {
-                validateNumberStr += validateNums[i].ToString();
-            }
+            for (var i = 0; i < length; i++) validateNumberStr += validateNums[i].ToString();
             return validateNumberStr;
         }
 
         /// <summary>
-        /// 2.字母验证码
+        ///     2.字母验证码
         /// </summary>
         /// <param name="length">字符长度</param>
         /// <returns>验证码字符</returns>
         private string CreateAbcVerifyCode(int length)
         {
-            char[] verification = new char[length];
-            char[] dictionary = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-   };
-            Random random = new Random();
-            for (int i = 0; i < length; i++)
+            var verification = new char[length];
+            char[] dictionary =
             {
-                verification[i] = dictionary[random.Next(dictionary.Length - 1)];
-            }
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+            };
+            var random = new Random();
+            for (var i = 0; i < length; i++) verification[i] = dictionary[random.Next(dictionary.Length - 1)];
             return new string(verification);
         }
 
         /// <summary>
-        /// 3.混合验证码
+        ///     3.混合验证码
         /// </summary>
         /// <param name="length">字符长度</param>
         /// <returns>验证码字符</returns>
         private string CreateMixVerifyCode(int length)
         {
-            char[] verification = new char[length];
-            char[] dictionary = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-   };
-            Random random = new Random();
-            for (int i = 0; i < length; i++)
+            var verification = new char[length];
+            char[] dictionary =
             {
-                verification[i] = dictionary[random.Next(dictionary.Length - 1)];
-            }
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+            };
+            var random = new Random();
+            for (var i = 0; i < length; i++) verification[i] = dictionary[random.Next(dictionary.Length - 1)];
             return new string(verification);
         }
 
         /// <summary>
-        /// 产生验证码（随机产生4-6位）
+        ///     产生验证码（随机产生4-6位）
         /// </summary>
         /// <param name="type">验证码类型：数字，字符，符合</param>
         /// <returns></returns>
         public string CreateVerifyCode(VerifyCodeType type)
         {
-            string verifyCode = string.Empty;
-            Random random = new Random();
-            int length = random.Next(4, 6);
+            var verifyCode = string.Empty;
+            var random = new Random();
+            var length = random.Next(4, 6);
             switch (type)
             {
                 case VerifyCodeType.NumberVerifyCode:
@@ -143,7 +157,7 @@ namespace CodeIsBug.Admin.Common.Helper
 
         #region 验证码图片
         /// <summary>
-        /// 验证码图片 => Bitmap
+        ///     验证码图片 => Bitmap
         /// </summary>
         /// <param name="verifyCode">验证码</param>
         /// <param name="width">宽</param>
@@ -151,14 +165,14 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <returns>Bitmap</returns>
         public Bitmap CreateBitmapByImgVerifyCode(string verifyCode, int width, int height)
         {
-            Font font = new Font("Arial", 14, (FontStyle.Bold | FontStyle.Italic));
+            var font = new Font("Arial", 14, FontStyle.Bold | FontStyle.Italic);
             Brush brush;
-            Bitmap bitmap = new Bitmap(width, height);
-            Graphics g = Graphics.FromImage(bitmap);
-            SizeF totalSizeF = g.MeasureString(verifyCode, font);
+            var bitmap = new Bitmap(width, height);
+            var g = Graphics.FromImage(bitmap);
+            var totalSizeF = g.MeasureString(verifyCode, font);
             SizeF curCharSizeF;
-            PointF startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
-            Random random = new Random(); //随机数产生器
+            var startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
+            var random = new Random(); //随机数产生器
             g.Clear(Color.White); //清空图片背景色 
             foreach (var t in verifyCode)
             {
@@ -171,18 +185,18 @@ namespace CodeIsBug.Admin.Common.Helper
             //画图片的干扰线 
             for (var i = 0; i < 10; i++)
             {
-                int x1 = random.Next(bitmap.Width);
-                int x2 = random.Next(bitmap.Width);
-                int y1 = random.Next(bitmap.Height);
-                int y2 = random.Next(bitmap.Height);
+                var x1 = random.Next(bitmap.Width);
+                var x2 = random.Next(bitmap.Width);
+                var y1 = random.Next(bitmap.Height);
+                var y2 = random.Next(bitmap.Height);
                 g.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
             }
 
             //画图片的前景干扰点 
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
-                int x = random.Next(bitmap.Width);
-                int y = random.Next(bitmap.Height);
+                var x = random.Next(bitmap.Width);
+                var y = random.Next(bitmap.Height);
                 bitmap.SetPixel(x, y, Color.FromArgb(random.Next()));
             }
 
@@ -192,7 +206,7 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 验证码图片 => byte[]
+        ///     验证码图片 => byte[]
         /// </summary>
         /// <param name="verifyCode">验证码</param>
         /// <param name="width">宽</param>
@@ -200,16 +214,16 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <returns>byte[]</returns>
         public byte[] CreateByteByImgVerifyCode(string verifyCode, int width, int height)
         {
-            Font font = new Font("Arial", 14, (FontStyle.Bold | FontStyle.Italic));
+            var font = new Font("Arial", 14, FontStyle.Bold | FontStyle.Italic);
             Brush brush;
-            Bitmap bitmap = new Bitmap(width, height);
-            Graphics g = Graphics.FromImage(bitmap);
-            SizeF totalSizeF = g.MeasureString(verifyCode, font);
+            var bitmap = new Bitmap(width, height);
+            var g = Graphics.FromImage(bitmap);
+            var totalSizeF = g.MeasureString(verifyCode, font);
             SizeF curCharSizeF;
-            PointF startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
-            Random random = new Random(); //随机数产生器
+            var startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
+            var random = new Random(); //随机数产生器
             g.Clear(Color.White); //清空图片背景色 
-            for (int i = 0; i < verifyCode.Length; i++)
+            for (var i = 0; i < verifyCode.Length; i++)
             {
                 brush = new LinearGradientBrush(new Point(0, 0), new Point(1, 1), Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)), Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
                 g.DrawString(verifyCode[i].ToString(), font, brush, startPointF);
@@ -218,20 +232,20 @@ namespace CodeIsBug.Admin.Common.Helper
             }
 
             //画图片的干扰线 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
-                int x1 = random.Next(bitmap.Width);
-                int x2 = random.Next(bitmap.Width);
-                int y1 = random.Next(bitmap.Height);
-                int y2 = random.Next(bitmap.Height);
+                var x1 = random.Next(bitmap.Width);
+                var x2 = random.Next(bitmap.Width);
+                var y1 = random.Next(bitmap.Height);
+                var y2 = random.Next(bitmap.Height);
                 g.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
             }
 
             //画图片的前景干扰点 
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
-                int x = random.Next(bitmap.Width);
-                int y = random.Next(bitmap.Height);
+                var x = random.Next(bitmap.Width);
+                var y = random.Next(bitmap.Height);
                 bitmap.SetPixel(x, y, Color.FromArgb(random.Next()));
             }
 
@@ -239,13 +253,12 @@ namespace CodeIsBug.Admin.Common.Helper
             g.Dispose();
 
             //保存图片数据 
-            MemoryStream stream = new MemoryStream();
+            var stream = new MemoryStream();
             bitmap.Save(stream, ImageFormat.Jpeg);
             //输出图片流 
             return stream.ToArray();
 
         }
         #endregion
-
     }
 }

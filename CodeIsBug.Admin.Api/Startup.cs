@@ -5,9 +5,11 @@ using Autofac;
 using CodeIsBug.Admin.Api.Extensions;
 using CodeIsBug.Admin.Common.Config;
 using CodeIsBug.Admin.Common.Helper;
+using IGeekFan.AspNetCore.Knife4jUI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,19 +19,16 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using IGeekFan.AspNetCore.Knife4jUI;
-using Microsoft.AspNetCore.Mvc.Controllers;
-
 namespace CodeIsBug.Admin.Api
 {
     public class Startup
     {
-        private IConfiguration Configuration { get; }
-        readonly string codeIsBugAdminPolicy = "CodeIsBug.Admin.Policy";
+        private readonly string codeIsBugAdminPolicy = "CodeIsBug.Admin.Policy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -40,7 +39,8 @@ namespace CodeIsBug.Admin.Api
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
 
                 // Configure a custom converter
-                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+                options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
+                    { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
             }).AddControllersAsServices();
             //配置jwt信息 映射到内存中
 
@@ -52,7 +52,7 @@ namespace CodeIsBug.Admin.Api
             //配置跨域请求
             services.AddCors(options =>
             {
-                options.AddPolicy(name: codeIsBugAdminPolicy,
+                options.AddPolicy(codeIsBugAdminPolicy,
                     builder =>
                     {
                         builder.AllowAnyOrigin().WithMethods("GET", "POST", "HEAD", "PUT", "DELETE", "OPTIONS");
@@ -64,7 +64,7 @@ namespace CodeIsBug.Admin.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeIsBug.Admin.API", Version = "v1" });
-                c.AddServer(new OpenApiServer()
+                c.AddServer(new OpenApiServer
                 {
                     Url = "",
                     Description = ""
@@ -74,7 +74,7 @@ namespace CodeIsBug.Admin.Api
                     var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
                     return controllerAction.ControllerName + "-" + controllerAction.ActionName;
                 });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "在下框中输入请求头中需要添加Jwt授权Token：Bearer Token",
                     Name = "Authorization",
@@ -85,15 +85,19 @@ namespace CodeIsBug.Admin.Api
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
                     {
+                        new OpenApiSecurityScheme
                         {
-                            new OpenApiSecurityScheme{
-                                Reference = new OpenApiReference {
-                                            Type = ReferenceType.SecurityScheme,
-                                            Id = "Bearer"}
-                           },Array.Empty<string>()
-                        }
-                    });
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
 
 
 
@@ -137,12 +141,7 @@ namespace CodeIsBug.Admin.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-
-            }
-
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
             loggerFactory.AddLog4Net("Config/log4net.config");
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -150,25 +149,21 @@ namespace CodeIsBug.Admin.Api
             app.UseCors(codeIsBugAdminPolicy);
             app.UseAuthentication();
             app.UseAuthorization();
-         
             app.UseKnife4UI(c =>
             {
                 c.RoutePrefix = ""; // serve the UI at root
                 c.SwaggerEndpoint("/v1/api-docs", "V1-Docs");
             });
             app.UseEndpoints(endpoints =>
-                       {
-                           endpoints.MapControllers();
-                           endpoints.MapSwagger("{documentName}/api-docs");
+            {
+                endpoints.MapControllers();
+                endpoints.MapSwagger("{documentName}/api-docs");
 
-                       });
-
-          
+            });
         }
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new AutofacModuleRegister());
         }
-
     }
 }

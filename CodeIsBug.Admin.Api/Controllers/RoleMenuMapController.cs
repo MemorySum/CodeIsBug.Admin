@@ -1,42 +1,31 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 角色菜单对照
+    ///     角色菜单对照
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoleMenuMapController : ControllerBase
     {
-        #region 构造函数
-        private readonly RoleMenuMapService _roleMenuMapService;
-
-        public RoleMenuMapController(RoleMenuMapService roleMenuMapService)
-        {
-            _roleMenuMapService = roleMenuMapService;
-        }
-
-        #endregion
 
         #region 根据选择的角色id加载选中菜单树
         /// <summary>
-        /// 根据选择的角色id加载选中菜单树
+        ///     根据选择的角色id加载选中菜单树
         /// </summary>
         /// <param name="roleGuid"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetMenuListByRoleId([FromQuery] Guid roleGuid)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
                 var list = await _roleMenuMapService.GetMenuListByRoleId(roleGuid);
@@ -55,7 +44,7 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 保存角色菜单权限
         /// <summary>
-        /// 保存角色菜单权限
+        ///     保存角色菜单权限
         /// </summary>
         /// <param name="saveDto"></param>
         /// <returns></returns>
@@ -66,7 +55,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-                bool isSuccess = await _roleMenuMapService.SaveRoleMenuInfo(saveDto);
+                var isSuccess = await _roleMenuMapService.SaveRoleMenuInfo(saveDto);
                 result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "菜单权限添加成功" : "菜单权限添加失败";
             }
@@ -79,6 +68,14 @@ namespace CodeIsBug.Admin.Api.Controllers
             return result;
 
 
+        }
+        #endregion
+        #region 构造函数
+        private readonly RoleMenuMapService _roleMenuMapService;
+
+        public RoleMenuMapController(RoleMenuMapService roleMenuMapService)
+        {
+            _roleMenuMapService = roleMenuMapService;
         }
         #endregion
     }

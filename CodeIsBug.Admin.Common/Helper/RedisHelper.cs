@@ -1,25 +1,22 @@
-﻿using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
-
+using StackExchange.Redis;
 namespace CodeIsBug.Admin.Common.Helper
 {
     public class RedisHelper
     {
-
-        private ConnectionMultiplexer Redis { get; set; }
-        private IDatabase Db { get; set; }
         public RedisHelper(string connection)
         {
             Redis = ConnectionMultiplexer.Connect(connection);
             Db = Redis.GetDatabase();
         }
 
-       
+        private ConnectionMultiplexer Redis { get; }
+        private IDatabase Db { get; }
+
+
         /// <summary>
-        /// 增加/修改
+        ///     增加/修改
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -27,15 +24,27 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <returns></returns>
         public bool SetValue(string key, string value, TimeSpan? expiry = null)
         {
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
             return Db.StringSet(key, value, expiry);
         }
+        /// <summary>
+        ///     存储-异步
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
+        /// <param name="expiry">有效时间</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">参数为空异常</exception>
         public async Task<bool> SetValueAsync(string key, string value, TimeSpan? expiry = null)
         {
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
             return await Db.StringSetAsync(key, value, expiry);
         }
 
         /// <summary>
-        /// 查询
+        ///     查询
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -55,7 +64,7 @@ namespace CodeIsBug.Admin.Common.Helper
             }
         }
         /// <summary>
-        /// 删除
+        ///     删除
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>

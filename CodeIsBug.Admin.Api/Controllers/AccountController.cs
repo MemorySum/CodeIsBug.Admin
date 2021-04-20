@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
@@ -7,20 +6,19 @@ using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 登录授权
+    ///     登录授权
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly JwtSettings _jwtSettings;
         private readonly AccountService _accountService;
         private readonly EmpRoleMapService _empRoleMapService;
+        private readonly JwtSettings _jwtSettings;
         public AccountController(IOptions<JwtSettings> jwtSettings, AccountService accountService, EmpRoleMapService empRoleMapService)
         {
             _jwtSettings = jwtSettings.Value;
@@ -29,7 +27,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         }
 
         /// <summary>
-        /// 登录接口
+        ///     登录接口
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
@@ -37,24 +35,12 @@ namespace CodeIsBug.Admin.Api.Controllers
         [AllowAnonymous]
         public async Task<Result> Login([FromBody] LoginInputDto dto)
         {
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
-            }
-            if (string.IsNullOrEmpty(dto.username))
-            {
-                return new Result { Code = 0, Message = "账号必填" };
-            }
-            if (string.IsNullOrWhiteSpace(dto.password))
-            {
-                return new Result { Code = 0, Message = "密码必填" };
-            }
+            if (dto == null) throw new ArgumentNullException(nameof(dto));
+            if (string.IsNullOrEmpty(dto.username)) return new Result { Code = 0, Message = "账号必填" };
+            if (string.IsNullOrWhiteSpace(dto.password)) return new Result { Code = 0, Message = "密码必填" };
             var loginResult = await _accountService.Login(dto);
 
-            if (loginResult is null)
-            {
-                return new Result { Code = 0, Message = "账号或密码错误" };
-            }
+            if (loginResult is null) return new Result { Code = 0, Message = "账号或密码错误" };
 
             var userRoleMenu = await _empRoleMapService.GetUserRoleMenu(loginResult.UserId);
             var userRoleNameStr = await _empRoleMapService.GetUserRoleName(loginResult.UserId);

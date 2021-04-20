@@ -7,7 +7,6 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
-
 namespace CodeIsBug.Admin.Services.Service
 {
     public class RoleMenuMapService : BaseService<ESysRoleMenuMap>
@@ -18,28 +17,26 @@ namespace CodeIsBug.Admin.Services.Service
         {
 
             return await Db.Queryable<ESysRoleMenuMap, ESysMenu, ESysRoles>((map, menu, role) =>
-                     new JoinQueryInfos(JoinType.Left, map.MenuId.Equals(menu.MenuId),
-                             JoinType.Left, map.RoleId.Equals(role.RoleId)))
+                    new JoinQueryInfos(JoinType.Left, map.MenuId.Equals(menu.MenuId),
+                        JoinType.Left, map.RoleId.Equals(role.RoleId)))
                 .Where(map => map.RoleId.Equals(roleGuid))
                 .Select((map, menu, role) => menu.MenuId).ToListAsync();
         }
 
         public async Task<bool> SaveRoleMenuInfo(RoleMenuMapSaveDto saveDto)
         {
-            List<ESysRoleMenuMap> mapList = new List<ESysRoleMenuMap>();
+            var mapList = new List<ESysRoleMenuMap>();
             if (saveDto.SelectMenuIds.Any())
-            {
                 foreach (var item in saveDto.SelectMenuIds)
                 {
-                    ESysRoleMenuMap map = new ESysRoleMenuMap()
+                    var map = new ESysRoleMenuMap
                     {
                         MapId = GuidHelper.GenerateGuid(),
                         MenuId = item,
-                        RoleId = saveDto.RoleId,
+                        RoleId = saveDto.RoleId
                     };
                     mapList.Add(map);
                 }
-            }
 
             try
             {
@@ -55,7 +52,5 @@ namespace CodeIsBug.Admin.Services.Service
                 return false;
             }
         }
-
-
     }
 }

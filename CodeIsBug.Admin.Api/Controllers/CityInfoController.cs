@@ -1,32 +1,21 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGeneration.CommandLine;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 省市县信息
+    ///     省市县信息
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class CityInfoController : ControllerBase
     {
-        #region 构造函数注入
-        private readonly CityInfoService _cityInfoService;
-
-        public CityInfoController(CityInfoService cityInfoService)
-        {
-            _cityInfoService = cityInfoService;
-        }
-        #endregion
         /// <summary>
-        /// 获取全国省市信息
+        ///     获取全国省市信息
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -49,5 +38,13 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return res;
         }
+        #region 构造函数注入
+        private readonly CityInfoService _cityInfoService;
+
+        public CityInfoController(CityInfoService cityInfoService)
+        {
+            _cityInfoService = cityInfoService;
+        }
+        #endregion
     }
 }

@@ -2,24 +2,21 @@
 using System.Linq;
 using CodeIsBug.Admin.Common.Config;
 using SqlSugar;
-
 namespace CodeIsBug.Admin.Services.Base
 {
-    public class BaseService<T> :  SimpleClient<T> where T : class, new()
+    public class BaseService<T> : SimpleClient<T> where T : class, new()
     {
-        public BaseService(ISqlSugarClient context = null) : base(context)//注意这里要有默认值等于null
+        public SqlSugarClient Db;
+        public BaseService(ISqlSugarClient context = null) : base(context) //注意这里要有默认值等于null
         {
             if (context == null)
-            {
-                Db = new SqlSugarClient(new ConnectionConfig()
+                Db = new SqlSugarClient(new ConnectionConfig
                 {
                     DbType = DbType.SqlServer,
                     InitKeyType = InitKeyType.Attribute,
                     IsAutoCloseConnection = true,
                     ConnectionString = DBConfig.ConnectionString
                 });
-               
-            }
             //调式代码 用来打印SQL 
             Db.Aop.OnLogExecuting = (sql, pars) =>
             {
@@ -28,6 +25,5 @@ namespace CodeIsBug.Admin.Services.Base
             };
 
         }
-        public SqlSugarClient Db;
     }
 }

@@ -3,40 +3,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
-
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 用户角色对照
+    ///     用户角色对照
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class EmpRoleMapController : ControllerBase
     {
-        #region 构造函数注入service
-        private readonly EmpRoleMapService _empRoleMapService;
-
-        public EmpRoleMapController(EmpRoleMapService empRoleMapService)
-        {
-            _empRoleMapService = empRoleMapService;
-        }
-        #endregion
 
         #region 根据列表选择的用户guid加载对应的角色guid
         /// <summary>
-        /// 根据列表选择的用户guid加载对应的角色guid
+        ///     根据列表选择的用户guid加载对应的角色guid
         /// </summary>
         /// <param name="userGuid"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetUserRolesByUserId([FromQuery] Guid userGuid)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
                 var list = await _empRoleMapService.GetUserRolesByUserId(userGuid);
@@ -63,7 +53,7 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 保存用户角色
         /// <summary>
-        /// 保存用户角色
+        ///     保存用户角色
         /// </summary>
         /// <param name="saveDto"></param>
         /// <returns></returns>
@@ -74,7 +64,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-                bool isSuccess = await _empRoleMapService.SaveRoleId(saveDto);
+                var isSuccess = await _empRoleMapService.SaveRoleId(saveDto);
                 result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "角色添加成功" : "角色添加失败";
             }
@@ -87,6 +77,14 @@ namespace CodeIsBug.Admin.Api.Controllers
             return result;
 
 
+        }
+        #endregion
+        #region 构造函数注入service
+        private readonly EmpRoleMapService _empRoleMapService;
+
+        public EmpRoleMapController(EmpRoleMapService empRoleMapService)
+        {
+            _empRoleMapService = empRoleMapService;
         }
         #endregion
     }

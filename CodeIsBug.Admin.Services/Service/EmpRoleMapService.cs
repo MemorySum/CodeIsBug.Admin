@@ -4,20 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
-
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
-
 namespace CodeIsBug.Admin.Services.Service
 {
     /// <summary>
-    /// 用户角色对照service
+    ///     用户角色对照service
     /// </summary>
     public class EmpRoleMapService : BaseService<ESysEmpRoleMap>
     {
         /// <summary>
-        /// 根据列表选择的用户guid加载对应的角色guid
+        ///     根据列表选择的用户guid加载对应的角色guid
         /// </summary>
         /// <param name="userGuid"></param>
         /// <returns></returns>
@@ -27,21 +25,20 @@ namespace CodeIsBug.Admin.Services.Service
                     new JoinQueryInfos(JoinType.Left, map.EmpId.Equals(emp.UserId)))
                 .Where(map => map.EmpId.Equals(userGuid))
                 .Select((map, emp) => map.RoleId.Value).ToListAsync();
-
         }
+
         /// <summary>
-        /// 保存用户角色
+        ///     保存用户角色
         /// </summary>
         /// <param name="saveDto"></param>
         /// <returns></returns>
         public async Task<bool> SaveRoleId(EmpRoleMapSaveDto saveDto)
         {
-            List<ESysEmpRoleMap> mapList = new List<ESysEmpRoleMap>();
+            var mapList = new List<ESysEmpRoleMap>();
             if (saveDto.SelectRoleIds.Any())
-            {
                 foreach (var item in saveDto.SelectRoleIds)
                 {
-                    ESysEmpRoleMap map = new ESysEmpRoleMap()
+                    var map = new ESysEmpRoleMap
                     {
                         Id = GuidHelper.GenerateGuid(),
                         EmpId = saveDto.UserId,
@@ -49,12 +46,12 @@ namespace CodeIsBug.Admin.Services.Service
                     };
                     mapList.Add(map);
                 }
-            }
+
             try
             {
                 Db.Ado.BeginTran();
                 await Db.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId)).ExecuteCommandAsync();
-                await Db.Insertable<ESysEmpRoleMap>(mapList).UseSqlServer().ExecuteBlueCopyAsync();
+                await Db.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
                 Db.Ado.CommitTran();
                 return true;
             }
@@ -64,8 +61,9 @@ namespace CodeIsBug.Admin.Services.Service
                 return false;
             }
         }
+
         /// <summary>
-        /// 获取用户对应角色的菜单权限
+        ///     获取用户对应角色的菜单权限
         /// </summary>
         /// <param name="userGuid"></param>
         /// <returns></returns>
@@ -73,10 +71,10 @@ namespace CodeIsBug.Admin.Services.Service
         {
             return await Db.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles, ESysRoleMenuMap, ESysMenu>(
                     (emp, emprolemap, role, rolemenumap, menu) => new JoinQueryInfos(
-                                    JoinType.Left, emp.UserId.Equals(emprolemap.EmpId),
-                            JoinType.Left, emprolemap.RoleId.Equals(role.RoleId),
-                            JoinType.Left, role.RoleId.Equals(rolemenumap.RoleId),
-                            JoinType.Left, rolemenumap.MenuId.Equals(menu.MenuId)))
+                        JoinType.Left, emp.UserId.Equals(emprolemap.EmpId),
+                        JoinType.Left, emprolemap.RoleId.Equals(role.RoleId),
+                        JoinType.Left, role.RoleId.Equals(rolemenumap.RoleId),
+                        JoinType.Left, rolemenumap.MenuId.Equals(menu.MenuId)))
                 .Where((emp, emprolemap, role, rolemenumap, menu) => emp.UserId.Equals(userGuid))
                 .OrderBy((emp, emprolemap, role, rolemenumap, menu) => menu.Sort)
                 .Select((emp, emprolemap, role, rolemenumap, menu) => menu)
@@ -95,6 +93,4 @@ namespace CodeIsBug.Admin.Services.Service
             return string.Join(',', roleNameList);
         }
     }
-
-
 }

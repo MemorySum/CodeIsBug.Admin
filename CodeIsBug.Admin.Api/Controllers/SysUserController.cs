@@ -5,11 +5,10 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 用户管理
+    ///     用户管理
     /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
@@ -20,12 +19,12 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         public SysUserController(SysUsersService sysUsersService)
         {
-            this._sysUsersService = sysUsersService;
+            _sysUsersService = sysUsersService;
         }
 
         #region 获取用户列表
         /// <summary>
-        /// 获取用户列表
+        ///     获取用户列表
         /// </summary>
         /// <param name="query"></param>
         /// <param name="pageIndex"></param>
@@ -34,9 +33,9 @@ namespace CodeIsBug.Admin.Api.Controllers
         [HttpGet]
         public Result GetUserList(string query, int pageIndex, int pageSize)
         {
-            Result res = new Result();
-   
-            int totalCount = 0;
+            var res = new Result();
+
+            var totalCount = 0;
             try
             {
                 var result = _sysUsersService.GetUserList(query, pageIndex, pageSize, ref totalCount);
@@ -61,14 +60,14 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 添加用户
         /// <summary>
-        /// 添加用户
+        ///     添加用户
         /// </summary>
         /// <param name="inputInfo">用户实体</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> AddUser([FromBody] UserAddInfo inputInfo)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
                 if (ReferenceEquals(null, inputInfo))
@@ -78,8 +77,8 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    
-                    bool flag = await _sysUsersService.AddUser(inputInfo);
+
+                    var flag = await _sysUsersService.AddUser(inputInfo);
                     if (flag)
                     {
                         result.Code = 1;
@@ -104,18 +103,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 删除用户
         /// <summary>
-        /// 删除用户
+        ///     删除用户
         /// </summary>
         /// <param name="UserId">用户Id</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> DelUser([FromQuery] Guid UserId)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
-                
-                bool flag = await _sysUsersService.DelUser(UserId);
+
+                var flag = await _sysUsersService.DelUser(UserId);
                 if (flag)
                 {
                     result.Code = 1;
@@ -140,18 +139,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 获取用户信息
         /// <summary>
-        /// 获取用户信息
+        ///     获取用户信息
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetUserInfo([FromQuery] Guid UserId)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
-               
-                UserEditInfo info = await _sysUsersService.GetUserInfo(UserId);
+
+                var info = await _sysUsersService.GetUserInfo(UserId);
                 if (ReferenceEquals(null, info))
                 {
                     result.Code = 0;
@@ -175,14 +174,14 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 修改用户信息
         /// <summary>
-        /// 修改用户信息
+        ///     修改用户信息
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> UpdateUserInfo([FromBody] UserEditInfo info)
         {
-            Result result = new Result();
+            var result = new Result();
             try
             {
                 if (ReferenceEquals(null, info))
@@ -192,7 +191,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    bool isSuccess = await _sysUsersService.UpdateUserInfo(info);
+                    var isSuccess = await _sysUsersService.UpdateUserInfo(info);
                     result.Code = isSuccess ? 1 : 0;
                     result.Message = isSuccess ? "用户更新成功" : "用户更新失败";
                 }

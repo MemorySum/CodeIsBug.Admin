@@ -24,16 +24,17 @@
 		<ProjectReference Include="..\CodeIsBug.Admin.Services\CodeIsBug.Admin.Services.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Autofac" Version="6.1.0" />
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-		<PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.8" />
-		<PackageReference Include="log4net" Version="2.0.12" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.3.21201.13" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0-preview.3.21201.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.3.21201.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.3.21201.2">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PackageReference Include="AspNetCoreRateLimit" Version="3.2.2"/>
+        <PackageReference Include="Autofac" Version="6.1.0"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0"/>
+        <PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.8"/>
+        <PackageReference Include="log4net" Version="2.0.12"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.3.21201.13"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0-preview.3.21201.13"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.3.21201.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.3.21201.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.3.21201.4" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.1" />
