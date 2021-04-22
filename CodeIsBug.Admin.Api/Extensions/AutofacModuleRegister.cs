@@ -9,8 +9,8 @@ namespace CodeIsBug.Admin.Api.Extensions
         protected override void Load(ContainerBuilder builder)
         {
 
-            var assemblysServicesNoInterfaces = Assembly.Load("CodeIsBug.Admin.Services");
-            builder.RegisterAssemblyTypes(assemblysServicesNoInterfaces);
+            var assemblesServicesNoInterfaces = Assembly.Load("CodeIsBug.Admin.Services");
+            builder.RegisterAssemblyTypes(assemblesServicesNoInterfaces);
 
 
         }

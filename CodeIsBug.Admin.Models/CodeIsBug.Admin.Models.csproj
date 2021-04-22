@@ -12,6 +12,7 @@
     <Compile Remove="Enum\**" />
     <EmbeddedResource Remove="Enum\**" />
     <None Remove="Enum\**" />
+    <Compile Remove="Models\EmailSmtpInfo.cs"/>
   </ItemGroup>
 
   <ItemGroup>
