@@ -10,7 +10,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     省市县信息
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CityInfoController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         ///     获取全国省市信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetAllCity")]
         public async Task<Result> GetCityInfo()
         {
             Result res = new();

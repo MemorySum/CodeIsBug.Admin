@@ -12,22 +12,22 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     菜单管理
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MenuController : ControllerBase
     {
 
+        private MenuService menuService { get; }
         public MenuController(MenuService menuService)
         {
             this.menuService = menuService;
         }
-        private MenuService menuService { get; }
         #region 菜单列表
         /// <summary>
         ///     菜单列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetAllMenu")]
         public Result GetMenus()
         {
             var res = new Result();
@@ -60,7 +60,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="inputInfo"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("AddMenu")]
         public async Task<Result> AddMenu([FromBody] MenuInputInfo inputInfo)
         {
             var result = new Result();
@@ -102,7 +102,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="inputInfo">修改参数信息</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut("UpdateMenu")]
         public async Task<Result> UpdateMenu([FromBody] MenuInputInfo inputInfo)
         {
             var result = new Result();
@@ -154,7 +154,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpDelete("DelMenu")]
         public async Task<Result> DelMenu([FromQuery] Guid menuId)
         {
             try
@@ -177,7 +177,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         ///     获取所有一级菜单
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetAllFirstLevelMenu")]
         public async Task<Result> GetAllFirstLevelMenu()
         {
             var r = new Result();
@@ -204,7 +204,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetMenuInfo")]
         public async Task<Result> GetMenuInfo([FromQuery] Guid menuId)
         {
             var r = new Result();
@@ -240,7 +240,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         ///     左侧菜单列表返回
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetAllMenuForIndex")]
         public async Task<Result> GetAllMenuForIndex()
         {
             var res = new Result();

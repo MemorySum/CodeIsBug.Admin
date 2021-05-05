@@ -12,7 +12,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     登录授权
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -31,7 +31,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("Login")]
         [AllowAnonymous]
         public async Task<Result> Login([FromBody] LoginInputDto dto)
         {

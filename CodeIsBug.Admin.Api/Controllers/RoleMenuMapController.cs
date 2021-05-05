@@ -11,7 +11,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     角色菜单对照
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RoleMenuMapController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="roleGuid"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetRoleMenuList")]
         public async Task<Result> GetMenuListByRoleId([FromQuery] Guid roleGuid)
         {
             var result = new Result();
@@ -48,7 +48,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="saveDto"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("SaveRoleMenuInfo")]
         public async Task<Result> SaveRoleMenuInfo([FromBody] RoleMenuMapSaveDto saveDto)
         {
             if (saveDto == null) throw new ArgumentNullException(nameof(saveDto));

@@ -12,18 +12,18 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     用户角色对照
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EmpRoleMapController : ControllerBase
     {
 
         #region 根据列表选择的用户guid加载对应的角色guid
         /// <summary>
-        ///     根据列表选择的用户guid加载对应的角色guid
+        ///   根据列表选择的用户guid加载对应的角色guid
         /// </summary>
         /// <param name="userGuid"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetUserRoles")]
         public async Task<Result> GetUserRolesByUserId([FromQuery] Guid userGuid)
         {
             var result = new Result();
@@ -57,7 +57,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="saveDto"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("SaveUserRole")]
         public async Task<Result> SaveRoleId([FromBody] EmpRoleMapSaveDto saveDto)
         {
             if (saveDto == null) throw new ArgumentNullException(nameof(saveDto));

@@ -11,7 +11,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     用户管理
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SysUserController : ControllerBase
     {
@@ -30,7 +30,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetUserList")]
         public Result GetUserList(string query, int pageIndex, int pageSize)
         {
             var res = new Result();
@@ -64,7 +64,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="inputInfo">用户实体</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("AddUser")]
         public async Task<Result> AddUser([FromBody] UserAddInfo inputInfo)
         {
             var result = new Result();
@@ -107,7 +107,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="UserId">用户Id</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpDelete("DelUser")]
         public async Task<Result> DelUser([FromQuery] Guid UserId)
         {
             var result = new Result();
@@ -143,7 +143,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetUserInfo")]
         public async Task<Result> GetUserInfo([FromQuery] Guid UserId)
         {
             var result = new Result();
@@ -178,7 +178,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut("UpdateUserInfo")]
         public async Task<Result> UpdateUserInfo([FromBody] UserEditInfo info)
         {
             var result = new Result();

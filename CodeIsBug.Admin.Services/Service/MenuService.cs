@@ -12,7 +12,7 @@ namespace CodeIsBug.Admin.Services.Service
 
         public async Task<List<MenuDto>> BuildMenuForIndex()
         {
-            var menuInfo = await Context.Queryable<ESysMenu>().ToListAsync();
+            var menuInfo = await Context.Queryable<ESysMenu>().OrderBy(x=>x.Sort).ToListAsync();
             if (!menuInfo.Any() && menuInfo.Count <= 0) return null;
             var menuDots = new List<MenuDto>();
             var firstIndexMenuList = menuInfo.Where(x => x.Level == 0).OrderBy(x => x.Sort).ToList();
@@ -56,7 +56,7 @@ namespace CodeIsBug.Admin.Services.Service
         public List<ESysMenu> GetMenus()
         {
             return Context.Queryable<ESysMenu>().OrderBy(sys => sys.Sort)
-                .ToTree(sys => sys.Children, sys => sys.ParentId, Guid.Empty);
+                .ToTree(sys => sys.Children, sys => sys.ParentId,  Guid.Empty);
         }
 
         public async Task<List<MenuFirstLevelInfo>> GetAllFirstLevelMenu()

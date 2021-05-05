@@ -34,7 +34,7 @@
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController.GetUserRolesByUserId(System.Guid)">
             <summary>
-                根据列表选择的用户guid加载对应的角色guid
+              根据列表选择的用户guid加载对应的角色guid
             </summary>
             <param name="userGuid"></param>
             <returns></returns>

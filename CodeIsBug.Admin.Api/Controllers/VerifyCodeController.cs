@@ -9,7 +9,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     /// <summary>
     ///     验证码
     /// </summary>
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class VerifyCodeController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="guid">页面生成的GUID</param>
         /// <returns>返回验证码图片</returns>
-        [HttpGet]
+        [HttpGet("GetCode")]
         public FileContentResult GetCode(string guid)
         {
             var code = VerifyCodeHelper.GetSingleObj()
@@ -44,7 +44,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="checkCodeDto"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("VerifyCode")]
         public async Task<Result> VerifyCode([FromBody] CkeckCodeDto checkCodeDto)
         {
             if (checkCodeDto == null) throw new ArgumentNullException(nameof(checkCodeDto));

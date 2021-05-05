@@ -11,7 +11,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     ///     角色管理
     /// </summary>
     [Authorize]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         ///     加载角色树
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetRolesTree")]
         public Result GetRoles()
         {
             var res = new Result();
@@ -47,7 +47,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("AddRole")]
         public async Task<Result> AddRole([FromBody] RoleAddDto dto)
         {
             if (dto == null) throw new ArgumentNullException(nameof(dto));
@@ -74,7 +74,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="roleGuid">角色guid</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpDelete("DelRole")]
         public async Task<Result> DelRole([FromQuery] Guid roleGuid)
         {
             if (roleGuid.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(roleGuid));
@@ -110,7 +110,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="roleGuid">角色guid</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetRoleInfo")]
         public async Task<Result> GetRoleInfo([FromQuery] Guid roleGuid)
         {
             if (roleGuid.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(roleGuid));
@@ -146,7 +146,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <param name="info">角色信息dto</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut("EditRoleInfo")]
         public async Task<Result> EditRoleInfo([FromBody] RoleEditInfo info)
         {
             if (ReferenceEquals(info, null)) throw new ArgumentNullException(nameof(info));
@@ -166,6 +166,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             return result;
         }
         #endregion
+
         #region 构造函数注入
         private RolesService RolesService { get; }
 

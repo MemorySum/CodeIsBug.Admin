@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
@@ -7,6 +8,8 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
+using StackExchange.Redis;
+
 namespace CodeIsBug.Admin.Services.Service
 {
     /// <summary>
@@ -69,17 +72,16 @@ namespace CodeIsBug.Admin.Services.Service
         /// <returns></returns>
         public async Task<List<ESysMenu>> GetUserRoleMenu(Guid userGuid)
         {
-            return await Context.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles, ESysRoleMenuMap, ESysMenu>(
+            var data = await Context.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles, ESysRoleMenuMap, ESysMenu>(
                     (emp, emprolemap, role, rolemenumap, menu) => new JoinQueryInfos(
-                        JoinType.Left, emp.UserId.Equals(emprolemap.EmpId),
-                        JoinType.Left, emprolemap.RoleId.Equals(role.RoleId),
-                        JoinType.Left, role.RoleId.Equals(rolemenumap.RoleId),
-                        JoinType.Left, rolemenumap.MenuId.Equals(menu.MenuId)))
-                .Where((emp, emprolemap, role, rolemenumap, menu) => emp.UserId.Equals(userGuid))
-                .OrderBy((emp, emprolemap, role, rolemenumap, menu) => menu.Sort)
-                .Select((emp, emprolemap, role, rolemenumap, menu) => menu)
-                .Distinct()
+                        JoinType.Left, emp.UserId == emprolemap.EmpId,
+                        JoinType.Left, emprolemap.RoleId == role.RoleId,
+                        JoinType.Left, role.RoleId == rolemenumap.RoleId,
+                        JoinType.Left, rolemenumap.MenuId == menu.MenuId))
+                .Where((emp, emprolemap, role, rolemenumap, menu) => emp.UserId == userGuid)
+               .Select((emp, emprolemap, role, rolemenumap, menu) => menu)
                 .ToTreeAsync(menu => menu.Children, x => x.ParentId, Guid.Empty);
+            return data;
         }
 
         public async Task<string> GetUserRoleName(Guid userGuid)
