@@ -21,7 +21,7 @@ namespace CodeIsBug.Admin.Services.Service
         /// <returns></returns>
         public async Task<List<Guid>> GetUserRolesByUserId(Guid userGuid)
         {
-            return await Db.Queryable<ESysEmpRoleMap, EBaseEmp>((map, emp) =>
+            return await Context.Queryable<ESysEmpRoleMap, EBaseEmp>((map, emp) =>
                     new JoinQueryInfos(JoinType.Left, map.EmpId.Equals(emp.UserId)))
                 .Where(map => map.EmpId.Equals(userGuid))
                 .Select((map, emp) => map.RoleId.Value).ToListAsync();
@@ -49,15 +49,15 @@ namespace CodeIsBug.Admin.Services.Service
 
             try
             {
-                Db.Ado.BeginTran();
-                await Db.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId)).ExecuteCommandAsync();
-                await Db.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
-                Db.Ado.CommitTran();
+                Context.Ado.BeginTran();
+                await Context.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId)).ExecuteCommandAsync();
+                await Context.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
+                Context.Ado.CommitTran();
                 return true;
             }
             catch (Exception ex)
             {
-                Db.Ado.RollbackTran();
+                Context.Ado.RollbackTran();
                 return false;
             }
         }
@@ -69,7 +69,7 @@ namespace CodeIsBug.Admin.Services.Service
         /// <returns></returns>
         public async Task<List<ESysMenu>> GetUserRoleMenu(Guid userGuid)
         {
-            return await Db.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles, ESysRoleMenuMap, ESysMenu>(
+            return await Context.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles, ESysRoleMenuMap, ESysMenu>(
                     (emp, emprolemap, role, rolemenumap, menu) => new JoinQueryInfos(
                         JoinType.Left, emp.UserId.Equals(emprolemap.EmpId),
                         JoinType.Left, emprolemap.RoleId.Equals(role.RoleId),
@@ -84,7 +84,7 @@ namespace CodeIsBug.Admin.Services.Service
 
         public async Task<string> GetUserRoleName(Guid userGuid)
         {
-            var roleNameList = await Db.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles>(
+            var roleNameList = await Context.Queryable<EBaseEmp, ESysEmpRoleMap, ESysRoles>(
                     (emp, emprolemap, role) =>
                         new JoinQueryInfos(JoinType.Left, emp.UserId.Equals(emprolemap.EmpId),
                             JoinType.Left, emprolemap.RoleId.Equals(role.RoleId)))

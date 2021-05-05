@@ -9,7 +9,7 @@ namespace CodeIsBug.Admin.Services.Service
 
         public async Task<List<EBaseCityInfo>> GetCityInfoTree()
         {
-            return await Db.Queryable<EBaseCityInfo>()
+            return await Context.Queryable<EBaseCityInfo>()
                 .ToTreeAsync(sys => sys.Children,
                     sys => sys.ParentId, 0);
         }

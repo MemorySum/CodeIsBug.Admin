@@ -9,7 +9,7 @@ namespace CodeIsBug.Admin.Services.Service
     {
         public async Task<EBaseEmp> Login(LoginInputDto dto)
         {
-            return await Db.Queryable<EBaseEmp>().FirstAsync(a => a.UserName.Equals(dto.username) && a.Pwd.Equals(StringHelper.Md5Hash(dto.password)));
+            return await Context.Queryable<EBaseEmp>().FirstAsync(a => a.UserName.Equals(dto.username) && a.Pwd.Equals(dto.password.Md5Hash()));
         }
     }
 }

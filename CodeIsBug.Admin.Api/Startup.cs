@@ -19,6 +19,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using SqlSugar.IOC;
+
 namespace CodeIsBug.Admin.Api
 {
     public class Startup
@@ -43,7 +45,6 @@ namespace CodeIsBug.Admin.Api
                     { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
             }).AddControllersAsServices();
             //配置jwt信息 映射到内存中
-
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             services.Configure<EmailSmtpConfig>(Configuration.GetSection("EmailSmtpConfig"));
@@ -59,7 +60,6 @@ namespace CodeIsBug.Admin.Api
 
                     });
             });
-
             //配置swaggerDocument
             services.AddSwaggerGen(c =>
             {
@@ -135,7 +135,13 @@ namespace CodeIsBug.Admin.Api
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
+            //配置SqlSugar IOC
+            services.AddSqlSugar(new IocConfig()
+            {
+                ConnectionString = DBConfig.ConnectionString,
+                DbType = IocDbType.SqlServer,
+                IsAutoCloseConnection = true//自动释放
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,

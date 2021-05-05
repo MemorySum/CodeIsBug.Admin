@@ -16,7 +16,7 @@ namespace CodeIsBug.Admin.Services.Service
         public async Task<List<Guid>> GetMenuListByRoleId(Guid roleGuid)
         {
 
-            return await Db.Queryable<ESysRoleMenuMap, ESysMenu, ESysRoles>((map, menu, role) =>
+            return await Context.Queryable<ESysRoleMenuMap, ESysMenu, ESysRoles>((map, menu, role) =>
                     new JoinQueryInfos(JoinType.Left, map.MenuId.Equals(menu.MenuId),
                         JoinType.Left, map.RoleId.Equals(role.RoleId)))
                 .Where(map => map.RoleId.Equals(roleGuid))
@@ -40,15 +40,15 @@ namespace CodeIsBug.Admin.Services.Service
 
             try
             {
-                Db.Ado.BeginTran();
-                await Db.Deleteable<ESysRoleMenuMap>().Where(x => x.RoleId.Equals(saveDto.RoleId)).ExecuteCommandHasChangeAsync();
-                await Db.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
-                Db.Ado.CommitTran();
+                Context.Ado.BeginTran();
+                await Context.Deleteable<ESysRoleMenuMap>().Where(x => x.RoleId.Equals(saveDto.RoleId)).ExecuteCommandHasChangeAsync();
+                await Context.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
+                Context.Ado.CommitTran();
                 return true;
             }
             catch (Exception ex)
             {
-                Db.Ado.RollbackTran();
+                Context.Ado.RollbackTran();
                 return false;
             }
         }

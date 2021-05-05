@@ -6,101 +6,137 @@
     <members>
         <member name="T:CodeIsBug.Admin.Common.Helper.GuidHelper">
             <summary>
-            GuidHelper
+                GuidHelper
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.GuidHelper.GenerateGuid">
             <summary>
-            GenerateGuid
+                GenerateGuid
             </summary>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.SetValue(System.String,System.String,System.Nullable{System.TimeSpan})">
             <summary>
-            增加/修改
+                增加/修改
             </summary>
             <param name="key"></param>
             <param name="value"></param>
             <param name="expiry"></param>
             <returns></returns>
         </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.SetValueAsync(System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+                存储-异步
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+            <param name="expiry">有效时间</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">参数为空异常</exception>
+        </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.GetValue(System.String)">
             <summary>
-            查询
+                查询
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.RedisHelper.DeleteKey(System.String)">
             <summary>
-            删除
+                删除
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Common.Helper.Result">
             <summary>
-            统一返回结果
+                统一返回结果
             </summary>
         </member>
         <member name="P:CodeIsBug.Admin.Common.Helper.Result.Code">
             <summary>
-            状态码
+                状态码
             </summary>
         </member>
         <member name="P:CodeIsBug.Admin.Common.Helper.Result.Message">
             <summary>
-            返回消息 
+                返回消息
             </summary>
         </member>
         <member name="P:CodeIsBug.Admin.Common.Helper.Result.Object">
             <summary>
-            对象
+                对象
             </summary>
         </member>
         <member name="P:CodeIsBug.Admin.Common.Helper.Result.ExtendObject">
             <summary>
-            扩展对象
+                扩展对象
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.StringHelper.Md5Hash(System.String)">
             <summary>
-            生成MD5加密字符串
+                生成MD5加密字符串
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.GetSingleObj">
+            <summary>
+                创建单利对象资源并返回
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.VerifyCodeType">
+            <summary>
+                验证码类型
+            </summary>
+        </member>
+        <member name="F:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.VerifyCodeType.NumberVerifyCode">
+            <summary>
+                数字验证码
+            </summary>
+        </member>
+        <member name="F:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.VerifyCodeType.AbcVerifyCode">
+            <summary>
+                字母验证码
+            </summary>
+        </member>
+        <member name="F:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.VerifyCodeType.MixVerifyCode">
+            <summary>
+                混合验证码
+            </summary>
+        </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateNumberVerifyCode(System.Int32)">
             <summary>
-            1.数字验证码
+                1.数字验证码
             </summary>
             <param name="length"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateAbcVerifyCode(System.Int32)">
             <summary>
-            2.字母验证码
+                2.字母验证码
             </summary>
             <param name="length">字符长度</param>
             <returns>验证码字符</returns>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateMixVerifyCode(System.Int32)">
             <summary>
-            3.混合验证码
+                3.混合验证码
             </summary>
             <param name="length">字符长度</param>
             <returns>验证码字符</returns>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateVerifyCode(CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.VerifyCodeType)">
             <summary>
-            产生验证码（随机产生4-6位）
+                产生验证码（随机产生4-6位）
             </summary>
             <param name="type">验证码类型：数字，字符，符合</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateBitmapByImgVerifyCode(System.String,System.Int32,System.Int32)">
             <summary>
-            验证码图片 => Bitmap
+                验证码图片 => Bitmap
             </summary>
             <param name="verifyCode">验证码</param>
             <param name="width">宽</param>
@@ -109,7 +145,7 @@
         </member>
         <member name="M:CodeIsBug.Admin.Common.Helper.VerifyCodeHelper.CreateByteByImgVerifyCode(System.String,System.Int32,System.Int32)">
             <summary>
-            验证码图片 => byte[]
+                验证码图片 => byte[]
             </summary>
             <param name="verifyCode">验证码</param>
             <param name="width">宽</param>

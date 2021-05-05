@@ -16,7 +16,7 @@ namespace CodeIsBug.Admin.Services.Service
     {
         public List<EmpOutputInfo> GetUserList(string query, int pageIndex, int pageSize, ref int totalCount)
         {
-            var list = Db.Queryable<EBaseEmp>().Select(emp => new EmpOutputInfo
+            var list = Context.Queryable<EBaseEmp>().Select(emp => new EmpOutputInfo
                 {
                     UserId = emp.UserId,
                     UserName = emp.UserName,
@@ -41,17 +41,17 @@ namespace CodeIsBug.Admin.Services.Service
                 Phone = inputInfo.Phone,
                 Pwd = StringHelper.Md5Hash("1")
             };
-            return await Db.Insertable(emp).ExecuteCommandIdentityIntoEntityAsync();
+            return await Context.Insertable(emp).ExecuteCommandIdentityIntoEntityAsync();
         }
 
         public async Task<bool> DelUser(Guid userId)
         {
-            return await Db.Deleteable<EBaseEmp>().Where(a => a.UserId.Equals(userId)).ExecuteCommandHasChangeAsync();
+            return await Context.Deleteable<EBaseEmp>().Where(a => a.UserId.Equals(userId)).ExecuteCommandHasChangeAsync();
         }
 
         public async Task<UserEditInfo> GetUserInfo(Guid userId)
         {
-            var list = await Db.Queryable<EBaseEmp>().Where(a => a.UserId.Equals(userId))
+            var list = await Context.Queryable<EBaseEmp>().Where(a => a.UserId.Equals(userId))
                 .Select(a => new UserEditInfo
                 {
                     UserId = a.UserId,
@@ -74,7 +74,7 @@ namespace CodeIsBug.Admin.Services.Service
                 Phone = info.Phone,
                 ModifyTime = DateTime.Now
             };
-            return await Db.Updateable(emp)
+            return await Context.Updateable(emp)
                 .UpdateColumns(it => new
                 {
                     it.Name,

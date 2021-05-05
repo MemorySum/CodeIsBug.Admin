@@ -6,174 +6,163 @@
     <members>
         <member name="T:CodeIsBug.Admin.Api.Controllers.AccountController">
             <summary>
-            登录授权
+                登录授权
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.AccountController.Login(CodeIsBug.Admin.Models.Dto.LoginInputDto)">
             <summary>
-            登录接口
+                登录接口
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.CityInfoController">
             <summary>
-            省市县信息
+                省市县信息
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.CityInfoController.GetCityInfo">
             <summary>
-            获取全国省市信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:CodeIsBug.Admin.Api.Controllers.EmailSmtpController">
-            <summary>
-            emailSMTP配置
-            </summary>
-        </member>
-        <member name="M:CodeIsBug.Admin.Api.Controllers.EmailSmtpController.GetConfig">
-            <summary>
-            获取emailSMTP配置
+                获取全国省市信息
             </summary>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController">
             <summary>
-            用户角色对照
+                用户角色对照
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController.GetUserRolesByUserId(System.Guid)">
             <summary>
-            根据列表选择的用户guid加载对应的角色guid
+                根据列表选择的用户guid加载对应的角色guid
             </summary>
             <param name="userGuid"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.EmpRoleMapController.SaveRoleId(CodeIsBug.Admin.Models.Dto.EmpRoleMapSaveDto)">
             <summary>
-            保存用户角色
+                保存用户角色
             </summary>
             <param name="saveDto"></param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.MenuController">
             <summary>
-            菜单管理
+                菜单管理
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetMenus">
             <summary>
-            菜单列表
+                菜单列表
             </summary>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.AddMenu(CodeIsBug.Admin.Models.Dto.MenuInputInfo)">
             <summary>
-            添加菜单
+                添加菜单
             </summary>
             <param name="inputInfo"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.UpdateMenu(CodeIsBug.Admin.Models.Dto.MenuInputInfo)">
             <summary>
-            修改菜单信息
+                修改菜单信息
             </summary>
             <param name="inputInfo">修改参数信息</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.DelMenu(System.Guid)">
             <summary>
-            删除菜单
+                删除菜单
             </summary>
             <param name="menuId">菜单Id</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetAllFirstLevelMenu">
             <summary>
-            获取所有一级菜单
+                获取所有一级菜单
             </summary>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetMenuInfo(System.Guid)">
             <summary>
-            获取单个菜单信息
+                获取单个菜单信息
             </summary>
             <param name="menuId">菜单Id</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.MenuController.GetAllMenuForIndex">
             <summary>
-            左侧菜单列表返回
+                左侧菜单列表返回
             </summary>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController">
             <summary>
-            角色菜单对照
+                角色菜单对照
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController.GetMenuListByRoleId(System.Guid)">
             <summary>
-            根据选择的角色id加载选中菜单树
+                根据选择的角色id加载选中菜单树
             </summary>
             <param name="roleGuid"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RoleMenuMapController.SaveRoleMenuInfo(CodeIsBug.Admin.Models.Dto.RoleMenuMapSaveDto)">
             <summary>
-            保存角色菜单权限
+                保存角色菜单权限
             </summary>
             <param name="saveDto"></param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.RolesController">
             <summary>
-            角色管理
+                角色管理
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.GetRoles">
             <summary>
-            加载角色树
+                加载角色树
             </summary>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.AddRole(CodeIsBug.Admin.Models.Dto.RoleAddDto)">
             <summary>
-            添加角色
+                添加角色
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.DelRole(System.Guid)">
             <summary>
-            删除角色
+                删除角色
             </summary>
             <param name="roleGuid">角色guid</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.GetRoleInfo(System.Guid)">
             <summary>
-            获取单个角色信息
+                获取单个角色信息
             </summary>
             <param name="roleGuid">角色guid</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.RolesController.EditRoleInfo(CodeIsBug.Admin.Models.Dto.RoleEditInfo)">
             <summary>
-            更新角色信息
+                更新角色信息
             </summary>
             <param name="info">角色信息dto</param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.SysUserController">
             <summary>
-            用户管理
+                用户管理
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.GetUserList(System.String,System.Int32,System.Int32)">
             <summary>
-            获取用户列表
+                获取用户列表
             </summary>
             <param name="query"></param>
             <param name="pageIndex"></param>
@@ -182,47 +171,47 @@
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.AddUser(CodeIsBug.Admin.Models.Dto.UserAddInfo)">
             <summary>
-            添加用户
+                添加用户
             </summary>
             <param name="inputInfo">用户实体</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.DelUser(System.Guid)">
             <summary>
-            删除用户
+                删除用户
             </summary>
             <param name="UserId">用户Id</param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.GetUserInfo(System.Guid)">
             <summary>
-            获取用户信息
+                获取用户信息
             </summary>
             <param name="UserId"></param>
             <returns></returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.SysUserController.UpdateUserInfo(CodeIsBug.Admin.Models.Dto.UserEditInfo)">
             <summary>
-            修改用户信息
+                修改用户信息
             </summary>
             <param name="info"></param>
             <returns></returns>
         </member>
         <member name="T:CodeIsBug.Admin.Api.Controllers.VerifyCodeController">
             <summary>
-            验证码
+                验证码
             </summary>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.VerifyCodeController.GetCode(System.String)">
             <summary>
-            生成登录验证码
+                生成登录验证码
             </summary>
             <param name="guid">页面生成的GUID</param>
             <returns>返回验证码图片</returns>
         </member>
         <member name="M:CodeIsBug.Admin.Api.Controllers.VerifyCodeController.VerifyCode(CodeIsBug.Admin.Models.Dto.CkeckCodeDto)">
             <summary>
-            验证验证码
+                验证验证码
             </summary>
             <param name="checkCodeDto"></param>
             <returns></returns>

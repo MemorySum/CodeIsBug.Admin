@@ -3,14 +3,14 @@ using System.Security.Cryptography;
 using System.Text;
 namespace CodeIsBug.Admin.Common.Helper
 {
-    public class StringHelper
+    public static class StringHelper
     {
         /// <summary>
         ///     生成MD5加密字符串
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string Md5Hash(string input)
+        public static string Md5Hash(this string input)
         {
             using (var md5 = MD5.Create())
             {
