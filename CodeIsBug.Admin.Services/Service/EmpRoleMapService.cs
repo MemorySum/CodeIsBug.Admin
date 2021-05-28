@@ -77,7 +77,7 @@ namespace CodeIsBug.Admin.Services.Service
                         JoinType.Left, emp.UserId == emprolemap.EmpId,
                         JoinType.Left, emprolemap.RoleId == role.RoleId,
                         JoinType.Left, role.RoleId == rolemenumap.RoleId,
-                        JoinType.Left, rolemenumap.MenuId == menu.MenuId))
+                        JoinType.Inner, rolemenumap.MenuId == menu.MenuId))
                 .Where((emp, emprolemap, role, rolemenumap, menu) => emp.UserId == userGuid)
                .Select((emp, emprolemap, role, rolemenumap, menu) => menu)
                 .ToTreeAsync(menu => menu.Children, x => x.ParentId, Guid.Empty);
