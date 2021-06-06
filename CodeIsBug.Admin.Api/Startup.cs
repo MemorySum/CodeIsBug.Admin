@@ -26,10 +26,12 @@ namespace CodeIsBug.Admin.Api
     public class Startup
     {
         private readonly string codeIsBugAdminPolicy = "CodeIsBug.Admin.Policy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
         private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -42,12 +44,11 @@ namespace CodeIsBug.Admin.Api
 
                 // Configure a custom converter
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
-                    { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+                    {DateTimeFormat = "yyyy-MM-dd HH:mm:ss"});
             }).AddControllersAsServices();
             //配置jwt信息 映射到内存中
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
-            services.Configure<EmailSmtpConfig>(Configuration.GetSection("EmailSmtpConfig"));
             //DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
             DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
             //配置跨域请求
@@ -57,13 +58,12 @@ namespace CodeIsBug.Admin.Api
                     builder =>
                     {
                         builder.AllowAnyOrigin().WithMethods("GET", "POST", "HEAD", "PUT", "DELETE", "OPTIONS");
-
                     });
             });
             //配置swaggerDocument
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeIsBug.Admin.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "CodeIsBug.Admin.API", Version = "v1"});
                 c.AddServer(new OpenApiServer
                 {
                     Url = "",
@@ -100,11 +100,13 @@ namespace CodeIsBug.Admin.Api
                 });
 
 
-
                 //var basePath = AppDomain.CurrentDomain.BaseDirectory;
-                var apiXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Api.xml");
-                var commonXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Common.xml");
-                var modelXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CodeIsBug.Admin.Models.xml");
+                var apiXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                    "CodeIsBug.Admin.Api.xml");
+                var commonXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                    "CodeIsBug.Admin.Common.xml");
+                var modelXmlPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                    "CodeIsBug.Admin.Models.xml");
 
                 c.IncludeXmlComments(apiXmlPath, true);
                 c.IncludeXmlComments(commonXmlPath, true);
@@ -140,7 +142,7 @@ namespace CodeIsBug.Admin.Api
             {
                 ConnectionString = DBConfig.ConnectionString,
                 DbType = IocDbType.SqlServer,
-                IsAutoCloseConnection = true//自动释放
+                IsAutoCloseConnection = true //自动释放
             });
         }
 
@@ -164,9 +166,9 @@ namespace CodeIsBug.Admin.Api
             {
                 endpoints.MapControllers();
                 endpoints.MapSwagger("{documentName}/api-docs");
-
             });
         }
+
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new AutofacModuleRegister());
