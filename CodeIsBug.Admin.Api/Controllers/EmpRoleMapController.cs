@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    /// 用户角色对照
+    ///     用户角色对照
     /// </summary>
     [Authorize]
     [Route("api/[controller]")]
@@ -19,7 +19,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     {
         #region 根据列表选择的用户guid加载对应的角色guid
         /// <summary>
-        ///   根据列表选择的用户guid加载对应的角色guid
+        ///     根据列表选择的用户guid加载对应的角色guid
         /// </summary>
         /// <param name="userGuid"></param>
         /// <returns></returns>
@@ -30,13 +30,8 @@ namespace CodeIsBug.Admin.Api.Controllers
             {
                 var list = await _empRoleMapService.GetUserRolesByUserId(userGuid);
                 if (list.Any())
-                {
                     return ApiResultHelper.Success(list);
-                }
-                else
-                {
-                    return ApiResultHelper.Failed("无角色信息");
-                }
+                return ApiResultHelper.Failed("无角色信息");
             }
             catch (Exception e)
             {
