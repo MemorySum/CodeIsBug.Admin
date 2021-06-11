@@ -6,6 +6,7 @@ using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
@@ -16,12 +17,13 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class MenuController : ControllerBase
     {
+        private readonly MenuService _menuService;
 
-        private MenuService menuService { get; }
         public MenuController(MenuService menuService)
         {
-            this.menuService = menuService;
+            this._menuService = menuService;
         }
+
         #region 菜单列表
         /// <summary>
         ///     菜单列表
@@ -34,7 +36,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var totalCount = 0;
             try
             {
-                var result = menuService.GetMenus();
+                var result = _menuService.GetMenus();
 
                 res.Object = new
                 {
@@ -73,7 +75,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    var isSuccess = await menuService.AddMenu(inputInfo);
+                    var isSuccess = await _menuService.AddMenu(inputInfo);
                     if (isSuccess)
                     {
                         result.Code = 1;
@@ -115,7 +117,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    var menuinfo = await menuService.GetMenuInfo(inputInfo.MenuId);
+                    var menuinfo = await _menuService.GetMenuInfo(inputInfo.MenuId);
 
                     if (menuinfo == null)
                     {
@@ -124,7 +126,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                     }
                     else
                     {
-                        var isSuccess = await menuService.UpdateMenu(inputInfo);
+                        var isSuccess = await _menuService.UpdateMenu(inputInfo);
                         if (isSuccess)
                         {
                             result.Code = 1;
@@ -159,16 +161,15 @@ namespace CodeIsBug.Admin.Api.Controllers
         {
             try
             {
-                var flag = await menuService.DelMenu(menuId);
-                if (flag) return new Result { Code = 1, Message = "菜单删除成功" };
+                var flag = await _menuService.DelMenu(menuId);
+                if (flag) return new Result {Code = 1, Message = "菜单删除成功"};
 
-                return new Result { Code = 0, Message = "菜单删除失败" };
+                return new Result {Code = 0, Message = "菜单删除失败"};
             }
             catch (Exception e)
             {
-                return new Result { Code = -1, Message = e.Message };
+                return new Result {Code = -1, Message = e.Message};
             }
-
         }
         #endregion
 
@@ -183,7 +184,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var r = new Result();
             try
             {
-                var menuList = await menuService.GetAllFirstLevelMenu();
+                var menuList = await _menuService.GetAllFirstLevelMenu();
                 r.Code = 1;
                 r.Message = "菜单获取成功";
                 r.Object = menuList;
@@ -210,7 +211,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var r = new Result();
             try
             {
-                var menuInfo = await menuService.GetMenuInfo(menuId);
+                var menuInfo = await _menuService.GetMenuInfo(menuId);
                 var menu = new MenuInputInfo
                 {
                     MenuId = menuInfo.MenuId,
@@ -246,7 +247,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var res = new Result();
             try
             {
-                var menus = await menuService.BuildMenuForIndex();
+                var menus = await _menuService.BuildMenuForIndex();
                 res.Code = 1;
                 res.Message = "菜单获取成功";
                 res.Object = JsonConvert.SerializeObject(menus);
