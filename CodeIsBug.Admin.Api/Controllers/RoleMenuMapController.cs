@@ -5,6 +5,7 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
@@ -15,7 +16,6 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class RoleMenuMapController : ControllerBase
     {
-
         #region 根据选择的角色id加载选中菜单树
         /// <summary>
         ///     根据选择的角色id加载选中菜单树
@@ -29,12 +29,10 @@ namespace CodeIsBug.Admin.Api.Controllers
             try
             {
                 var list = await _roleMenuMapService.GetMenuListByRoleId(roleGuid);
-                result.Code = 1;
                 result.Object = list;
             }
             catch (Exception e)
             {
-                result.Code = -1;
                 result.Message = $"获取角色对应菜单信息失败,错误信息为{e.Message}";
             }
 
@@ -56,18 +54,14 @@ namespace CodeIsBug.Admin.Api.Controllers
             try
             {
                 var isSuccess = await _roleMenuMapService.SaveRoleMenuInfo(saveDto);
-                result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "菜单权限添加成功" : "菜单权限添加失败";
             }
             catch (Exception e)
             {
-                result.Code = -1;
                 result.Message = e.Message;
             }
 
             return result;
-
-
         }
         #endregion
         #region 构造函数

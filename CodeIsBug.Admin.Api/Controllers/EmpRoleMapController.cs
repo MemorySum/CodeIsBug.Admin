@@ -6,17 +6,17 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    ///     用户角色对照
+    /// 用户角色对照
     /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmpRoleMapController : ControllerBase
     {
-
         #region 根据列表选择的用户guid加载对应的角色guid
         /// <summary>
         ///   根据列表选择的用户guid加载对应的角色guid
@@ -26,28 +26,22 @@ namespace CodeIsBug.Admin.Api.Controllers
         [HttpGet("GetUserRoles")]
         public async Task<Result> GetUserRolesByUserId([FromQuery] Guid userGuid)
         {
-            var result = new Result();
             try
             {
                 var list = await _empRoleMapService.GetUserRolesByUserId(userGuid);
                 if (list.Any())
                 {
-                    result.Code = 1;
-                    result.Object = list;
+                    return ApiResultHelper.Success(list);
                 }
                 else
                 {
-                    result.Code = 0;
-                    result.Message = "无角色信息";
+                    return ApiResultHelper.Failed("无角色信息");
                 }
             }
             catch (Exception e)
             {
-                result.Code = -1;
-                result.Message = $"获取用户对应角色信息失败,错误信息为{e.Message}";
+                return ApiResultHelper.Error(-1, $"获取用户对应角色信息失败,错误信息为{e.Message}");
             }
-
-            return result;
         }
         #endregion
 
@@ -61,22 +55,15 @@ namespace CodeIsBug.Admin.Api.Controllers
         public async Task<Result> SaveRoleId([FromBody] EmpRoleMapSaveDto saveDto)
         {
             if (saveDto == null) throw new ArgumentNullException(nameof(saveDto));
-            var result = new Result();
             try
             {
                 var isSuccess = await _empRoleMapService.SaveRoleId(saveDto);
-                result.Code = isSuccess ? 1 : 0;
-                result.Message = isSuccess ? "角色添加成功" : "角色添加失败";
+                return isSuccess ? ApiResultHelper.Success("角色添加成功") : ApiResultHelper.Failed("角色添加失败");
             }
             catch (Exception e)
             {
-                result.Code = -1;
-                result.Message = e.Message;
+                return ApiResultHelper.Error(-1, e.Message);
             }
-
-            return result;
-
-
         }
         #endregion
         #region 构造函数注入service

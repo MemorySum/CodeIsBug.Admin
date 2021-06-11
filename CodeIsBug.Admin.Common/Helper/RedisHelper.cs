@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using StackExchange.Redis;
+
 namespace CodeIsBug.Admin.Common.Helper
 {
     public class RedisHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection"></param>
         public RedisHelper(string connection)
         {
             Redis = ConnectionMultiplexer.Connect(connection);
@@ -28,6 +33,7 @@ namespace CodeIsBug.Admin.Common.Helper
             if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
             return Db.StringSet(key, value, expiry);
         }
+
         /// <summary>
         ///     存储-异步
         /// </summary>
@@ -52,6 +58,7 @@ namespace CodeIsBug.Admin.Common.Helper
         {
             return Db.StringGet(key);
         }
+
         public async Task<RedisValue> GetValueAsync(string key)
         {
             try
@@ -63,6 +70,7 @@ namespace CodeIsBug.Admin.Common.Helper
                 return RedisValue.EmptyString;
             }
         }
+
         /// <summary>
         ///     删除
         /// </summary>

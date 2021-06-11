@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
@@ -8,7 +7,6 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
-using StackExchange.Redis;
 
 namespace CodeIsBug.Admin.Services.Service
 {
@@ -53,7 +51,8 @@ namespace CodeIsBug.Admin.Services.Service
             try
             {
                 Context.Ado.BeginTran();
-                await Context.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId)).ExecuteCommandAsync();
+                await Context.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId))
+                    .ExecuteCommandAsync();
                 await Context.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
                 Context.Ado.CommitTran();
                 return true;
@@ -79,7 +78,7 @@ namespace CodeIsBug.Admin.Services.Service
                         JoinType.Left, role.RoleId == rolemenumap.RoleId,
                         JoinType.Inner, rolemenumap.MenuId == menu.MenuId))
                 .Where((emp, emprolemap, role, rolemenumap, menu) => emp.UserId == userGuid)
-               .Select((emp, emprolemap, role, rolemenumap, menu) => menu)
+                .Select((emp, emprolemap, role, rolemenumap, menu) => menu)
                 .ToTreeAsync(menu => menu.Children, x => x.ParentId, Guid.Empty);
             return data;
         }

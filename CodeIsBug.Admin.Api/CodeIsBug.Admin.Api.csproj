@@ -31,21 +31,23 @@
 		<PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.8" />
 		<PackageReference Include="log4net" Version="2.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.3.21201.13" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0-preview.3.21201.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.3.21201.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.3.21201.2">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.3.21201.4" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.1" />
-		<PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.3.21209.2" />
-		<PackageReference Include="sqlSugarCore" Version="5.0.2.9" />
-		<PackageReference Include="StackExchange.Redis" Version="2.2.4" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
-	</ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0-preview.3.21201.13"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.3.21201.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.3.21201.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.0-preview.4.21274.1"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.4.21274.1"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4"/>
+        <PackageReference Include="sqlSugarCore" Version="5.0.2.9"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.2.4"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4"/>
+    </ItemGroup>
 	<ItemGroup>
 	  <Content Update="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
