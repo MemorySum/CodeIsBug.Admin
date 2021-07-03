@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CodeIsBug.Admin.Models.Dto
 {
     public class EmpOutputInfo

@@ -3,18 +3,18 @@
 namespace CodeIsBug.Admin.Common.Helper
 {
     /// <summary>
-    /// ApiResult统一返回类
+    ///     ApiResult统一返回类
     /// </summary>
     public static class ApiResultHelper
     {
         /// <summary>
-        /// 自定义成功消息
+        ///     自定义成功消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
         public static Result Success(string msg)
         {
-            return new Result()
+            return new()
             {
                 Code = 1,
                 Message = msg
@@ -22,7 +22,7 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// success
+        ///     success
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -39,14 +39,14 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 自定义消息和data
+        ///     自定义消息和data
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="data"></param>
         /// <returns></returns>
         public static Result Success(string msg, dynamic data)
         {
-            return new Result()
+            return new()
             {
                 Code = 1,
                 Message = msg,
@@ -57,7 +57,7 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 自定义data或者扩展属性
+        ///     自定义data或者扩展属性
         /// </summary>
         /// <param name="data"></param>
         /// <param name="extendData"></param>
@@ -75,7 +75,7 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 自定义消息、data、扩展属性
+        ///     自定义消息、data、扩展属性
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="data"></param>
@@ -94,7 +94,7 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// succeed and total总数
+        ///     succeed and total总数
         /// </summary>
         /// <param name="data"></param>
         /// <param name="total"></param>
@@ -112,7 +112,7 @@ namespace CodeIsBug.Admin.Common.Helper
 
 
         /// <summary>
-        /// 错误消息
+        ///     错误消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
@@ -129,7 +129,7 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 错误消息
+        ///     错误消息
         /// </summary>
         /// <param name="code"></param>
         /// <param name="msg"></param>
@@ -147,13 +147,13 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 自定义错误消息
+        ///     自定义错误消息
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
         public static Result Failed(string msg)
         {
-            return new Result()
+            return new()
             {
                 Code = 0,
                 Message = msg,
@@ -164,14 +164,14 @@ namespace CodeIsBug.Admin.Common.Helper
         }
 
         /// <summary>
-        /// 自定义错误码和消息
+        ///     自定义错误码和消息
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="code"></param>
         /// <returns></returns>
         public static Result Failed(string msg, int code)
         {
-            return new Result()
+            return new()
             {
                 Code = code,
                 Message = msg,

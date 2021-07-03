@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
-    ///  省市县信息
+    ///     省市县信息
     /// </summary>
     [Authorize]
     [Route("api/[controller]")]
@@ -16,7 +16,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class CityInfoController : ControllerBase
     {
         /// <summary>
-        /// 获取全国省市信息
+        ///     获取全国省市信息
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllCity")]
@@ -34,12 +34,14 @@ namespace CodeIsBug.Admin.Api.Controllers
         }
 
         #region 构造函数注入
+
         private readonly CityInfoService _cityInfoService;
 
         public CityInfoController(CityInfoService cityInfoService)
         {
             _cityInfoService = cityInfoService;
         }
+
         #endregion
     }
 }

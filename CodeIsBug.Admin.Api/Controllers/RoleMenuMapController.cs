@@ -17,6 +17,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class RoleMenuMapController : ControllerBase
     {
         #region 根据选择的角色id加载选中菜单树
+
         /// <summary>
         ///     根据选择的角色id加载选中菜单树
         /// </summary>
@@ -38,9 +39,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 保存角色菜单权限
+
         /// <summary>
         ///     保存角色菜单权限
         /// </summary>
@@ -63,14 +66,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
+
         #region 构造函数
+
         private readonly RoleMenuMapService _roleMenuMapService;
 
         public RoleMenuMapController(RoleMenuMapService roleMenuMapService)
         {
             _roleMenuMapService = roleMenuMapService;
         }
+
         #endregion
     }
 }

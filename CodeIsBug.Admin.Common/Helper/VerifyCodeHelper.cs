@@ -1,17 +1,18 @@
 ﻿using System;
-using System.DrawingCore;
-using System.DrawingCore.Drawing2D;
-using System.DrawingCore.Imaging;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace CodeIsBug.Admin.Common.Helper
 {
     /// <summary>
-    /// 验证码帮助类
+    ///     验证码帮助类
     /// </summary>
     public class VerifyCodeHelper
     {
         #region 单例模式
+
         //创建私有化静态obj锁 
         private static readonly object ObjLock = new();
 
@@ -39,9 +40,11 @@ namespace CodeIsBug.Admin.Common.Helper
 
             return _verifyCodeHelper;
         }
+
         #endregion
 
         #region 生产验证码
+
         /// <summary>
         ///     验证码类型
         /// </summary>
@@ -173,9 +176,11 @@ namespace CodeIsBug.Admin.Common.Helper
 
             return verifyCode;
         }
+
         #endregion
 
         #region 验证码图片
+
         /// <summary>
         ///     验证码图片 => Bitmap
         /// </summary>
@@ -282,6 +287,7 @@ namespace CodeIsBug.Admin.Common.Helper
             //输出图片流 
             return stream.ToArray();
         }
+
         #endregion
     }
 }

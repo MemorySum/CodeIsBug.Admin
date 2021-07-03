@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CodeIsBug.Admin.Common.Helper
 {
     /// <summary>
@@ -20,7 +21,7 @@ namespace CodeIsBug.Admin.Common.Helper
             var msecs = now.TimeOfDay;
 
             var daysArray = BitConverter.GetBytes(days.Days);
-            var msecsArray = BitConverter.GetBytes((long)(msecs.TotalMilliseconds / 3.333333));
+            var msecsArray = BitConverter.GetBytes((long) (msecs.TotalMilliseconds / 3.333333));
 
             Array.Reverse(daysArray);
             Array.Reverse(msecsArray);

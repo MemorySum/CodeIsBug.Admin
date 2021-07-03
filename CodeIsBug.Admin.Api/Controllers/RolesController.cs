@@ -5,6 +5,7 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
@@ -15,8 +16,8 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class RolesController : ControllerBase
     {
-
         #region 加载角色树
+
         /// <summary>
         ///     加载角色树
         /// </summary>
@@ -39,9 +40,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return res;
         }
+
         #endregion
 
         #region 添加角色
+
         /// <summary>
         ///     添加角色
         /// </summary>
@@ -66,9 +69,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 删除角色
+
         /// <summary>
         ///     删除角色
         /// </summary>
@@ -102,9 +107,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 获取单个角色信息
+
         /// <summary>
         ///     获取单个角色信息
         /// </summary>
@@ -138,9 +145,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return r;
         }
+
         #endregion
 
         #region 更新角色信息
+
         /// <summary>
         ///     更新角色信息
         /// </summary>
@@ -165,15 +174,18 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 构造函数注入
+
         private RolesService RolesService { get; }
 
         public RolesController(RolesService rolesService)
         {
             RolesService = rolesService;
         }
+
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeIsBug.Admin.Models.Models;
+
 namespace CodeIsBug.Admin.Models.Dto
 {
     public class UserDataDto

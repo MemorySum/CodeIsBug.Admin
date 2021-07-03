@@ -21,10 +21,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         public MenuController(MenuService menuService)
         {
-            this._menuService = menuService;
+            _menuService = menuService;
         }
 
         #region 菜单列表
+
         /// <summary>
         ///     菜单列表
         /// </summary>
@@ -54,9 +55,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return res;
         }
+
         #endregion
 
         #region 添加菜单
+
         /// <summary>
         ///     添加菜单
         /// </summary>
@@ -96,9 +99,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 修改菜单信息
+
         /// <summary>
         ///     修改菜单信息
         /// </summary>
@@ -148,9 +153,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 删除菜单
+
         /// <summary>
         ///     删除菜单
         /// </summary>
@@ -171,9 +178,11 @@ namespace CodeIsBug.Admin.Api.Controllers
                 return new Result {Code = -1, Message = e.Message};
             }
         }
+
         #endregion
 
         #region 获取所有一级菜单
+
         /// <summary>
         ///     获取所有一级菜单
         /// </summary>
@@ -197,9 +206,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return r;
         }
+
         #endregion
 
         #region 获取单个菜单信息
+
         /// <summary>
         ///     获取单个菜单信息
         /// </summary>
@@ -234,9 +245,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return r;
         }
+
         #endregion
 
         #region 左侧菜单列表返回
+
         /// <summary>
         ///     左侧菜单列表返回
         /// </summary>
@@ -260,6 +273,7 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return res;
         }
+
         #endregion
     }
 }

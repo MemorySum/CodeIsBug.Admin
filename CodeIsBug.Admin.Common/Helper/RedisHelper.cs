@@ -7,7 +7,6 @@ namespace CodeIsBug.Admin.Common.Helper
     public class RedisHelper
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="connection"></param>
         public RedisHelper(string connection)

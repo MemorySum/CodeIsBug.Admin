@@ -5,6 +5,7 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
@@ -23,6 +24,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         }
 
         #region 获取用户列表
+
         /// <summary>
         ///     获取用户列表
         /// </summary>
@@ -56,9 +58,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return res;
         }
+
         #endregion
 
         #region 添加用户
+
         /// <summary>
         ///     添加用户
         /// </summary>
@@ -77,7 +81,6 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-
                     var flag = await _sysUsersService.AddUser(inputInfo);
                     if (flag)
                     {
@@ -99,9 +102,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return result;
         }
+
         #endregion
 
         #region 删除用户
+
         /// <summary>
         ///     删除用户
         /// </summary>
@@ -113,7 +118,6 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-
                 var flag = await _sysUsersService.DelUser(UserId);
                 if (flag)
                 {
@@ -133,11 +137,12 @@ namespace CodeIsBug.Admin.Api.Controllers
             }
 
             return result;
-
         }
+
         #endregion
 
         #region 获取用户信息
+
         /// <summary>
         ///     获取用户信息
         /// </summary>
@@ -149,7 +154,6 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-
                 var info = await _sysUsersService.GetUserInfo(UserId);
                 if (ReferenceEquals(null, info))
                 {
@@ -168,11 +172,14 @@ namespace CodeIsBug.Admin.Api.Controllers
                 result.Code = -1;
                 result.Message = exception.Message;
             }
+
             return result;
         }
+
         #endregion
 
         #region 修改用户信息
+
         /// <summary>
         ///     修改用户信息
         /// </summary>
@@ -201,8 +208,10 @@ namespace CodeIsBug.Admin.Api.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+
             return result;
         }
+
         #endregion
     }
 }

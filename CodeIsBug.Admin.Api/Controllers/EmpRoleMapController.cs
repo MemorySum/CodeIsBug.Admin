@@ -18,6 +18,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     public class EmpRoleMapController : ControllerBase
     {
         #region 根据列表选择的用户guid加载对应的角色guid
+
         /// <summary>
         ///     根据列表选择的用户guid加载对应的角色guid
         /// </summary>
@@ -38,9 +39,11 @@ namespace CodeIsBug.Admin.Api.Controllers
                 return ApiResultHelper.Error(-1, $"获取用户对应角色信息失败,错误信息为{e.Message}");
             }
         }
+
         #endregion
 
         #region 保存用户角色
+
         /// <summary>
         ///     保存用户角色
         /// </summary>
@@ -60,14 +63,18 @@ namespace CodeIsBug.Admin.Api.Controllers
                 return ApiResultHelper.Error(-1, e.Message);
             }
         }
+
         #endregion
+
         #region 构造函数注入service
+
         private readonly EmpRoleMapService _empRoleMapService;
 
         public EmpRoleMapController(EmpRoleMapService empRoleMapService)
         {
             _empRoleMapService = empRoleMapService;
         }
+
         #endregion
     }
 }

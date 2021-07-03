@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SqlSugar;
+
 namespace CodeIsBug.Admin.Models.Models
 {
     [SugarTable("e_Sys_Role")]
@@ -26,7 +27,7 @@ namespace CodeIsBug.Admin.Models.Models
 
         [SugarColumn(IsNullable = true, ColumnDescription = "修改时间")]
         public DateTime? ModifyTime { get; set; }
-        [SugarColumn(IsIgnore = true)]
-        public List<ESysRoles> Children { get; set; }
+
+        [SugarColumn(IsIgnore = true)] public List<ESysRoles> Children { get; set; }
     }
 }

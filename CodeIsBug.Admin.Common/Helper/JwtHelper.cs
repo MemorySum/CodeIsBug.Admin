@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using CodeIsBug.Admin.Models.Dto;
 using Microsoft.IdentityModel.Tokens;
+
 namespace CodeIsBug.Admin.Common.Helper
 {
     public class JwtHelper
@@ -28,7 +29,6 @@ namespace CodeIsBug.Admin.Common.Helper
 
             var encodeToken = new JwtSecurityTokenHandler().WriteToken(token);
             return encodeToken;
-
         }
     }
 }

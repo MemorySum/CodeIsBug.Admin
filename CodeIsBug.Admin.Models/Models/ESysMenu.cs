@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SqlSugar;
+
 namespace CodeIsBug.Admin.Models.Models
 {
     [SugarTable("e_Sys_Menu")]
@@ -8,6 +9,7 @@ namespace CodeIsBug.Admin.Models.Models
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, ColumnDescription = "菜单Id")]
         public Guid MenuId { get; set; }
+
         [SugarColumn(IsNullable = true, ColumnDescription = "父级Id")]
         public Guid? ParentId { get; set; }
 
@@ -31,7 +33,7 @@ namespace CodeIsBug.Admin.Models.Models
 
         [SugarColumn(IsNullable = true, ColumnDescription = "修改时间")]
         public DateTime? ModifyTime { get; set; }
-        [SugarColumn(IsIgnore = true)]
-        public List<ESysMenu> Children { get; set; }
+
+        [SugarColumn(IsIgnore = true)] public List<ESysMenu> Children { get; set; }
     }
 }

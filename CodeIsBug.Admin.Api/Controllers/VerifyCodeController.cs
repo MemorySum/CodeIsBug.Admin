@@ -4,6 +4,7 @@ using CodeIsBug.Admin.Common.Helper;
 using CodeIsBug.Admin.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+
 namespace CodeIsBug.Admin.Api.Controllers
 {
     /// <summary>
@@ -21,6 +22,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var redisConnectionString = Configuration.GetValue<string>("RedisConn");
             _redisHelper = new RedisHelper(redisConnectionString);
         }
+
         private IConfiguration Configuration { get; }
 
         /// <summary>
@@ -49,11 +51,11 @@ namespace CodeIsBug.Admin.Api.Controllers
         {
             if (checkCodeDto == null) throw new ArgumentNullException(nameof(checkCodeDto));
 
-            if (Equals(Guid.Empty, checkCodeDto.CheckGuid)) return new Result { Code = -1, Message = "参数错误" };
+            if (Equals(Guid.Empty, checkCodeDto.CheckGuid)) return new Result {Code = -1, Message = "参数错误"};
             var code = await _redisHelper.GetValueAsync(checkCodeDto.CheckGuid.ToString());
-            if (!code.HasValue) return new Result { Code = 0, Message = "验证码已过期，请刷新页面重新尝试登录" };
-            if (!code.ToString().Equals(checkCodeDto.CheckCode)) return new Result { Code = 0, Message = "验证不通过" };
-            return new Result { Code = 1, Message = "验证通过" };
+            if (!code.HasValue) return new Result {Code = 0, Message = "验证码已过期，请刷新页面重新尝试登录"};
+            if (!code.ToString().Equals(checkCodeDto.CheckCode)) return new Result {Code = 0, Message = "验证不通过"};
+            return new Result {Code = 1, Message = "验证通过"};
         }
     }
 }

@@ -138,7 +138,7 @@ namespace CodeIsBug.Admin.Api
                 };
             });
             //≈‰÷√SqlSugar IOC
-            services.AddSqlSugar(new IocConfig()
+            services.AddSqlSugar(new IocConfig
             {
                 ConnectionString = DBConfig.ConnectionString,
                 DbType = IocDbType.SqlServer,
