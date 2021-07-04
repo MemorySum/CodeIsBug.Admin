@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\GitRepository\CodeIsBug.Admin\CodeIsBug.Admin.Common\CodeIsBug.Admin.Common.xml</DocumentationFile>
-    <OutputPath></OutputPath>
+    <DocumentationFile>bin\Debug\net6.0\CodeIsBug.Admin.Common.xml</DocumentationFile>
+    <OutputPath>bin\Debug\net6.0</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,14 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
-      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0"/>
-      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.0-preview.4.21274.1"/>
-      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.4.21274.1"/>
-      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4"/>
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
-      <PackageReference Include="StackExchange.Redis" Version="2.2.4"/>
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0"/>
-      <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1"/>
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.0-preview.5.21321.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.5.21321.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
+      <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

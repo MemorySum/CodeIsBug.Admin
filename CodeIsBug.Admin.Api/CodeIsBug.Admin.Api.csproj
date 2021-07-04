@@ -6,8 +6,9 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>D:\GitRepository\CodeIsBug.Admin\CodeIsBug.Admin.Api\CodeIsBug.Admin.Api.xml</DocumentationFile>
+		<DocumentationFile>bin\Debug\net6.0\CodeIsBug.Admin.Api.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
+		<OutputPath>bin\Debug\net6.0\</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="MysqlScript\**" />
@@ -25,28 +26,27 @@
 		<ProjectReference Include="..\CodeIsBug.Admin.Services\CodeIsBug.Admin.Services.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AspNetCoreRateLimit" Version="3.2.2" />
 		<PackageReference Include="Autofac" Version="6.2.0" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
 		<PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.8" />
 		<PackageReference Include="log4net" Version="2.0.12" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.3.21201.13" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0-preview.3.21201.13"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.3.21201.2"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.3.21201.2">
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.5.21301.17" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0-preview.5.21301.17" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.5.21301.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.5.21301.9">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.3.21201.4"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0"/>
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13"/>
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.0-preview.4.21274.1"/>
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.4.21274.1"/>
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4"/>
-        <PackageReference Include="sqlSugarCore" Version="5.0.2.9"/>
-        <PackageReference Include="StackExchange.Redis" Version="2.2.4"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-preview.5.21301.5" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.3" />
+        <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.0-preview.5.21321.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.5.21321.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+        <PackageReference Include="sqlSugarCore" Version="5.0.3.2" />
+        <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     </ItemGroup>
 	<ItemGroup>
 	  <Content Update="appsettings.json">
