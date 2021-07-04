@@ -43,7 +43,7 @@ namespace CodeIsBug.Admin.Services.Service
                     {
                         Id = GuidHelper.GenerateGuid(),
                         EmpId = saveDto.UserId,
-                        RoleId = item
+                        RoleId = item 
                     };
                     mapList.Add(map);
                 }
