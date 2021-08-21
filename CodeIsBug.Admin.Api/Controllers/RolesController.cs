@@ -23,12 +23,12 @@ namespace CodeIsBug.Admin.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetRolesTree")]
-        public Result GetRoles()
+        public async Task<Result> GetRoles()
         {
             var res = new Result();
             try
             {
-                res.Object = RolesService.GetRoles();
+                res.Object =await _rolesService.GetRoles();
                 res.Code = 1;
                 res.Message = "菜单获取成功";
             }
@@ -57,7 +57,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-                var isSuccess = await RolesService.AddRole(dto);
+                var isSuccess = await _rolesService.AddRole(dto);
                 result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "角色添加成功" : "角色添加失败";
             }
@@ -86,7 +86,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-                var isHasChildren = await RolesService.IsHasChildren(roleGuid);
+                var isHasChildren = await _rolesService.IsHasChildren(roleGuid);
                 if (isHasChildren)
                 {
                     result.Code = 0;
@@ -94,7 +94,7 @@ namespace CodeIsBug.Admin.Api.Controllers
                 }
                 else
                 {
-                    var isSuccess = await RolesService.DelRole(roleGuid);
+                    var isSuccess = await _rolesService.DelRole(roleGuid);
                     result.Code = isSuccess ? 1 : 0;
                     result.Message = isSuccess ? "角色删除成功" : "角色删除失败";
                 }
@@ -124,7 +124,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var r = new Result();
             try
             {
-                var info = await RolesService.GetRoleInfo(roleGuid);
+                var info = await _rolesService.GetRoleInfo(roleGuid);
                 if (!ReferenceEquals(info, null))
                 {
                     r.Code = 1;
@@ -162,7 +162,7 @@ namespace CodeIsBug.Admin.Api.Controllers
             var result = new Result();
             try
             {
-                var isSuccess = await RolesService.EditRoleInfo(info);
+                var isSuccess = await _rolesService.EditRoleInfo(info);
                 result.Code = isSuccess ? 1 : 0;
                 result.Message = isSuccess ? "角色修改成功" : "角色修改失败";
             }
@@ -179,11 +179,11 @@ namespace CodeIsBug.Admin.Api.Controllers
 
         #region 构造函数注入
 
-        private RolesService RolesService { get; }
+        private readonly RolesService _rolesService;
 
         public RolesController(RolesService rolesService)
         {
-            RolesService = rolesService;
+            _rolesService = rolesService;
         }
 
         #endregion

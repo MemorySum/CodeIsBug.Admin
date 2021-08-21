@@ -12,11 +12,11 @@ namespace CodeIsBug.Admin.Services.Service
     /// </summary>
     public class RolesService : BaseService<ESysRoles>
     {
-        public List<ESysRoles> GetRoles()
+        public async Task<List<ESysRoles>> GetRoles()
         {
-            return Context.Queryable<ESysRoles>()
+            return await Context.Queryable<ESysRoles>()
                 .OrderBy(role => role.Sort)
-                .ToTree(role => role.Children,
+                .ToTreeAsync(role => role.Children,
                     role => role.ParentId,
                     Guid.Empty);
         }
