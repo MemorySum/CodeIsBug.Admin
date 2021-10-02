@@ -37,14 +37,17 @@ namespace CodeIsBug.Admin.Api
         public void ConfigureServices(IServiceCollection services)
         {
             //配置api控制器管道
-            services.AddControllers().AddNewtonsoftJson(options =>
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<GlobalExceptionFilter>();
+            }).AddNewtonsoftJson(options =>
             {
                 // Use the default property (Pascal) casing
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
 
                 // Configure a custom converter
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
-                    {DateTimeFormat = "yyyy-MM-dd HH:mm:ss"});
+                { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
             }).AddControllersAsServices();
             //配置jwt信息 映射到内存中
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -63,7 +66,7 @@ namespace CodeIsBug.Admin.Api
             //配置swaggerDocument
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "CodeIsBug.Admin.API", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeIsBug.Admin.API", Version = "v1" });
                 c.AddServer(new OpenApiServer
                 {
                     Url = "",
@@ -144,6 +147,7 @@ namespace CodeIsBug.Admin.Api
                 DbType = IocDbType.SqlServer,
                 IsAutoCloseConnection = true //自动释放
             });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,

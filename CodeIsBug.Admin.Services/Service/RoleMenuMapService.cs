@@ -7,6 +7,7 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
+using SqlSugar.IOC;
 
 namespace CodeIsBug.Admin.Services.Service
 {
@@ -44,16 +45,16 @@ namespace CodeIsBug.Admin.Services.Service
 
             try
             {
-                Context.Ado.BeginTran();
+                DbScoped.SugarScope.BeginTran();
                 await Context.Deleteable<ESysRoleMenuMap>().Where(x => x.RoleId.Equals(saveDto.RoleId))
                     .ExecuteCommandHasChangeAsync();
-                await Context.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
-                Context.Ado.CommitTran();
+                await Context.Insertable(mapList).UseSqlServer().ExecuteBlukCopyAsync();
+                DbScoped.SugarScope.CommitTran();
                 return true;
             }
             catch (Exception ex)
             {
-                Context.Ado.RollbackTran();
+                DbScoped.SugarScope.RollbackTran();
                 return false;
             }
         }

@@ -53,7 +53,7 @@ namespace CodeIsBug.Admin.Services.Service
                 Context.Ado.BeginTran();
                 await Context.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId))
                     .ExecuteCommandAsync();
-                await Context.Insertable(mapList).UseSqlServer().ExecuteBlueCopyAsync();
+                await Context.Insertable(mapList).UseSqlServer().ExecuteBlukCopyAsync();
                 Context.Ado.CommitTran();
                 return true;
             }

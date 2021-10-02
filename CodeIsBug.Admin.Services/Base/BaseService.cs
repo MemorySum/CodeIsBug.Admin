@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CodeIsBug.Admin.Models.Models;
 using SqlSugar;
 using SqlSugar.IOC;
 
@@ -9,7 +10,7 @@ namespace CodeIsBug.Admin.Services.Base
     {
         public BaseService(ISqlSugarClient context = null) : base(context) //注意这里要有默认值等于null
         {
-            if (context == null) Context = DbScoped.Sugar;
+            base.Context = DbScoped.SugarScope;
 
             //调式代码 用来打印SQL 
             Context.Aop.OnLogExecuting = (sql, pars) =>
@@ -19,6 +20,7 @@ namespace CodeIsBug.Admin.Services.Base
                                       it => it.Value)));
                 // LogHelper.LogWrite(sql + "\r\n" +Db.Utilities.SerializeObject(pars.ToDictionary(it => it.ParameterName, it => it.Value)));
             };
+            base.Context.CodeFirst.SetStringDefaultLength(200).InitTables<ESysErrorLog>();
         }
     }
 }

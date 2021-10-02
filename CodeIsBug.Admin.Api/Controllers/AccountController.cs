@@ -58,5 +58,17 @@ namespace CodeIsBug.Admin.Api.Controllers
 
             return ApiResultHelper.Success("登录成功", userInfo, new {Access_Token = token});
         }
+
+        /// <summary>
+        /// teste
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        [HttpPost("teste")]
+        [AllowAnonymous]
+        public async  Task<Result> Tetst()
+        {
+            throw new ArgumentNullException();
+        }
     }
 }
