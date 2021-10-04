@@ -15,17 +15,11 @@ namespace CodeIsBug.Admin.Services.Service
     {
         public async Task<List<Guid>> GetMenuListByRoleId(Guid roleGuid)
         {
-            //return await Context.Queryable<ESysRoleMenuMap, ESysMenu, ESysRoles>((map, menu, role) =>
-            //        new JoinQueryInfos(JoinType.Left, map.MenuId.Equals(menu.MenuId),
-            //            JoinType.Left, map.RoleId.Equals(role.RoleId)))
-            //    .Where(map => map.RoleId.Equals(roleGuid))
-            //    .Select((map, menu, role) => menu.MenuId).ToListAsync();
-            var data = await Context.Queryable<ESysRoles, ESysRoleMenuMap, ESysMenu>((role, rolemap, menu) =>
-                    new JoinQueryInfos(JoinType.Left, role.RoleId == rolemap.RoleId,
-                        JoinType.Inner, rolemap.MenuId == menu.MenuId))
-                .Where((role, rolemap, menu) => role.RoleId == roleGuid)
-                .Distinct().Select((role, rolemap, menu) => menu.MenuId).ToListAsync();
-            return data;
+            return await Context.Queryable<ESysRoles>()
+                 .LeftJoin<ESysRoleMenuMap>((role, rolemap) => role.RoleId == rolemap.RoleId)
+                 .LeftJoin<ESysMenu>((role, rolemap, menu) => rolemap.MenuId == menu.MenuId)
+                 .Where((role, rolemap, menu) => role.RoleId == roleGuid)
+                 .Distinct().Select((role, rolemap, menu) => menu.MenuId).ToListAsync();
         }
 
         public async Task<bool> SaveRoleMenuInfo(RoleMenuMapSaveDto saveDto)
@@ -47,8 +41,8 @@ namespace CodeIsBug.Admin.Services.Service
             {
                 DbScoped.SugarScope.BeginTran();
                 await Context.Deleteable<ESysRoleMenuMap>().Where(x => x.RoleId.Equals(saveDto.RoleId))
-                    .ExecuteCommandHasChangeAsync();
-                await Context.Insertable(mapList).UseSqlServer().ExecuteBlukCopyAsync();
+                    .ExecuteCommandAsync();
+                await Context.Insertable(mapList).UseSqlServer().ExecuteBulkCopyAsync();
                 DbScoped.SugarScope.CommitTran();
                 return true;
             }

@@ -7,6 +7,7 @@ using CodeIsBug.Admin.Models.Dto;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 using SqlSugar;
+using SqlSugar.IOC;
 
 namespace CodeIsBug.Admin.Services.Service
 {
@@ -22,9 +23,9 @@ namespace CodeIsBug.Admin.Services.Service
         /// <returns></returns>
         public async Task<List<Guid>> GetUserRolesByUserId(Guid userGuid)
         {
-            return await Context.Queryable<ESysEmpRoleMap, EBaseEmp>((map, emp) =>
-                    new JoinQueryInfos(JoinType.Left, map.EmpId.Equals(emp.UserId)))
-                .Where(map => map.EmpId.Equals(userGuid))
+            return await Context.Queryable<ESysEmpRoleMap>()
+                .LeftJoin<EBaseEmp>((rolemap, emp) => rolemap.EmpId == emp.UserId)
+                .Where((rolemap, emp) => rolemap.EmpId.Equals(userGuid))
                 .Select((map, emp) => map.RoleId.Value).ToListAsync();
         }
 
@@ -43,23 +44,22 @@ namespace CodeIsBug.Admin.Services.Service
                     {
                         Id = GuidHelper.GenerateGuid(),
                         EmpId = saveDto.UserId,
-                        RoleId = item 
+                        RoleId = item
                     };
                     mapList.Add(map);
                 }
-
             try
             {
-                Context.Ado.BeginTran();
+                DbScoped.SugarScope.BeginTran();
                 await Context.Deleteable<ESysEmpRoleMap>().Where(x => x.EmpId.Equals(saveDto.UserId))
-                    .ExecuteCommandAsync();
-                await Context.Insertable(mapList).UseSqlServer().ExecuteBlukCopyAsync();
-                Context.Ado.CommitTran();
+                    .ExecuteCommandAsync();//ExecuteBlukCopyAsync
+                await Context.Insertable(mapList).UseSqlServer().ExecuteBulkCopyAsync();
+                DbScoped.SugarScope.CommitTran();
                 return true;
             }
             catch (Exception ex)
             {
-                Context.Ado.RollbackTran();
+                DbScoped.SugarScope.RollbackTran();
                 return false;
             }
         }
