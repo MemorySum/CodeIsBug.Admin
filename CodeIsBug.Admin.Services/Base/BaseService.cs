@@ -20,7 +20,7 @@ namespace CodeIsBug.Admin.Services.Base
                                       it => it.Value)));
                 // LogHelper.LogWrite(sql + "\r\n" +Db.Utilities.SerializeObject(pars.ToDictionary(it => it.ParameterName, it => it.Value)));
             };
-            base.Context.CodeFirst.SetStringDefaultLength(200).InitTables<ESysErrorLog>();
+            
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +15,12 @@ namespace CodeIsBug.Admin.Models.Enums
         /// <summary>
         /// 错误日志
         /// </summary>
-        Error =1,
+        [Description("错误日志")]
+        Error = 1,
         /// <summary>
         /// 操作日志
         /// </summary>
-        Operator=2
+        [Description("操作日志")]
+        Operator = 2
     }
 }

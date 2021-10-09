@@ -26,7 +26,7 @@ namespace CodeIsBug.Admin.Services.Service
             return await Context.Queryable<ESysEmpRoleMap>()
                 .LeftJoin<EBaseEmp>((rolemap, emp) => rolemap.EmpId == emp.UserId)
                 .Where((rolemap, emp) => rolemap.EmpId.Equals(userGuid))
-                .Select((map, emp) => map.RoleId.Value).ToListAsync();
+                .Select((rolemap, emp) => rolemap.RoleId.Value).ToListAsync();
         }
 
         /// <summary>

@@ -19,7 +19,8 @@ namespace CodeIsBug.Admin.Services.Service
                  .LeftJoin<ESysRoleMenuMap>((role, rolemap) => role.RoleId == rolemap.RoleId)
                  .LeftJoin<ESysMenu>((role, rolemap, menu) => rolemap.MenuId == menu.MenuId)
                  .Where((role, rolemap, menu) => role.RoleId == roleGuid)
-                 .Distinct().Select((role, rolemap, menu) => menu.MenuId).ToListAsync();
+                 .Distinct()
+                 .Select((role, rolemap, menu) => menu.MenuId).ToListAsync();
         }
 
         public async Task<bool> SaveRoleMenuInfo(RoleMenuMapSaveDto saveDto)
