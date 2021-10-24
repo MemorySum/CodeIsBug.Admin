@@ -5,6 +5,7 @@ using Autofac;
 using CodeIsBug.Admin.Api.Extensions;
 using CodeIsBug.Admin.Common.Config;
 using CodeIsBug.Admin.Common.Helper;
+using Hangfire;
 using IGeekFan.AspNetCore.Knife4jUI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,12 @@ namespace CodeIsBug.Admin.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //配置jwt信息 映射到内存中
+            var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+            //DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
+            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
+            services.AddHangfire(x => x.UseSqlServerStorage(DBConfig.ConnectionString));
             //配置api控制器管道
             services.AddControllers(options =>
             {
@@ -49,11 +56,6 @@ namespace CodeIsBug.Admin.Api
                 options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
                 { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
             }).AddControllersAsServices();
-            //配置jwt信息 映射到内存中
-            var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
-            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
-            //DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
-            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
             //配置跨域请求
             services.AddCors(options =>
             {
@@ -120,7 +122,8 @@ namespace CodeIsBug.Admin.Api
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+            })
+                .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
@@ -147,7 +150,6 @@ namespace CodeIsBug.Admin.Api
                 DbType = IocDbType.SqlServer,
                 IsAutoCloseConnection = true //自动释放
             });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -159,6 +161,8 @@ namespace CodeIsBug.Admin.Api
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(codeIsBugAdminPolicy);
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseKnife4UI(c =>
