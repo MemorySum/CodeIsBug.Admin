@@ -5,7 +5,6 @@ using Autofac;
 using CodeIsBug.Admin.Api.Extensions;
 using CodeIsBug.Admin.Common.Config;
 using CodeIsBug.Admin.Common.Helper;
-using Hangfire;
 using IGeekFan.AspNetCore.Knife4jUI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,7 +41,7 @@ namespace CodeIsBug.Admin.Api
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             //DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
             DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
-            services.AddHangfire(x => x.UseSqlServerStorage(DBConfig.ConnectionString));
+          
             //ÅäÖÃapi¿ØÖÆÆ÷¹ÜµÀ
             services.AddControllers(options =>
             {
@@ -161,8 +160,6 @@ namespace CodeIsBug.Admin.Api
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(codeIsBugAdminPolicy);
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseKnife4UI(c =>

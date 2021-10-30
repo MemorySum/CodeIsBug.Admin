@@ -28,8 +28,6 @@
 	<ItemGroup>
 		<PackageReference Include="Autofac" Version="6.2.0" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-		<PackageReference Include="Hangfire.AspNetCore" Version="1.8.0-beta3" />
-		<PackageReference Include="Hangfire.SqlServer" Version="1.8.0-beta3" />
 		<PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.8" />
 		<PackageReference Include="log4net" Version="2.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.5.21301.17" />

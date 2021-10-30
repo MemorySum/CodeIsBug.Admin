@@ -7,8 +7,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CodeIsBug.Admin.Common.Helper
 {
+    /// <summary>
+    /// jwt帮助类
+    /// </summary>
     public class JwtHelper
     {
+        /// <summary>
+        /// 生产token
+        /// </summary>
+        /// <param name="jwtSettings"></param>
+        /// <param name="dataDto"></param>
+        /// <returns></returns>
         public static string CreatToken(JwtSettings jwtSettings, UserDataDto dataDto)
         {
             var claim = new[]

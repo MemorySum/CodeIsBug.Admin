@@ -13,12 +13,10 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <returns></returns>
         public static string Md5Hash(this string input)
         {
-            using (var md5 = MD5.Create())
-            {
-                var result = md5.ComputeHash(Encoding.ASCII.GetBytes(input));
-                var strResult = BitConverter.ToString(result);
-                return strResult.Replace("-", "").ToLower();
-            }
+            using var md5 = MD5.Create();
+            var result = md5.ComputeHash(Encoding.ASCII.GetBytes(input));
+            var strResult = BitConverter.ToString(result);
+            return strResult.Replace("-", "").ToLower();
         }
     }
 }
