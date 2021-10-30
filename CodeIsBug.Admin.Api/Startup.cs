@@ -5,7 +5,6 @@ using Autofac;
 using CodeIsBug.Admin.Api.Extensions;
 using CodeIsBug.Admin.Common.Config;
 using CodeIsBug.Admin.Common.Helper;
-using IGeekFan.AspNetCore.Knife4jUI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -159,14 +158,11 @@ namespace CodeIsBug.Admin.Api
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseCors(codeIsBugAdminPolicy);
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseKnife4UI(c =>
-            {
-                c.RoutePrefix = ""; // serve the UI at root
-                c.SwaggerEndpoint("/v1/api-docs", "V1-Docs");
-            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
