@@ -17,6 +17,7 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        #region 构造函数
         private readonly AccountService _accountService;
         private readonly EmpRoleMapService _empRoleMapService;
         private readonly JwtSettings _jwtSettings;
@@ -27,8 +28,10 @@ namespace CodeIsBug.Admin.Api.Controllers
             _jwtSettings = jwtSettings.Value;
             _accountService = accountService;
             _empRoleMapService = empRoleMapService;
-        }
+        } 
+        #endregion
 
+        #region 登录接口
         /// <summary>
         ///     登录接口
         /// </summary>
@@ -56,19 +59,8 @@ namespace CodeIsBug.Admin.Api.Controllers
             };
             var token = JwtHelper.CreatToken(_jwtSettings, userInfo);
 
-            return ApiResultHelper.Success("登录成功", userInfo, new {Access_Token = token});
-        }
-
-        /// <summary>
-        /// teste
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        [HttpPost("teste")]
-        [AllowAnonymous]
-        public async  Task<Result> Tetst()
-        {
-            throw new ArgumentNullException();
-        }
+            return ApiResultHelper.Success("登录成功", userInfo, new { Access_Token = token });
+        } 
+        #endregion
     }
 }

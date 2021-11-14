@@ -15,8 +15,20 @@ namespace CodeIsBug.Admin.Api.Controllers
     [ApiController]
     public class CityInfoController : ControllerBase
     {
+        #region 构造函数注入
+
+        private readonly CityInfoService _cityInfoService;
+
+        public CityInfoController(CityInfoService cityInfoService)
+        {
+            _cityInfoService = cityInfoService;
+        }
+
+        #endregion
+
+        #region 获取全国省市信息
         /// <summary>
-        ///     获取全国省市信息
+        /// 获取全国省市信息
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllCity")]
@@ -32,16 +44,8 @@ namespace CodeIsBug.Admin.Api.Controllers
                 return ApiResultHelper.Error(-1, e.Message);
             }
         }
-
-        #region 构造函数注入
-
-        private readonly CityInfoService _cityInfoService;
-
-        public CityInfoController(CityInfoService cityInfoService)
-        {
-            _cityInfoService = cityInfoService;
-        }
-
         #endregion
+
+
     }
 }
