@@ -15,7 +15,7 @@ namespace CodeIsBug.Admin.Api.Extensions
         public void OnException(ExceptionContext context)
         {
             if (context.ExceptionHandled == false)
-            {
+             {
                 Exception ex = context.Exception;
                 //错误所在的控制器方法名称
                 var DisplayName = context.ActionDescriptor.DisplayName;
