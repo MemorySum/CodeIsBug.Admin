@@ -3,8 +3,9 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<UserSecretsId>f28245fd-557a-4752-a2dc-46216e5858df</UserSecretsId>
-		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile>bin\Debug\net6.0\CodeIsBug.Admin.Api.xml</DocumentationFile>
@@ -27,6 +28,7 @@
 		<ProjectReference Include="..\CodeIsBug.Admin.Services\CodeIsBug.Admin.Services.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="AgileConfig.Client" Version="1.2.1.4" />
 		<PackageReference Include="Autofac" Version="6.3.0" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
 		<PackageReference Include="log4net" Version="2.0.13" />

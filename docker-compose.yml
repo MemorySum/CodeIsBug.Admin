@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  codeisbug.admin.api:
+    image: ${DOCKER_REGISTRY-}codeisbugadminapi
+    build:
+      context: .
+      dockerfile: CodeIsBug.Admin.Api/Dockerfile
+    ports:
+      - "8099:80"
+    links:
+      - redis
+  redis:
+     images :redis     
+ 

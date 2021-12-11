@@ -145,7 +145,7 @@ namespace CodeIsBug.Admin.Api
             services.AddSqlSugar(new IocConfig
             {
                 ConnectionString = DBConfig.ConnectionString,
-                DbType = IocDbType.MySql,
+                DbType = IocDbType.SqlServer,
                 IsAutoCloseConnection = true //×Ô¶¯ÊÍ·Å
             });
         }
