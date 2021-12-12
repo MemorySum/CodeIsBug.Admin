@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CodeIsBug.Admin.Models.Dto;
+using CodeIsBug.Admin.Models.Dto.Menu;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 

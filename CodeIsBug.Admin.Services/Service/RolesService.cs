@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CodeIsBug.Admin.Models.Dto;
+using CodeIsBug.Admin.Models.Dto.Role;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CodeIsBug.Admin.Models.Models;
 
-namespace CodeIsBug.Admin.Models.Dto
+namespace CodeIsBug.Admin.Models.Dto.Emp
 {
     public class UserDataDto
     {

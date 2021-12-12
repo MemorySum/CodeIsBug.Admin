@@ -1,4 +1,4 @@
-﻿namespace CodeIsBug.Admin.Models.Dto
+﻿namespace CodeIsBug.Admin.Models.Dto.Emp
 {
     public class UserAddInfo
     {

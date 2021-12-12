@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
-using CodeIsBug.Admin.Models.Dto;
+using CodeIsBug.Admin.Models.Dto.Emp;
 using CodeIsBug.Admin.Models.Models;
 using CodeIsBug.Admin.Services.Base;
 

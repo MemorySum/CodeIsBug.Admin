@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodeIsBug.Admin.Models.Dto
+namespace CodeIsBug.Admin.Models.Dto.Role
 {
     public class EmpRoleMapSaveDto
     {

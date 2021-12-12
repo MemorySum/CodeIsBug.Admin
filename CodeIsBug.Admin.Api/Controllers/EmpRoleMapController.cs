@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
-using CodeIsBug.Admin.Models.Dto;
+using CodeIsBug.Admin.Models.Dto.Role;
 using CodeIsBug.Admin.Services.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

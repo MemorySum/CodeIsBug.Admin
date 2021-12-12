@@ -38,8 +38,8 @@ namespace CodeIsBug.Admin.Api
             //配置jwt信息 映射到内存中
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
-            //DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
-            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
+            DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
+            // DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
           
             //配置api控制器管道
             services.AddControllers(options =>
@@ -145,7 +145,7 @@ namespace CodeIsBug.Admin.Api
             services.AddSqlSugar(new IocConfig
             {
                 ConnectionString = DBConfig.ConnectionString,
-                DbType = IocDbType.SqlServer,
+                DbType = IocDbType.MySql,
                 IsAutoCloseConnection = true //自动释放
             });
         }

@@ -15,7 +15,7 @@ namespace CodeIsBug.Admin.Api.Extensions
         public void OnException(ExceptionContext context)
         {
             if (context.ExceptionHandled == false)
-             {
+            {
                 Exception ex = context.Exception;
                 //错误所在的控制器方法名称
                 var DisplayName = context.ActionDescriptor.DisplayName;
@@ -26,7 +26,7 @@ namespace CodeIsBug.Admin.Api.Extensions
                 if (index != -1)
                 {
                     var lineNumberText = ex.StackTrace.Substring(index + lineSearch.Length);
-                    var lineNumberStr = lineNumberText.Substring(0, lineNumberText.IndexOf("\r\n"));
+                    var lineNumberStr = lineNumberText.Substring(0, lineNumberText.IndexOf("\n"));
                     int.TryParse(lineNumberStr, out int lineNumber);
                     ESysErrorLog md = new ESysErrorLog
                     {
@@ -50,7 +50,7 @@ namespace CodeIsBug.Admin.Api.Extensions
                 }
                 #endregion
             }
-            context.ExceptionHandled = true;
+            context.ExceptionHandled = false;
 
 
         }

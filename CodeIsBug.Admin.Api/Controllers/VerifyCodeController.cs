@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CodeIsBug.Admin.Common.Helper;
-using CodeIsBug.Admin.Models.Dto;
+using CodeIsBug.Admin.Models.Dto.Emp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 

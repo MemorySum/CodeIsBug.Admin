@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeIsBug.Admin.Models.Dto
+namespace CodeIsBug.Admin.Models.Dto.Role
 {
     public class RoleEditInfo
     {

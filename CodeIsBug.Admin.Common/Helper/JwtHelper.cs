@@ -2,7 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CodeIsBug.Admin.Models.Dto;
+using CodeIsBug.Admin.Models.Dto.Emp;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CodeIsBug.Admin.Common.Helper
