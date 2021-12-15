@@ -40,7 +40,7 @@ namespace CodeIsBug.Admin.Api
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
             DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin.MySQL").Trim();
             // DBConfig.ConnectionString = Configuration.GetConnectionString("codeIsBug.Admin").Trim();
-          
+
             //ÅäÖÃapi¿ØÖÆÆ÷¹ÜµÀ
             services.AddControllers(options =>
             {
