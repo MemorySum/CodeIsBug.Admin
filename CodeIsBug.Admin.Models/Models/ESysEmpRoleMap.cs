@@ -3,7 +3,7 @@ using SqlSugar;
 
 namespace CodeIsBug.Admin.Models.Models
 {
-    [SugarTable("e_Sys_EmpRoleMap")]
+    [SugarTable("e_sys_emprolemap")]
     public class ESysEmpRoleMap
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, ColumnDescription = "主键Id")]

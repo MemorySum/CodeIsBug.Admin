@@ -3,7 +3,7 @@ using SqlSugar;
 
 namespace CodeIsBug.Admin.Models.Models
 {
-    [SugarTable("e_Base_Emp")]
+    [SugarTable("e_base_emp")]
     public class EBaseEmp
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, ColumnDescription = "用户Id")]

@@ -4,7 +4,7 @@ using SqlSugar;
 
 namespace CodeIsBug.Admin.Models.Models
 {
-    [SugarTable("e_Sys_Role")]
+    [SugarTable("e_sys_role")]
     public class ESysRoles
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, ColumnDescription = "角色Id")]

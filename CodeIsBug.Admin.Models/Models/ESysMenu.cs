@@ -4,7 +4,7 @@ using SqlSugar;
 
 namespace CodeIsBug.Admin.Models.Models
 {
-    [SugarTable("e_Sys_Menu")]
+    [SugarTable("e_sys_menu")]
     public class ESysMenu
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, ColumnDescription = "菜单Id")]
