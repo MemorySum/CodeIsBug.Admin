@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeIsBug.Admin.Api", "Code
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeIsBug.Admin.Services", "CodeIsBug.Admin.Services\CodeIsBug.Admin.Services.csproj", "{60F9E511-CBE6-4F11-8B84-D2BB2B82E940}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeIsBug.Admin.Hangfire", "CodeIsBug,Admin.HangFile\CodeIsBug.Admin.Hangfire.csproj", "{99E1DA79-E40E-4BEA-8961-17289B56804B}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4E66CF85-89D6-4CD7-9494-FDBD48DB4EEB}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{60F9E511-CBE6-4F11-8B84-D2BB2B82E940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60F9E511-CBE6-4F11-8B84-D2BB2B82E940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60F9E511-CBE6-4F11-8B84-D2BB2B82E940}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99E1DA79-E40E-4BEA-8961-17289B56804B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99E1DA79-E40E-4BEA-8961-17289B56804B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99E1DA79-E40E-4BEA-8961-17289B56804B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99E1DA79-E40E-4BEA-8961-17289B56804B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E66CF85-89D6-4CD7-9494-FDBD48DB4EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E66CF85-89D6-4CD7-9494-FDBD48DB4EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E66CF85-89D6-4CD7-9494-FDBD48DB4EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +44,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CD597094-9BD0-45A8-9F3C-D0CF3D9A0F28}
+		SolutionGuid = {05A165C6-EE3E-48D0-B9DA-60DA171DCDD1}
 	EndGlobalSection
 EndGlobal

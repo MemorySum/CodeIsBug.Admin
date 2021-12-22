@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "codeisbug.admin.api",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "codeisbug.admin.api": "StartDebugging",
+        "mysql": "StartWithoutDebugging",
+        "redis": "StartWithoutDebugging"
+      }
+    }
+  }
+}
