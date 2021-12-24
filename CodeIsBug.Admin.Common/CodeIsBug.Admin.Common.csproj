@@ -17,9 +17,9 @@
   <ItemGroup>
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.15.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="SkiaSharp" Version="2.80.3" />
       <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
-      <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
