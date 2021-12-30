@@ -1,10 +1,9 @@
-version: '3'
+
 services:
   agile_config_admin:
     image: "kklldog/agile_config"
     ports:
       - "15000:5000"
-    restart: always
     networks:
       - net0
     volumes:
@@ -14,10 +13,9 @@ services:
       - adminConsole=true
       - nodes=agile_config_admin:5000,agile_config_node1:5000,agile_config_node2:5000
       - db:provider=mysql
-      - db:conn= database=CodeIsBug.Admin.AgileConfig;data source=119.91.250.14;User Id=root;password=Zgr15997363840..;port=3306
+      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=119.91.250.14;User Id=root;password=Admin123@zgr;port=3306
   agile_config_node1:
     image: "kklldog/agile_config"
-    restart: always
     ports:
       - "15001:5000"
     networks:
@@ -27,12 +25,11 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - db:provider=mysql
-      - db:conn= database=CodeIsBug.Admin.AgileConfig;data source=119.91.250.14;User Id=root;password=Zgr15997363840..;port=3306
+      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=119.91.250.14;User Id=root;password=Admin123@zgr;port=3306
     depends_on:
       - agile_config_admin
   agile_config_node2:
     image: "kklldog/agile_config"
-    restart: always
     ports:
       - "15002:5000"
     networks:
@@ -42,7 +39,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - db:provider=mysql
-      - db:conn= database=CodeIsBug.Admin.AgileConfig;data source=119.91.250.14;User Id=root;password=Zgr15997363840..;port=3306
+      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=119.91.250.14;User Id=root;password=Admin123@zgr;port=3306
     depends_on:
       - agile_config_admin
 networks:
