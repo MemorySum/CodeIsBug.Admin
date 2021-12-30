@@ -1,4 +1,4 @@
-
+version: "3.8"
 services:
   agile_config_admin:
     image: "kklldog/agile_config"
