@@ -8,6 +8,8 @@ services:
       - net0
     volumes:
       - /etc/localtime:/etc/localtime
+    links:
+      - mysql
     environment:
       - TZ=Asia/Shanghai
       - adminConsole=true
@@ -20,6 +22,8 @@ services:
       - "15001:5000"
     networks:
       - net0
+    links:
+      - mysql
     volumes:
       - /etc/localtime:/etc/localtime
     environment:
@@ -32,6 +36,8 @@ services:
     image: "kklldog/agile_config"
     ports:
       - "15002:5000"
+    links:
+      - mysql
     networks:
       - net0
     volumes:
