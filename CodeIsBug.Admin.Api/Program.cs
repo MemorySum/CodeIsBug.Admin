@@ -1,3 +1,4 @@
+using AgileConfig.Client;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +18,9 @@ namespace CodeIsBug.Admin.Api
             return Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory()) //使用AutoFac做IOC和AOP
                 .ConfigureAppConfiguration((HostBuilderContext,config)=>{
-                    config.AddJsonFile($"appsettings.{HostBuilderContext.HostingEnvironment.EnvironmentName}.json");
+                    var envName = HostBuilderContext.HostingEnvironment.EnvironmentName;
+                    var configClient = new ConfigClient($"appsettings.{envName}.json");
+                    config.AddAgileConfig(configClient);
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
         }

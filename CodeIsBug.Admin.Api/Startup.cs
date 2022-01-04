@@ -35,6 +35,7 @@ namespace CodeIsBug.Admin.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAgileConfig();
             //配置jwt信息 映射到内存中
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
@@ -176,3 +177,4 @@ namespace CodeIsBug.Admin.Api
         }
     }
 }
+

@@ -5,21 +5,40 @@ services:
     image: ${DOCKER_REGISTRY-}codeisbugadminapi
     container_name: codeisbug.admin.api
     restart: always
+    networks:
+      - mynet       
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
       dockerfile: CodeIsBug.Admin.Api/Dockerfile
     ports:
-      - "8099:80"
-    links:
-      - redis
-      - mysql
+      - "8099:80"    
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - "/usr/local/docker/redis.conf:/etc/redis/redis.conf"
+      - "/usr/local/docker/data:/data redis redis-server /etc/redis/redis.conf"
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
     networks:
-      - "net1"
-    depends_on:
-      - "redis"
-      - "mysql"
-  
-
+      - mynet      
+    environment:
+      MYSQL_DATABASE: "codeisbugadminapi"
+      MYSQL_USER: "codeisbugadminapi"
+      MYSQL_PASSWORD: "codeisbugadminapi123"
+    volumes:
+      - "/home/mysql/conf:/etc/mysql/conf.d"
+      - "/home/mysql/data:/var/lib/mysql"    
+networks: 
+    mynet: 
+        driver: bridge 
 

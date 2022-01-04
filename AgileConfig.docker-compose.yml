@@ -1,52 +1,70 @@
-version: "3.8"
+version: '3.8'
+
 services:
+  mysql:
+      image: mysql
+      container_name: mysql
+      restart: always          
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_DATABASE: "CodeIsBug.Admin.AgileConfig"
+        MYSQL_ROOT_PASSWORD: "Admin123@zgr"
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      volumes:
+        - "/home/mysql/conf:/etc/mysql/conf.d"
+        - "/home/mysql/data:/var/lib/mysql"
+      networks:
+        - mynet           
   agile_config_admin:
     image: "kklldog/agile_config"
     ports:
       - "15000:5000"
-    networks:
-      - net0
+    restart: always  
     volumes:
       - /etc/localtime:/etc/localtime
-    links:
-      - mysql
+    depends_on:
+      - mysql  
+    networks:
+      - mynet        
     environment:
       - TZ=Asia/Shanghai
       - adminConsole=true
       - nodes=agile_config_admin:5000,agile_config_node1:5000,agile_config_node2:5000
       - db:provider=mysql
-      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=119.91.250.14;User Id=root;password=Admin123@zgr;port=3306
+      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=mysql;User Id=root;password=Admin123@zgr;port=3306
   agile_config_node1:
     image: "kklldog/agile_config"
     ports:
       - "15001:5000"
+    restart: always   
     networks:
-      - net0
-    links:
-      - mysql
+      - mynet          
     volumes:
       - /etc/localtime:/etc/localtime
     environment:
       - TZ=Asia/Shanghai
       - db:provider=mysql
-      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=119.91.250.14;User Id=root;password=Admin123@zgr;port=3306
+      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=mysql;User Id=root;password=Admin123@zgr;port=3306
     depends_on:
       - agile_config_admin
+      - mysql
   agile_config_node2:
     image: "kklldog/agile_config"
+    restart: always 
     ports:
       - "15002:5000"
-    links:
-      - mysql
     networks:
-      - net0
+      - mynet              
     volumes:
       - /etc/localtime:/etc/localtime
     environment:
       - TZ=Asia/Shanghai
       - db:provider=mysql
-      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=119.91.250.14;User Id=root;password=Admin123@zgr;port=3306
+      - db:conn= database=CodeIsBug.Admin.AgileConfig;server=mysql;User Id=root;password=Admin123@zgr;port=3306
     depends_on:
       - agile_config_admin
-networks:
-  net0:
+      - mysql
+networks: 
+    mynet: 
+        driver: bridge 
