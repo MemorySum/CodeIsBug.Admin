@@ -7,6 +7,8 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - public_codeisbug_network
     build:
       context: .
       dockerfile: CodeIsBug.Admin.Api/Dockerfile
@@ -15,6 +17,8 @@ services:
   redis:
     image: redis
     container_name: redis
+    networks:
+      - public_codeisbug_network
     restart: always
     ports:
       - "6379:6379"
@@ -24,6 +28,8 @@ services:
   mysql:
     image: mysql
     container_name: mysql
+    networks:
+      - public_codeisbug_network
     restart: always
     ports:
       - "3306:3306"
@@ -33,7 +39,5 @@ services:
       - "/home/mysql/conf:/etc/mysql/conf.d"
       - "/home/mysql/data:/var/lib/mysql"
 networks:
-  default:
-    external:
-      #加入外部网络
-      name:public_codeisbug_network #要加入的网络名称
+  public_codeisbug_network:
+    external: tue
