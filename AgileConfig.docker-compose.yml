@@ -15,7 +15,7 @@ services:
         - "/home/mysql/conf:/etc/mysql/conf.d"
         - "/home/mysql/data:/var/lib/mysql"
       networks:
-        - mynet           
+        - public_codeisbug_network           
   agile_config_admin:
     image: "kklldog/agile_config"
     ports:
@@ -26,7 +26,7 @@ services:
     depends_on:
       - mysql  
     networks:
-      - mynet        
+      - public_codeisbug_network        
     environment:
       - TZ=Asia/Shanghai
       - adminConsole=true
@@ -39,7 +39,7 @@ services:
       - "15001:5000"
     restart: always   
     networks:
-      - mynet          
+      - public_codeisbug_network          
     volumes:
       - /etc/localtime:/etc/localtime
     environment:
@@ -55,7 +55,7 @@ services:
     ports:
       - "15002:5000"
     networks:
-      - mynet              
+      - public_codeisbug_network              
     volumes:
       - /etc/localtime:/etc/localtime
     environment:
@@ -65,6 +65,6 @@ services:
     depends_on:
       - agile_config_admin
       - mysql
-networks: 
-    mynet: 
-        driver: bridge 
+networks:
+  public_codeisbug_network:
+    external: true
