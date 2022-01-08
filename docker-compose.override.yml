@@ -3,7 +3,7 @@ version: '3.4'
 services:
   codeisbug.admin.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Product
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:443;http://+:80
     ports:
       - "80"
