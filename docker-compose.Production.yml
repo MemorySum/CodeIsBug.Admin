@@ -33,8 +33,6 @@ services:
       - mynet      
     environment:
       MYSQL_DATABASE: "codeisbugadminapi"
-      MYSQL_USER: "codeisbugadminapi"
-      MYSQL_PASSWORD: "codeisbugadminapi123"
     volumes:
       - "/home/mysql/conf:/etc/mysql/conf.d"
       - "/home/mysql/data:/var/lib/mysql"    
