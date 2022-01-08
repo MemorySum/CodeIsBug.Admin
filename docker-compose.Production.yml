@@ -40,4 +40,4 @@ services:
       - "/home/mysql/data:/var/lib/mysql"
 networks:
   public_codeisbug_network:
-    external: tue
+    external: true
