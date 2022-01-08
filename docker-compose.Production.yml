@@ -4,9 +4,7 @@ services:
   codeisbug.admin.api:
     image: ${DOCKER_REGISTRY-}codeisbugadminapi
     container_name: codeisbug.admin.api
-    restart: always
-    networks:
-      - mynet       
+    restart: always    
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     build:
@@ -28,15 +26,15 @@ services:
     container_name: mysql
     restart: always
     ports:
-      - "3306:3306"
-    networks:
-      - mynet      
+      - "3306:3306" 
     environment:
       MYSQL_DATABASE: "codeisbugadminapi"
     volumes:
       - "/home/mysql/conf:/etc/mysql/conf.d"
       - "/home/mysql/data:/var/lib/mysql"    
-networks: 
-    mynet: 
-        driver: bridge 
+networks:
+    default:                    
+        external:               #加入外部网络
+            name:public_codeisbug_network     #要加入的网络名称
+        
 
