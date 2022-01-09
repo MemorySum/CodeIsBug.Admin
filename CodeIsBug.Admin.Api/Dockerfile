@@ -19,7 +19,8 @@ deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contri
 # RUN rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update
-RUN apt-get install libgdiplus -y && ln -s libgdiplus.so gdiplus.dll
+RUN apt-get install libgdiplus -y && apt-get install libc6-dev -y && ln -s libgdiplus.so gdiplus.dll  
+
 
 EXPOSE 80
 EXPOSE 443
