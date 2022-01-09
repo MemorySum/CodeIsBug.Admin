@@ -10,6 +10,7 @@ echo "deb-src http://mirrors.163.com/debian/ stretch-updates main non-free contr
 echo "deb-src http://mirrors.163.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
 echo "deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list && \
 echo "deb-src http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list && \
+apt-get update && \
 apt-get install libgdiplus libc6-dev -y && \
 ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll && \
 ln -s /usr/lib/x86_64-linux-gnu/libdl.so /usr/lib/libdl.dll
