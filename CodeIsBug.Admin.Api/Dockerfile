@@ -12,6 +12,10 @@ deb-src http://mirrors.aliyun.com/debian stretch-updates main contrib non-free \
 deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free \
 deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free \
 deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib \
+deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free \
+deb-src http://mirrors.ustc.edu.cn/debian stable main contrib non-free \
+deb http://mirrors.ustc.edu.cn/debian stable-proposed-updates main contrib non-free \
+deb-src http://mirrors.ustc.edu.cn/debian stable-proposed-updates main contrib non-free \
 deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" > /etc/apt/sources.list
  
 # RUN apt-get update
