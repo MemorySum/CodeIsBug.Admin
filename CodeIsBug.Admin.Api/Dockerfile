@@ -2,30 +2,6 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 as base
 WORKDIR /app
-
-RUN ln -s /lib/x86_64-linux-gnu/libdl-2.24.so /lib/x86_64-linux-gnu/libdl.so
- 
-RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free \
-deb-src http://mirrors.aliyun.com/debian stretch main contrib non-free \
-deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free \
-deb-src http://mirrors.aliyun.com/debian stretch-updates main contrib non-free \
-deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free \
-deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free \
-deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib \
-deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free \
-deb-src http://mirrors.ustc.edu.cn/debian stable main contrib non-free \
-deb http://mirrors.ustc.edu.cn/debian stable-proposed-updates main contrib non-free \
-deb-src http://mirrors.ustc.edu.cn/debian stable-proposed-updates main contrib non-free \
-deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" > /etc/apt/sources.list
- 
-# RUN apt-get update
-# RUN apt-get install -y --allow-unauthenticated libgdiplus libc6-dev libgdiplus libx11-dev && ln -s libgdiplus.so gdiplus.dll
-# RUN rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update --fix-missing
-RUN apt-get install libgdiplus -y && apt-get install libc6-dev -y && ln -s libgdiplus.so gdiplus.dll  
-
-
 EXPOSE 80
 EXPOSE 443
 
