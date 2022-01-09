@@ -20,6 +20,7 @@ namespace CodeIsBug.Admin.Api.Controllers
         {
             Configuration = configuration;
             var redisConnectionString = Configuration.GetValue<string>("RedisConn");
+            Console.WriteLine(redisConnectionString);
             _redisHelper = new RedisHelper(redisConnectionString);
         }
 
