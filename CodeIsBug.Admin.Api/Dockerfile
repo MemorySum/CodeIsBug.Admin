@@ -2,19 +2,6 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 as base
 WORKDIR /app
-RUN echo "deb http://mirrors.163.com/debian/ stretch main non-free contrib" > /etc/apt/sources.list && \
-echo "deb http://mirrors.163.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
-echo "deb http://mirrors.163.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
-echo "deb-src http://mirrors.163.com/debian/ stretch main non-free contrib" >> /etc/apt/sources.list && \
-echo "deb-src http://mirrors.163.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
-echo "deb-src http://mirrors.163.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
-echo "deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list && \
-echo "deb-src http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list && \
-apt-get update && \
-apt-get upgrade && \
-apt-get install libgdiplus libc6-dev -y && \
-ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll && \
-ln -s /usr/lib/x86_64-linux-gnu/libdl.so /usr/lib/libdl.dll
 EXPOSE 80
 EXPOSE 443
 
