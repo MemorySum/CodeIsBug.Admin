@@ -12,6 +12,9 @@ echo "deb http://mirrors.163.com/debian-security/ stretch/updates main non-free 
 echo "deb-src http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list && \
 apt-get update && \
 apt-get upgrade && \
+dpkg --purge --force-all libgdiplus && \
+dpkg --purge --force-all libc6-dev  && \
+apt-get -f install && \
 apt-get install libgdiplus libc6-dev -y && \
 ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll && \
 ln -s /usr/lib/x86_64-linux-gnu/libdl.so /usr/lib/libdl.dll
