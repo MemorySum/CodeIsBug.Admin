@@ -1,4 +1,4 @@
-﻿using SkiaSharp;
+﻿
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -242,90 +242,95 @@ namespace CodeIsBug.Admin.Common.Helper
         /// <returns>byte[]</returns>
         public byte[] CreateByteByImgVerifyCode(string verifyCode, int width, int height)
         {
-            //var font = new Font("Arial", 14, FontStyle.Bold | FontStyle.Italic);
-            //Brush brush;
+            var font = new Font("Arial", 14, FontStyle.Bold | FontStyle.Italic);
+            Brush brush;
             var bitmap = new Bitmap(width, height);
-            //var g = Graphics.FromImage(bitmap);
-            //var totalSizeF = g.MeasureString(verifyCode, font);
-            //SizeF curCharSizeF;
-            //var startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
-            //var random = new Random(); //随机数产生器
-            //g.Clear(Color.White); //清空图片背景色 
-            //for (var i = 0; i < verifyCode.Length; i++)
-            //{
-            //    brush = new LinearGradientBrush(new Point(0, 0), new Point(1, 1),
-            //        Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
-            //        Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-            //    g.DrawString(verifyCode[i].ToString(), font, brush, startPointF);
-            //    curCharSizeF = g.MeasureString(verifyCode[i].ToString(), font);
-            //    startPointF.X += curCharSizeF.Width;
-            //}
+            var g = Graphics.FromImage(bitmap);
+            var totalSizeF = g.MeasureString(verifyCode, font);
+            SizeF curCharSizeF;
+            var startPointF = new PointF(0, (height - totalSizeF.Height) / 2);
+            var random = new Random(); //随机数产生器
+            g.Clear(Color.White); //清空图片背景色 
+            for (var i = 0; i < verifyCode.Length; i++)
+            {
+                brush = new LinearGradientBrush(new Point(0, 0), new Point(1, 1),
+                    Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
+                    Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
+                g.DrawString(verifyCode[i].ToString(), font, brush, startPointF);
+                curCharSizeF = g.MeasureString(verifyCode[i].ToString(), font);
+                startPointF.X += curCharSizeF.Width;
+            }
 
-            ////画图片的干扰线 
-            //for (var i = 0; i < 10; i++)
-            //{
-            //    var x1 = random.Next(bitmap.Width);
-            //    var x2 = random.Next(bitmap.Width);
-            //    var y1 = random.Next(bitmap.Height);
-            //    var y2 = random.Next(bitmap.Height);
-            //    g.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
-            //}
+            //画图片的干扰线 
+            for (var i = 0; i < 10; i++)
+            {
+                var x1 = random.Next(bitmap.Width);
+                var x2 = random.Next(bitmap.Width);
+                var y1 = random.Next(bitmap.Height);
+                var y2 = random.Next(bitmap.Height);
+                g.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
+            }
 
-            ////画图片的前景干扰点 
-            //for (var i = 0; i < 100; i++)
-            //{
-            //    var x = random.Next(bitmap.Width);
-            //    var y = random.Next(bitmap.Height);
-            //    bitmap.SetPixel(x, y, Color.FromArgb(random.Next()));
-            //}
+            //画图片的前景干扰点 
+            for (var i = 0; i < 100; i++)
+            {
+                var x = random.Next(bitmap.Width);
+                var y = random.Next(bitmap.Height);
+                bitmap.SetPixel(x, y, Color.FromArgb(random.Next()));
+            }
 
-            //g.DrawRectangle(new Pen(Color.Silver), 0, 0, bitmap.Width - 1, bitmap.Height - 1); //画图片的边框线 
-            //g.Dispose();
+            g.DrawRectangle(new Pen(Color.Silver), 0, 0, bitmap.Width - 1, bitmap.Height - 1); //画图片的边框线 
+            g.Dispose();
 
             //保存图片数据 
             var stream = new MemoryStream();
             bitmap.Save(stream, ImageFormat.Jpeg);
             //输出图片流 
-            //return stream.ToArray();
-            Random random = new();
-            string code = random.Next(1000, 9999).ToString();
-            //验证码颜色集合  
-            var colors = new[] { SKColors.Black, SKColors.Red, SKColors.DarkBlue, SKColors.Green, SKColors.Orange, SKColors.Brown, SKColors.DarkCyan, SKColors.Purple };
-            //验证码字体集合
-            var fonts = new[] { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial", "宋体" };
-            //相当于js的 canvas.getContext('2d')
-            using var image2d = new SKBitmap(100, 30, SKColorType.Bgra8888, SKAlphaType.Premul);
-            //相当于前端的canvas
-            using var canvas = new SKCanvas(image2d);
-            //填充白色背景
-            canvas.DrawColor(SKColors.AntiqueWhite);
-            //样式 跟xaml差不多
-            using var drawStyle = new SKPaint();
-            //填充验证码到图片
-            for (int i = 0; i < code.Length; i++)
-            {
-                drawStyle.IsAntialias = true;
-                drawStyle.TextSize = 30;
-                var font = SKTypeface.FromFamilyName(fonts[random.Next(0, fonts.Length - 1)], SKFontStyleWeight.SemiBold, SKFontStyleWidth.ExtraCondensed, SKFontStyleSlant.Upright);
-                drawStyle.Typeface = font;
-                drawStyle.Color = colors[random.Next(0, colors.Length - 1)];
-                //写字
-                canvas.DrawText(code[i].ToString(), (i + 1) * 16, 28, drawStyle);
-            }
-            //生成三条干扰线
-            for (int i = 0; i < 3; i++)
-            {
-                drawStyle.Color = colors[random.Next(colors.Length)];
-                drawStyle.StrokeWidth = 1;
-                canvas.DrawLine(random.Next(0, code.Length * 15), random.Next(0, 60), random.Next(0, code.Length * 16), random.Next(0, 30), drawStyle);
-            }
-            //巴拉巴拉的就行了
-            using var img = SKImage.FromBitmap(image2d);
-            using var p = img.Encode(SKEncodedImageFormat.Png, 100);
-            using var ms = new MemoryStream();
-            //保存到流
-            p.SaveTo(ms);
-            return ms.GetBuffer();
+            return stream.ToArray();
+            //保存图片数据 
+            //var stream = new MemoryStream();
+            //bitmap.Save(stream, ImageFormat.Jpeg);
+            ////输出图片流 
+            ////return stream.ToArray();
+            //Random random = new();
+            //string code = random.Next(1000, 9999).ToString();
+            ////验证码颜色集合  
+            //var colors = new[] { Colors.Black, SKColors.Red, SKColors.DarkBlue, SKColors.Green, SKColors.Orange, SKColors.Brown, SKColors.DarkCyan, SKColors.Purple };
+            ////验证码字体集合
+            //var fonts = new[] { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial", "宋体" };
+            ////相当于js的 canvas.getContext('2d')
+            //using var image2d = new SKBitmap(100, 30, SKColorType.Bgra8888, SKAlphaType.Premul);
+            ////相当于前端的canvas
+            //using var canvas = new SKCanvas(image2d);
+            ////填充白色背景
+            //canvas.DrawColor(SKColors.AntiqueWhite);
+            ////样式 跟xaml差不多
+            //using var drawStyle = new SKPaint();
+            ////填充验证码到图片
+            //for (int i = 0; i < code.Length; i++)
+            //{
+            //    drawStyle.IsAntialias = true;
+            //    drawStyle.TextSize = 30;
+            //    var font = SKTypeface.FromFamilyName(fonts[random.Next(0, fonts.Length - 1)], SKFontStyleWeight.SemiBold, SKFontStyleWidth.ExtraCondensed, SKFontStyleSlant.Upright);
+            //    drawStyle.Typeface = font;
+            //    drawStyle.Color = colors[random.Next(0, colors.Length - 1)];
+            //    //写字
+            //    canvas.DrawText(code[i].ToString(), (i + 1) * 16, 28, drawStyle);
+            //}
+            ////生成三条干扰线
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    drawStyle.Color = colors[random.Next(colors.Length)];
+            //    drawStyle.StrokeWidth = 1;
+            //    canvas.DrawLine(random.Next(0, code.Length * 15), random.Next(0, 60), random.Next(0, code.Length * 16), random.Next(0, 30), drawStyle);
+            //}
+            ////巴拉巴拉的就行了
+            //using var img = SKImage.FromBitmap(image2d);
+            //using var p = img.Encode(SKEncodedImageFormat.Png, 100);
+            //using var ms = new MemoryStream();
+            ////保存到流
+            //p.SaveTo(ms);
+            //return ms.GetBuffer();
         }
 
         #endregion
