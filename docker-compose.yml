@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  codeisbug.admin.api:
+    image: ${DOCKER_REGISTRY-}codeisbugadminapi
+    build:
+      context: .
+      dockerfile: CodeIsBug.Admin.Api/Dockerfile

@@ -3,16 +3,15 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>f0812fcc-d0b9-497e-b0fa-0eb20ff66c33</ProjectGuid>
+    <ProjectGuid>4e66cf85-89d6-4cd7-9494-fdbd48db4eeb</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger/index.html</DockerServiceUrl>
     <DockerServiceName>codeisbug.admin.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.override.yml">
-      <DependentUpon>docker-compose.yml</DependentUpon>
-    </None>
-    <None Include="docker-compose.yml" />
+    <None Include="AgileConfig.docker-compose.yml" />
+    <None Include="docker-compose.Production.yml" />
+    <None Include="docker-compose.Development.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
 </Project>

@@ -38,6 +38,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
         <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
         <PackageReference Include="sqlSugarCore" Version="5.0.4.7" />
         <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
